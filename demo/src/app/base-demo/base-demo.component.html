@@ -20,7 +20,7 @@
   The "Deprecated" section is not visible in DT v2.
   Hence, we don't need to show additional banner on top of the "deprecated" banner.
 -->
-<div class="section" *ngIf="dtVersion == 'v1' && !deprecated">
+<div class="section" *ngIf="dtVersion === 'v1' && !deprecated">
   <div class="container red white-text dtv1-notice">
     You are viewing documentation for v1.x of datatables.net. This version is not supported anymore since v17.1.0. It is
     listed here for documentation purposes only.
@@ -40,7 +40,7 @@
         <li class="tab col">
           <a href="#previewTab">Preview</a>
         </li>
-        <li class="tab col" *ngIf="dtVersion == 'v2' ? mdInstall.length > 0 : mdInstallV1.length > 0">
+        <li class="tab col" *ngIf="dtVersion === 'v2' ? mdInstall.length > 0 : mdInstallV1.length > 0">
           <a href="#installTab">Installation</a>
         </li>
         <li class="tab col">
@@ -59,7 +59,7 @@
 
     <!-- Installation -->
     <div id="installTab" class="col s12" *ngIf="mdInstall.length > 0 || mdInstallV1.length > 0">
-      <markdown [src]="dtVersion == 'v2' && mdInstall.length > 0 ? mdInstall : mdInstallV1"></markdown>
+      <markdown [src]="dtVersion === 'v2' && mdInstall.length > 0 ? mdInstall : mdInstallV1"></markdown>
     </div>
 
     <!-- HTML -->
@@ -68,7 +68,7 @@
     </div>
 
     <div id="typescriptTab" class="col s12">
-      <markdown [src]="dtVersion == 'v2' && mdTS.length > 0 ? mdTS : mdTSV1"></markdown>
+      <markdown [src]="dtVersion === 'v2' && mdTS.length > 0 ? mdTS : mdTSV1"></markdown>
     </div>
   </div>
 </div>

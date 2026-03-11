@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
@@ -6,9 +6,8 @@ import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
 @Component({
   selector: 'app-demo-ng-template-ref',
   templateUrl: './demo-ng-template-ref.component.html',
-  standalone: false,
 })
-export class DemoNgComponent implements OnInit {
+export class DemoNgComponent implements OnInit, OnDestroy {
   constructor() {}
 
   @Output()

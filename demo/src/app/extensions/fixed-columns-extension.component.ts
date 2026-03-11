@@ -4,7 +4,6 @@ import 'datatables.net-fixedcolumns-dt';
 @Component({
   selector: 'app-fixed-columns-extension',
   templateUrl: 'fixed-columns-extension.component.html',
-  standalone: false,
 })
 export class FixedColumnsExtensionComponent implements OnInit {
   pageTitle = 'DataTables Fixed Columns extension';

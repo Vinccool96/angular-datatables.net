@@ -3,13 +3,12 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { DtVersionService } from './dt-version.service';
 
-declare var $: any;
+declare let $: any;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  standalone: false,
 })
 export class AppComponent implements OnInit, OnDestroy {
   routerEventsSub$!: Subscription;

@@ -5,7 +5,6 @@ import 'datatables.net-select';
 @Component({
   selector: 'app-select-extension',
   templateUrl: 'select-extension.component.html',
-  standalone: false,
 })
 export class SelectExtensionComponent implements OnInit {
   pageTitle = 'DataTables Select extension';

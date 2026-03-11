@@ -8,7 +8,6 @@ import { PersonService } from './person.service';
   selector: 'app-person',
   templateUrl: 'person.component.html',
   providers: [PersonService],
-  standalone: false,
 })
 export class PersonComponent implements OnInit {
   person!: Person;

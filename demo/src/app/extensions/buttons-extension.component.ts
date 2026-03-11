@@ -5,7 +5,6 @@ import 'datatables.net-buttons-dt';
 @Component({
   selector: 'app-buttons-extension',
   templateUrl: 'buttons-extension.component.html',
-  standalone: false,
 })
 export class ButtonsExtensionComponent implements OnInit {
   pageTitle = 'DataTables Buttons extension';

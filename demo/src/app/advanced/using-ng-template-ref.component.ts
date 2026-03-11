@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
 import { DemoNgComponent } from './demo-ng-template-ref.component';
@@ -7,9 +7,8 @@ import { ADTSettings } from 'angular-datatables.net';
 @Component({
   selector: 'app-using-ng-template-ref',
   templateUrl: './using-ng-template-ref.component.html',
-  standalone: false,
 })
-export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
+export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor() {}
 
   pageTitle = 'Using Angular TemplateRef';

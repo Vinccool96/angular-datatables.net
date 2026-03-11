@@ -7,14 +7,15 @@
  */
 
 import { Tree } from '@angular-devkit/schematics';
+import { PackageJson } from 'type-fest';
 
-function sortObjectByKeys(obj: { [key: string]: string }) {
-  return (
-    Object.keys(obj)
-      .sort()
-      /* tslint:disable-next-line: no-any */
-      .reduce((result: any, key: any) => (result[key] = obj[key]) && result, {})
-  );
+function sortObjectByKeys(obj: Partial<Record<string, string>>) {
+  return Object.keys(obj)
+    .sort()
+    .reduce((result: Partial<Record<string, string>>, key: string) => {
+      result[key] = obj[key];
+      return result;
+    }, {});
 }
 
 /**
@@ -26,27 +27,28 @@ function sortObjectByKeys(obj: { [key: string]: string }) {
  */
 export function addPackageToPackageJson(host: Tree, pkg: string, version: string, isDevDependency = false): boolean {
   if (host.exists('package.json')) {
-    /* tslint:disable-next-line: no-non-null-assertion */
     const sourceText = host.read('package.json')!.toString('utf-8');
-    const json = JSON.parse(sourceText);
+    const json = JSON.parse(sourceText) as PackageJson;
 
-    if (!json.dependencies) {
+    if (json.dependencies === undefined) {
       json.dependencies = {};
     }
 
-    if (!json.devDependencies) {
-      json.dependencies = {};
+    if (json.devDependencies === undefined) {
+      json.devDependencies = {};
     }
 
     // update UI that `pkg` wasn't re-added to package.json
-    if (json.dependencies[pkg] || json.devDependencies[pkg]) return false;
+    if (json.dependencies[pkg] !== undefined || json.devDependencies[pkg] !== undefined) {
+      return false;
+    }
 
-    if (!json.dependencies[pkg] && !isDevDependency) {
+    if (json.dependencies[pkg] === undefined && !isDevDependency) {
       json.dependencies[pkg] = version;
       json.dependencies = sortObjectByKeys(json.dependencies);
     }
 
-    if (!json.devDependencies[pkg] && isDevDependency) {
+    if (json.devDependencies[pkg] === undefined && isDevDependency) {
       json.devDependencies[pkg] = version;
       json.devDependencies = sortObjectByKeys(json.devDependencies);
     }
@@ -59,20 +61,23 @@ export function addPackageToPackageJson(host: Tree, pkg: string, version: string
 }
 
 export function addAssetToAngularJson(host: Tree, assetType: string, assetPath: string): boolean {
-  /* tslint:disable-next-line: no-non-null-assertion */
   const sourceText = host.read('angular.json')!.toString('utf-8');
   const json = JSON.parse(sourceText);
 
-  if (!json) return false;
+  if (json === null) {
+    return false;
+  }
 
   const projectName = Object.keys(json['projects'])[0];
   const projectObject = json.projects[projectName];
-  const targets = projectObject.targets || projectObject.architect;
+  const targets = projectObject.targets ?? projectObject.architect;
 
   const targetLocation: string[] = targets.build.options[assetType];
 
   // update UI that `assetPath` wasn't re-added to angular.json
-  if (targetLocation.indexOf(assetPath) != -1) return false;
+  if (targetLocation.indexOf(assetPath) !== -1) {
+    return false;
+  }
 
   targetLocation.push(assetPath);
 

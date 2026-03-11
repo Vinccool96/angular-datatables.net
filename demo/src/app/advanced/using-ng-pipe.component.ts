@@ -5,7 +5,6 @@ import { ADTSettings } from 'angular-datatables.net';
 @Component({
   selector: 'app-using-ng-pipe',
   templateUrl: './using-ng-pipe.component.html',
-  standalone: false,
 })
 export class UsingNgPipeComponent implements OnInit {
   constructor(

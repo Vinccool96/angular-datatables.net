@@ -5,7 +5,6 @@ import { Config } from 'datatables.net';
 @Component({
   selector: 'app-multiple-tables',
   templateUrl: 'multiple-tables.component.html',
-  standalone: false,
 })
 export class MultipleTablesComponent implements OnInit {
   pageTitle = 'Multiple tables in the same page';

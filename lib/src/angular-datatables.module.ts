@@ -10,8 +10,7 @@ import { CommonModule } from '@angular/common';
 import { DataTableDirective } from './angular-datatables.directive';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [DataTableDirective],
+  imports: [CommonModule, DataTableDirective],
   exports: [DataTableDirective],
 })
 export class DataTablesModule {}

@@ -5,7 +5,6 @@ import 'datatables.net-responsive';
 @Component({
   selector: 'app-responsive-extension',
   templateUrl: 'responsive-extension.component.html',
-  standalone: false,
 })
 export class ResponsiveExtensionComponent implements OnInit {
   pageTitle = 'DataTables Responsive extension';

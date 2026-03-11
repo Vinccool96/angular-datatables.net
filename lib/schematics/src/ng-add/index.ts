@@ -15,7 +15,7 @@ export default function (_options: IADTSchematicsOptions): Rule {
 function addPackageJsonDependencies(options: IADTSchematicsOptions) {
   return (tree: Tree, context: SchematicContext) => {
     // Update package.json
-    const styleDeps = ADT_SUPPORTED_STYLES.find((e) => e.style == options.style);
+    const styleDeps = ADT_SUPPORTED_STYLES.find((e) => e.style === options.style);
 
     const dependencies = [
       { version: '^3.6.0', name: 'jquery', isDev: false },
@@ -28,12 +28,14 @@ function addPackageJsonDependencies(options: IADTSchematicsOptions) {
       { version: '^3.5.9', name: '@types/jquery', isDev: true },
     ];
 
-    if (styleDeps) {
-      if (styleDeps.style != ADTStyleOptions.DT)
+    if (styleDeps !== undefined) {
+      if (styleDeps.style !== ADTStyleOptions.DT) {
         context.logger.log(
           'warn',
           'Your project needs Bootstrap CSS installed and configured for changes to take affect.',
         );
+      }
+
       styleDeps.packageJson.forEach((e) => dependencies.push(e));
     }
 
@@ -42,7 +44,7 @@ function addPackageJsonDependencies(options: IADTSchematicsOptions) {
       if (result) {
         context.logger.log(
           'info',
-          `✅️ Added "${dependency.fancyName || dependency.name}" into "${dependency.isDev ? 'devDependencies' : 'dependencies'}"`,
+          `✅️ Added "${dependency.fancyName ?? dependency.name}" into "${dependency.isDev ? 'devDependencies' : 'dependencies'}"`,
         );
       } else {
         context.logger.log('info', `ℹ️  Skipped adding "${dependency.name}" into package.json`);
@@ -63,7 +65,7 @@ function installPackageJsonDependencies(): Rule {
 
 function updateAngularJsonFile(options: IADTSchematicsOptions) {
   return (tree: Tree, context: SchematicContext) => {
-    const styleDeps = ADT_SUPPORTED_STYLES.find((e) => e.style == options.style);
+    const styleDeps = ADT_SUPPORTED_STYLES.find((e) => e.style === options.style);
 
     const assets = [
       {
@@ -78,7 +80,7 @@ function updateAngularJsonFile(options: IADTSchematicsOptions) {
       },
     ];
 
-    if (styleDeps) {
+    if (styleDeps !== undefined) {
       styleDeps.angularJson.forEach((e) => assets.push(e));
     }
 

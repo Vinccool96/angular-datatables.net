@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-zero-config',
   templateUrl: 'zero-config.component.html',
-  standalone: false,
 })
 export class ZeroConfigComponent {
   pageTitle = 'Zero configuration';

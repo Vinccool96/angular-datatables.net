@@ -6,7 +6,6 @@ import { Config } from 'datatables.net';
   selector: 'app-server-side-angular-way',
   templateUrl: 'server-side-angular-way.component.html',
   styleUrls: ['server-side-angular-way.component.css'],
-  standalone: false,
 })
 export class ServerSideAngularWayComponent {
   pageTitle = 'Server side the Angular way';

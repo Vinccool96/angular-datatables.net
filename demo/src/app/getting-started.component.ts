@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-getting-started',
   templateUrl: 'getting-started.component.html',
-  standalone: false,
 })
 export class GettingStartedComponent implements OnInit {
   dtVersion: 'v2' | 'v1' = 'v2';

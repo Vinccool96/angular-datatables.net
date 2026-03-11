@@ -6,7 +6,6 @@ import { Config } from 'datatables.net';
 @Component({
   selector: 'app-dt-instance',
   templateUrl: 'dt-instance.component.html',
-  standalone: false,
 })
 export class DtInstanceComponent implements OnInit {
   pageTitle = 'Finding DataTable instance';
@@ -21,7 +20,9 @@ export class DtInstanceComponent implements OnInit {
   dtOptions: Config = {};
 
   displayToConsole(datatableElement: DataTableDirective | undefined): void {
-    if (!datatableElement) return;
+    if (!datatableElement) {
+      return;
+    }
     datatableElement.dtInstance.then((dtInstance) => console.log(dtInstance));
   }
 

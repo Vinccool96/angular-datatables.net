@@ -8,7 +8,6 @@ import { ADTSettings } from 'angular-datatables.net';
 @Component({
   selector: 'app-router-link',
   templateUrl: 'router-link.component.html',
-  standalone: false,
 })
 export class RouterLinkComponent implements AfterViewInit, OnInit, OnDestroy {
   pageTitle = 'Router Link';

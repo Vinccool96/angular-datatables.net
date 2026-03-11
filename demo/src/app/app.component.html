@@ -27,10 +27,10 @@
       </a>
 
       <ul id="dropdown1" [(ngModel)]="dtVersion" ngDefaultControl class="dropdown-content">
-        <li [class.active]="dtVersion == 'v2'" (click)="onDTVersionChanged('v2')" value="v2" style="padding: 0 32px">
+        <li [class.active]="dtVersion === 'v2'" (click)="onDTVersionChanged('v2')" value="v2" style="padding: 0 32px">
           v2.x
         </li>
-        <li [class.active]="dtVersion == 'v1'" (click)="onDTVersionChanged('v1')" value="v1" style="padding: 0 32px">
+        <li [class.active]="dtVersion === 'v1'" (click)="onDTVersionChanged('v1')" value="v1" style="padding: 0 32px">
           v1.x
         </li>
       </ul>
@@ -158,7 +158,7 @@
           <div class="divider"></div>
         </li>
         <!-- Hide deprecated section completely in DT v2 -->
-        <ng-container *ngIf="dtVersion == 'v1'">
+        <ng-container *ngIf="dtVersion === 'v1'">
           <li>
             <a class="subheader">Deprecated <span class="new badge red" data-badge-caption="">NOT SUPPORTED</span></a>
           </li>

@@ -15,7 +15,7 @@ import * as ts from 'typescript';
 export function hasNgModuleImport(tree: Tree, modulePath: string, className: string): boolean {
   const moduleFileContent = tree.read(modulePath);
 
-  if (!moduleFileContent) {
+  if (moduleFileContent === null) {
     throw new Error(`Could not read Angular module file: ${modulePath}`);
   }
 
@@ -34,11 +34,10 @@ export function hasNgModuleImport(tree: Tree, modulePath: string, className: str
 
   ts.forEachChild(parsedFile, findModuleDecorator);
 
-  if (!ngModuleMetadata) {
+  if (ngModuleMetadata === null) {
     throw new Error(`Could not find NgModule declaration inside: "${modulePath}"`);
   }
 
-  /* tslint:disable-next-line: no-non-null-assertion */
   for (const property of (ngModuleMetadata as ts.ObjectLiteralExpression)!.properties) {
     if (
       !ts.isPropertyAssignment(property) ||
@@ -48,8 +47,7 @@ export function hasNgModuleImport(tree: Tree, modulePath: string, className: str
       continue;
     }
 
-    /* tslint:disable-next-line: no-any */
-    if (property.initializer.elements.some((element: any) => element.getText() === className)) {
+    if (property.initializer.elements.some((element) => element.getText() === className)) {
       return true;
     }
   }
@@ -79,5 +77,5 @@ function isNgModuleCallExpression(callExpression: ts.CallExpression): boolean {
 
   const decoratorIdentifier = resolveIdentifierOfExpression(callExpression.expression);
 
-  return decoratorIdentifier ? decoratorIdentifier.text === 'NgModule' : false;
+  return decoratorIdentifier !== null ? decoratorIdentifier.text === 'NgModule' : false;
 }

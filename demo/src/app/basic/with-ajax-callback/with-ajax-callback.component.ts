@@ -6,7 +6,6 @@ import { DataTablesResponse } from '../../datatables-response.model';
 @Component({
   selector: 'app-with-ajax-callback',
   templateUrl: './with-ajax-callback.component.html',
-  standalone: false,
 })
 export class WithAjaxCallbackComponent implements OnInit {
   constructor(private http: HttpClient) {}

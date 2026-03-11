@@ -5,7 +5,6 @@ import { Config } from 'datatables.net';
   selector: 'app-new-server-side',
   templateUrl: './new-server-side.component.html',
   styleUrls: ['./new-server-side.component.css'],
-  standalone: false,
 })
 export class NewServerSideComponent {
   pageTitle = 'Server-side processing';

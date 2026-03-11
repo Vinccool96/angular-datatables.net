@@ -3,13 +3,12 @@ import { DtVersionService } from '../dt-version.service';
 import { Subscription } from 'rxjs';
 
 // needed to re-init tabs on route change
-declare var $: JQueryStatic;
+declare let $: JQueryStatic;
 
 @Component({
   selector: 'app-base-demo',
   templateUrl: './base-demo.component.html',
   styleUrls: ['./base-demo.component.css'],
-  standalone: false,
 })
 export class BaseDemoComponent implements OnInit, OnDestroy {
   @Input() pageTitle = '';

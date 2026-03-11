@@ -4,7 +4,6 @@ import { Config } from 'datatables.net';
 @Component({
   selector: 'app-row-click-event',
   templateUrl: 'row-click-event.component.html',
-  standalone: false,
 })
 export class RowClickEventComponent implements OnInit {
   pageTitle = 'Row click event';
@@ -39,7 +38,7 @@ export class RowClickEventComponent implements OnInit {
           data: 'lastName',
         },
       ],
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
+      rowCallback: (row: Node, data: any[] | object, index: number) => {
         const self = this;
         // Unbind first in order to avoid any duplicate handler
         // (see https://github.com/l-lin/angular-datatables/issues/87)

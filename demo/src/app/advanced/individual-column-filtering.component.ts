@@ -6,7 +6,6 @@ import { Config } from 'datatables.net';
 @Component({
   selector: 'app-individual-column-filtering',
   templateUrl: 'individual-column-filtering.component.html',
-  standalone: false,
 })
 export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit {
   pageTitle = 'Individual column searching';

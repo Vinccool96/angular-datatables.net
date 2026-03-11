@@ -6,7 +6,6 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-rerender',
   templateUrl: 'rerender.component.html',
-  standalone: false,
 })
 export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   pageTitle = 'Rerender';
@@ -20,7 +19,7 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
 
   dtOptions: Config = {};
 
-  dtTrigger: Subject<any> = new Subject();
+  dtTrigger = new Subject<any>();
 
   ngOnInit(): void {
     this.dtOptions = {

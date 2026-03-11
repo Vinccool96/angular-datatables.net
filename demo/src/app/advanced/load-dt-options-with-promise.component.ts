@@ -5,7 +5,6 @@ import { Config } from 'datatables.net';
 @Component({
   selector: 'app-load-dt-options-with-promise',
   templateUrl: 'load-dt-options-with-promise.component.html',
-  standalone: false,
 })
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
   pageTitle = 'Load DT Options with Promise';

@@ -5,7 +5,6 @@ import 'datatables.net-colreorder';
 @Component({
   selector: 'app-colreorder-extension',
   templateUrl: 'colreorder-extension.component.html',
-  standalone: false,
 })
 export class ColreorderExtensionComponent implements OnInit {
   pageTitle = 'DataTables ColReorder extension';

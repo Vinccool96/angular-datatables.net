@@ -12,7 +12,6 @@ import { Api } from 'datatables.net';
 
 @Directive({
   selector: '[datatable]',
-  standalone: false,
 })
 export class DataTableDirective implements OnDestroy, OnInit {
   /**
@@ -59,6 +58,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
     if (this.dtTrigger) {
       this.dtTrigger.unsubscribe();
     }
+
     if (this.dt) {
       this.dt.destroy(true);
     }
@@ -66,9 +66,10 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
   private displayTable(dtOptions: ADTSettings | null): void {
     // assign new options if provided
-    if (dtOptions) {
+    if (dtOptions !== null) {
       this.dtOptions = dtOptions;
     }
+
     this.dtInstance = new Promise((resolve, reject) => {
       Promise.resolve(this.dtOptions).then((resolvedDTOptions) => {
         // validate object
@@ -80,7 +81,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
         }
 
         // Set a column unique
-        if (resolvedDTOptions.columns) {
+        if (resolvedDTOptions.columns !== undefined) {
           resolvedDTOptions.columns.forEach((col) => {
             if ((col.id ?? '').trim() === '') {
               col.id = this.getColumnUniqueId();
@@ -93,14 +94,14 @@ export class DataTableDirective implements OnDestroy, OnInit {
           // Assign DT properties here
           let options: ADTSettings = {
             rowCallback: (row, data, index) => {
-              if (resolvedDTOptions.columns) {
+              if (resolvedDTOptions.columns !== undefined) {
                 const columns = resolvedDTOptions.columns;
                 this.applyNgPipeTransform(row, columns);
                 this.applyNgRefTemplate(row, columns, data);
               }
 
               // run user specified row callback if provided.
-              if (resolvedDTOptions.rowCallback) {
+              if (resolvedDTOptions.rowCallback !== undefined) {
                 resolvedDTOptions.rowCallback(row, data, index);
               }
             },
@@ -119,7 +120,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
     const colsWithPipe = columns.filter((x) => x.ngPipeInstance && !x.ngTemplateRef);
     colsWithPipe.forEach((el) => {
       const pipe = el.ngPipeInstance!;
-      const pipeArgs = el.ngPipeArgs || [];
+      const pipeArgs = el.ngPipeArgs ?? [];
       // find index of column using `data` attr
       const i = columns.filter((c) => c.visible !== false).findIndex((e) => e.id === el.id);
       // get <td> element which holds data using index
@@ -132,7 +133,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
     });
   }
 
-  private applyNgRefTemplate(row: Node, columns: ADTColumns[], data: Object): void {
+  private applyNgRefTemplate(row: Node, columns: ADTColumns[], data: object): void {
     // Filter columns using `ngTemplateRef`
     const colsWithTemplate = columns.filter((x) => x.ngTemplateRef && !x.ngPipeInstance);
     colsWithTemplate.forEach((el) => {

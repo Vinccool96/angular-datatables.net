@@ -6,7 +6,6 @@ import { Config } from 'datatables.net';
 @Component({
   selector: 'app-custom-range-search',
   templateUrl: 'custom-range-search.component.html',
-  standalone: false,
 })
 export class CustomRangeSearchComponent implements OnDestroy, OnInit {
   pageTitle = 'Custom filtering - Range search';
