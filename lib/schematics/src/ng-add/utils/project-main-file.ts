@@ -10,11 +10,13 @@ import { WorkspaceProject } from '@schematics/angular/utility/workspace-models';
 import { SchematicsException } from '@angular-devkit/schematics';
 import { getProjectTargetOptions } from './project-targets';
 
-/** Looks for the main TypeScript file in the given project and returns its path. */
+/**
+ * Looks for the main TypeScript file in the given project and returns its path.
+ */
 export function getProjectMainFile(project: WorkspaceProject): string {
-  const buildOptions = getProjectTargetOptions(project, 'build');
+  const buildOptions = getProjectTargetOptions(project);
 
-  if (!buildOptions.main) {
+  if (buildOptions.main === '') {
     throw new SchematicsException(
       `Could not find the project main file inside of the ` + `workspace config (${project.sourceRoot})`,
     );
