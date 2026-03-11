@@ -7,7 +7,7 @@
 ng add angular-datatables
 ```
 
-> You can find latest releases on GitHub [here](https://github.com/l-lin/angular-datatables/releases).
+> You can find latest releases on GitHub [here](https://github.com/vinccool96/angular-datatables.net/releases).
 
 ##### Manual Installation
 
@@ -26,7 +26,8 @@ npm install @types/datatables.net --save-dev
 2. Add the dependencies in the scripts and styles attributes to angular.json:
 
 ```json
-"projects": {
+{
+  "projects": {
     "your-app-name": {
       "architect": {
         "build": {
@@ -37,9 +38,12 @@ npm install @types/datatables.net --save-dev
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/datatables.net/js/jquery.dataTables.js"
-            ],
-            ...
+            ]
           }
+        }
+      }
+    }
+  }
 }
 ```
 

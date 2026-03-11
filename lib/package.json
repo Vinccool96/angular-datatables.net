@@ -1,13 +1,14 @@
 {
-  "name": "angular-datatables",
+  "name": "angular-datatables.net",
   "version": "19.0.0",
   "description": "Angular directive for DataTables",
   "keywords": [
     "Angular",
     "DataTables"
   ],
-  "author": "Louis LIN <lin.louis@pm.me> (https://l-lin.github.io/)",
+  "author": "Vincent Girard <vinccool96@gmail.com> (https://vinccool96.github.io/)",
   "contributors": [
+    "Louis LIN <lin.louis@pm.me>",
     "Michael Bennett <michael@strukt.org>",
     "Steven Masala <me@smasalai.com>",
     "Surya Teja K <shanmukhateja@gmail.com>"
@@ -26,10 +27,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/l-lin/angular-datatables.git"
+    "url": "git+https://github.com/vinccool96/angular-datatables.git"
   },
   "bugs": {
-    "url": "https://github.com/l-lin/angular-datatables/issues"
+    "url": "https://github.com/vinccool96/angular-datatables/issues"
   },
-  "homepage": "https://github.com/l-lin/angular-datatables#readme"
+  "homepage": "https://github.com/vinccool96/angular-datatables#readme"
 }

@@ -85,18 +85,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "angular-datatables-demo:build"
+            "buildTarget": "angular-datatables.net-demo:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "angular-datatables-demo:build:production"
+              "buildTarget": "angular-datatables.net-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "angular-datatables-demo:build"
+            "buildTarget": "angular-datatables.net-demo:build"
           }
         },
         "test": {
@@ -144,7 +144,7 @@
         }
       }
     },
-    "angular-datatables": {
+    "angular-datatables.net": {
       "root": "lib",
       "sourceRoot": "lib/src",
       "projectType": "library",

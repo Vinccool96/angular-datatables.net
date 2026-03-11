@@ -6,16 +6,15 @@ This was done to address few issues:
 
 2. It breaks DT extensions that perform additional data processing like exporting tabular data to a PDF or CSV, etc.
 
-We have introduced better ways to allow same level of control over rendering your data via [TemplateRef](https://l-lin.github.io/angular-datatables/#/advanced/using-template-ref) and [Pipes](https://l-lin.github.io/angular-datatables/#/advanced/using-pipe)
+We have introduced better ways to allow same level of control over rendering your data via [TemplateRef](https://vinccool96.github.io/angular-datatables.net/#/advanced/using-template-ref) and [Pipes](https://vinccool96.github.io/angular-datatables.net/#/advanced/using-pipe)
 
 > Error encountered resolving symbol values statically.
 
-Please update your `tsconfig.json` as shown below. For more info, check the GitHub issue [here](https://github.com/l-lin/angular-datatables/issues/937)
+Please update your `tsconfig.json` as shown below. For more info, check the GitHub issue [here](https://github.com/vinccool96/angular-datatables.net/issues/937)
 
 ```json
 {
   "compilerOptions": {
-    ...
     "paths": {
       "@angular/*": [
         "../node_modules/@angular/*"
@@ -32,7 +31,7 @@ If it won't work, check these similar issues:
 - [#1496](https://github.com/l-lin/angular-datatables/issues/1496)
 - [#1485](https://github.com/l-lin/angular-datatables/issues/1485)
 
-If it still didn't work, open a GitHub [issue](https://github.com/l-lin/angular-datatables/issues/new) and we'll look into it. 
+If it still didn't work, open a GitHub [issue](https://github.com/vinccool96/angular-datatables.net/issues/new) and we'll look into it. 
 
 > Column data doesn't move with column header when re-ordering
 
@@ -40,7 +39,7 @@ It could be many things but in general it could be because you're using "Angular
 
 > 'Warning: Unable to fully load <project> for sourcemap flattening; ENOENT: no such file or directory* '
 
-This has been fixed in newer version of `angular-datatables`. You can find latest releases for your project's Angular version on [Releases](https://github.com/l-lin/angular-datatables/releases) page.
+This has been fixed in newer version of `angular-datatables.net`. You can find latest releases for your project's Angular version on [Releases](https://github.com/vinccool96/angular-datatables.net/releases) page.
 
 > 'DataTables warning: table id=xx - Cannot reinitialise DataTable. For more information about this error, please see http://datatables.net/tn/3*'
 
