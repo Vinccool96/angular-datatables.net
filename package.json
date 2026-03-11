@@ -13,7 +13,13 @@
     "version": "npm run build:lib && git add -A",
     "postversion": "git push && git push --tags",
     "format:check": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
+    "lint:lib": "ng lint angular-datatables.net",
+    "lint:lib:fix": "ng lint angular-datatables.net --fix",
+    "lint:demo": "ng lint angular-datatables.net-demo",
+    "lint:demo:fix": "ng lint angular-datatables.net-demo --fix"
   },
   "keywords": [
     "Angular",
@@ -36,10 +42,17 @@
     "@angular/cli": "^19.0.2",
     "@angular/compiler-cli": "^19.0.1",
     "@angular/language-service": "^19.0.1",
+    "@eslint/compat": "^2.0.2",
+    "@eslint/js": "^9.39.2",
     "@types/jasmine": "~5.1.0",
     "@types/jquery": "^3.5.29",
     "@types/node": "^20.11.16",
+    "angular-eslint": "^19.8.1",
     "copyfiles": "^2.4.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.0.0",
     "jasmine-core": "~5.1.0",
     "jasmine-spec-reporter": "~7.0.0",
     "jquery": "^3.6.0",
@@ -54,7 +67,8 @@
     "ngx-markdown": "^19.0.0",
     "prettier": "^3.8.1",
     "rimraf": "~3.0.2",
-    "typescript": "~5.6.3"
+    "typescript": "~5.6.3",
+    "typescript-eslint": "^8.53.1"
   },
   "dependencies": {
     "@angular/animations": "^19.0.1",
