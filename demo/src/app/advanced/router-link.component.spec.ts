@@ -12,28 +12,26 @@ import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { DemoNgComponent } from './demo-ng-template-ref.component';
 
-
-let fixture: ComponentFixture<RouterLinkComponent>, component: null| RouterLinkComponent = null, router!: Router;
+let fixture: ComponentFixture<RouterLinkComponent>,
+  component: null | RouterLinkComponent = null,
+  router!: Router;
 
 describe('RouterLinkComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        DemoNgComponent,
-        RouterLinkComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, DemoNgComponent, RouterLinkComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
+          sanitize: SecurityContext.NONE,
         }),
-        FormsModule],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(RouterLinkComponent);
+        FormsModule,
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(RouterLinkComponent);
 
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
@@ -66,5 +64,4 @@ describe('RouterLinkComponent', () => {
 
     expect(rSpy).toHaveBeenCalled();
   });
-
 });

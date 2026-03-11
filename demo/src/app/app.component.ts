@@ -6,20 +6,19 @@ import { DtVersionService } from './dt-version.service';
 declare var $: any;
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  standalone: false,
 })
 export class AppComponent implements OnInit, OnDestroy {
-
   routerEventsSub$!: Subscription;
 
   dtVersion: 'v2' | 'v1' = 'v2';
 
   constructor(
     private router: Router,
-    private dtVersionService: DtVersionService
+    private dtVersionService: DtVersionService,
   ) {
     this.dtVersion = dtVersionService.dtVersion;
   }
@@ -27,19 +26,17 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     $.fn.dataTable.ext.errMode = 'none';
     $('.button-collapse').sideNav({
-      closeOnClick: true
+      closeOnClick: true,
     });
 
-    this.routerEventsSub$ = this.router.events
-      .pipe(filter(_ => _ instanceof NavigationEnd))
-      .subscribe(_ => {
-        // Note: setTimeout is needed to let DOM render tabs
-        setTimeout(() => {
-          $('ul.tabs').tabs();
-        }, 600);
-      });
+    this.routerEventsSub$ = this.router.events.pipe(filter((_) => _ instanceof NavigationEnd)).subscribe((_) => {
+      // Note: setTimeout is needed to let DOM render tabs
+      setTimeout(() => {
+        $('ul.tabs').tabs();
+      }, 600);
+    });
 
-      // Init DT version picker
+    // Init DT version picker
     $('.dt-version-button').dropdown({
       inDuration: 300,
       outDuration: 225,
@@ -48,12 +45,11 @@ export class AppComponent implements OnInit, OnDestroy {
       gutter: 14,
       belowOrigin: true,
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
-      stopPropagation: true // Stops event propagation
+      stopPropagation: true, // Stops event propagation
     });
-
   }
 
-  onDTVersionChanged(v: 'v2'|'v1') {
+  onDTVersionChanged(v: 'v2' | 'v1') {
     this.dtVersion = v;
     this.dtVersionService.versionChanged$.next(v);
   }

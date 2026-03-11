@@ -19,13 +19,11 @@ export function hasNgModuleImport(tree: Tree, modulePath: string, className: str
     throw new Error(`Could not read Angular module file: ${modulePath}`);
   }
 
-  const parsedFile = ts.createSourceFile(modulePath, moduleFileContent.toString(),
-      ts.ScriptTarget.Latest, true);
+  const parsedFile = ts.createSourceFile(modulePath, moduleFileContent.toString(), ts.ScriptTarget.Latest, true);
   let ngModuleMetadata: ts.ObjectLiteralExpression | null = null;
 
   const findModuleDecorator = (node: ts.Node) => {
-    if (ts.isDecorator(node) && ts.isCallExpression(node.expression) &&
-        isNgModuleCallExpression(node.expression)) {
+    if (ts.isDecorator(node) && ts.isCallExpression(node.expression) && isNgModuleCallExpression(node.expression)) {
       ngModuleMetadata = node.expression.arguments[0] as ts.ObjectLiteralExpression;
 
       return;
@@ -42,8 +40,11 @@ export function hasNgModuleImport(tree: Tree, modulePath: string, className: str
 
   /* tslint:disable-next-line: no-non-null-assertion */
   for (const property of (ngModuleMetadata as ts.ObjectLiteralExpression)!.properties) {
-    if (!ts.isPropertyAssignment(property) || property.name.getText() !== 'imports' ||
-        !ts.isArrayLiteralExpression(property.initializer)) {
+    if (
+      !ts.isPropertyAssignment(property) ||
+      property.name.getText() !== 'imports' ||
+      !ts.isArrayLiteralExpression(property.initializer)
+    ) {
       continue;
     }
 
@@ -72,8 +73,7 @@ function resolveIdentifierOfExpression(expression: ts.Expression): ts.Identifier
 
 /** Whether the specified call expression is referring to a NgModule definition. */
 function isNgModuleCallExpression(callExpression: ts.CallExpression): boolean {
-  if (!callExpression.arguments.length ||
-      !ts.isObjectLiteralExpression(callExpression.arguments[0])) {
+  if (!callExpression.arguments.length || !ts.isObjectLiteralExpression(callExpression.arguments[0])) {
     return false;
   }
 

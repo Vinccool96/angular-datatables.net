@@ -5,19 +5,17 @@ import { ADTSettings } from 'angular-datatables.net';
 
 @Component({
   selector: 'app-using-ng-pipe',
-  templateUrl: './using-ng-pipe.component.html'
+  templateUrl: './using-ng-pipe.component.html',
 })
 export class UsingNgPipeComponent implements OnInit {
-
   constructor(
     private pipeInstance: UpperCasePipe,
-    public pipeCurrencyInstance: CurrencyPipe
-  ) { }
+    public pipeCurrencyInstance: CurrencyPipe,
+  ) {}
 
   dtOptions: ADTSettings = {};
 
   ngOnInit(): void {
-
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
@@ -25,23 +23,20 @@ export class UsingNgPipeComponent implements OnInit {
           title: 'Id (Money)',
           data: 'id',
           ngPipeInstance: this.pipeCurrencyInstance,
-          ngPipeArgs: ['USD','symbol']
+          ngPipeArgs: ['USD', 'symbol'],
         },
         {
           title: 'First name',
           data: 'firstName',
-          ngPipeInstance: this.pipeInstance
+          ngPipeInstance: this.pipeInstance,
         },
         {
           title: 'Last name',
           data: 'lastName',
-          ngPipeInstance: this.pipeInstance
-        }
-      ]
+          ngPipeInstance: this.pipeInstance,
+        },
+      ],
     };
-
   }
-
 }
-
 ```

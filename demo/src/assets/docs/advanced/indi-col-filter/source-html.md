@@ -2,9 +2,13 @@
 <table datatable [dtOptions]="dtOptions" class="row-border hover">
   <tfoot>
     <tr>
-      <th><input type="text" placeholder="Search ID" name="search-id"/></th>
-      <th><input type="text" placeholder="Search first name" name="search-first-name"/></th>
-      <th><input type="text" placeholder="Search last name" name="search-last-name"/></th>
+      <th><input type="text" placeholder="Search ID" name="search-id" /></th>
+      <th>
+        <input type="text" placeholder="Search first name" name="search-first-name" />
+      </th>
+      <th>
+        <input type="text" placeholder="Search last name" name="search-last-name" />
+      </th>
     </tr>
   </tfoot>
 </table>

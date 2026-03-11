@@ -15,20 +15,18 @@ describe('NewServerSideComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        NewServerSideComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, NewServerSideComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
-        })],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(NewServerSideComponent);
+          sanitize: SecurityContext.NONE,
+        }),
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(NewServerSideComponent);
 
     component = fixture.componentInstance;
 

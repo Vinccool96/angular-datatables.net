@@ -9,26 +9,24 @@ import { AppRoutingModule } from '../app.routing';
 import { By } from '@angular/platform-browser';
 import { AngularWayComponent } from './angular-way.component';
 
-
-let fixture: ComponentFixture<AngularWayComponent>, component: null| AngularWayComponent = null;
+let fixture: ComponentFixture<AngularWayComponent>,
+  component: null | AngularWayComponent = null;
 
 describe('AngularWayComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        AngularWayComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, AngularWayComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
-        })],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(AngularWayComponent);
+          sanitize: SecurityContext.NONE,
+        }),
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(AngularWayComponent);
 
     component = fixture.componentInstance;
 
@@ -55,5 +53,4 @@ describe('AngularWayComponent', () => {
     fixture.detectChanges();
     expect(instance.rows().length).toBeGreaterThan(0);
   });
-
 });

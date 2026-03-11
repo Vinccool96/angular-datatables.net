@@ -10,27 +10,25 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { LoadDtOptionsWithPromiseComponent } from './load-dt-options-with-promise.component';
 
-
-let fixture: ComponentFixture<LoadDtOptionsWithPromiseComponent>, component: null| LoadDtOptionsWithPromiseComponent = null;
+let fixture: ComponentFixture<LoadDtOptionsWithPromiseComponent>,
+  component: null | LoadDtOptionsWithPromiseComponent = null;
 
 describe('LoadDtOptionsWithPromiseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        LoadDtOptionsWithPromiseComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, LoadDtOptionsWithPromiseComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
+          sanitize: SecurityContext.NONE,
         }),
-        FormsModule],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(LoadDtOptionsWithPromiseComponent);
+        FormsModule,
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(LoadDtOptionsWithPromiseComponent);
 
     component = fixture.componentInstance;
 
@@ -58,5 +56,4 @@ describe('LoadDtOptionsWithPromiseComponent', () => {
     const instance = await dir.dtInstance;
     expect(instance.rows().count()).toBeGreaterThan(0);
   });
-
 });

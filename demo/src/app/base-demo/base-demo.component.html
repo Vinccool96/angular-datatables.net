@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3 class="header center-on-small-only">{{pageTitle}}</h3>
+        <h3 class="header center-on-small-only">{{ pageTitle }}</h3>
       </div>
     </div>
   </div>
@@ -10,8 +10,8 @@
 <div class="section" *ngIf="deprecated">
   <div class="section red white-text">
     <div class="container">
-      This section has been marked as deprecated. It is listed here for documentation purposes only. <a
-        routerLink="/faq">Read More</a>
+      This section has been marked as deprecated. It is listed here for documentation purposes only.
+      <a routerLink="/faq">Read More</a>
     </div>
   </div>
 </div>
@@ -22,12 +22,12 @@
 -->
 <div class="section" *ngIf="dtVersion == 'v1' && !deprecated">
   <div class="container red white-text dtv1-notice">
-    You are viewing documentation for v1.x of datatables.net. This version is not supported anymore since v17.1.0. It is listed here for documentation purposes only.
+    You are viewing documentation for v1.x of datatables.net. This version is not supported anymore since v17.1.0. It is
+    listed here for documentation purposes only.
   </div>
 </div>
 
 <div class="container">
-
   <h5 class="header">Description</h5>
   <p class="caption">
     <markdown [src]="mdIntro"></markdown>
@@ -40,7 +40,7 @@
         <li class="tab col">
           <a href="#previewTab">Preview</a>
         </li>
-        <li class="tab col" *ngIf="dtVersion == 'v2' ? mdInstall.length>0 : mdInstallV1.length>0">
+        <li class="tab col" *ngIf="dtVersion == 'v2' ? mdInstall.length > 0 : mdInstallV1.length > 0">
           <a href="#installTab">Installation</a>
         </li>
         <li class="tab col">

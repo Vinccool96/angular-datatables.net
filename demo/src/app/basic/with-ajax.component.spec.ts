@@ -9,26 +9,24 @@ import { WithAjaxComponent } from './with-ajax.component';
 import { AppRoutingModule } from '../app.routing';
 import { By } from '@angular/platform-browser';
 
-
-let fixture: ComponentFixture<WithAjaxComponent>, component: null| WithAjaxComponent = null;
+let fixture: ComponentFixture<WithAjaxComponent>,
+  component: null | WithAjaxComponent = null;
 
 describe('WithAjaxComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        WithAjaxComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, WithAjaxComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
-        })],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(WithAjaxComponent);
+          sanitize: SecurityContext.NONE,
+        }),
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(WithAjaxComponent);
 
     component = fixture.componentInstance;
 
@@ -56,5 +54,4 @@ describe('WithAjaxComponent', () => {
     fixture.detectChanges();
     expect(instance.rows().length).toBeGreaterThan(0);
   });
-
 });

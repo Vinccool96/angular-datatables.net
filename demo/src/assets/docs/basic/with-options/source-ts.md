@@ -4,17 +4,15 @@ import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-with-options',
-  templateUrl: 'with-options.component.html'
+  templateUrl: 'with-options.component.html',
 })
 export class WithOptionsComponent implements OnInit {
-
   dtOptions: Config = {};
 
   ngOnInit(): void {
     this.dtOptions = {
-      pagingType: 'full_numbers'
+      pagingType: 'full_numbers',
     };
   }
 }
-
 ```

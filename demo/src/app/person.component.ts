@@ -5,10 +5,10 @@ import { Person } from './person';
 import { PersonService } from './person.service';
 
 @Component({
-    selector: 'app-person',
-    templateUrl: 'person.component.html',
-    providers: [PersonService],
-    standalone: false
+  selector: 'app-person',
+  templateUrl: 'person.component.html',
+  providers: [PersonService],
+  standalone: false,
 })
 export class PersonComponent implements OnInit {
   person!: Person;
@@ -16,8 +16,8 @@ export class PersonComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private personService: PersonService
-  ) { }
+    private personService: PersonService,
+  ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

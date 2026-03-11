@@ -5,10 +5,10 @@ import { DataTableDirective } from 'angular-datatables.net';
 
 @Component({
   selector: 'dt-instance',
-  templateUrl: 'dt-instance.component.html'
+  templateUrl: 'dt-instance.component.html',
 })
 export class DtInstanceComponent implements OnInit {
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, { static: false })
   private datatableElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
@@ -20,16 +20,20 @@ export class DtInstanceComponent implements OnInit {
   ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
-      columns: [{
-        title: 'ID',
-        data: 'id'
-      }, {
-        title: 'First name',
-        data: 'firstName'
-      }, {
-        title: 'Last name',
-        data: 'lastName'
-      }]
+      columns: [
+        {
+          title: 'ID',
+          data: 'id',
+        },
+        {
+          title: 'First name',
+          data: 'firstName',
+        },
+        {
+          title: 'Last name',
+          data: 'lastName',
+        },
+      ],
     };
   }
 }

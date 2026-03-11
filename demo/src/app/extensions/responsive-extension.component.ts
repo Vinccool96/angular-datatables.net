@@ -3,12 +3,11 @@ import { Config } from 'datatables.net-dt';
 import 'datatables.net-responsive';
 
 @Component({
-    selector: 'app-responsive-extension',
-    templateUrl: 'responsive-extension.component.html',
-    standalone: false
+  selector: 'app-responsive-extension',
+  templateUrl: 'responsive-extension.component.html',
+  standalone: false,
 })
 export class ResponsiveExtensionComponent implements OnInit {
-
   pageTitle = 'DataTables Responsive extension';
   mdIntro = 'assets/docs/extensions/responsive/intro.md';
   mdInstall = 'assets/docs/extensions/responsive/installation.md';
@@ -21,19 +20,23 @@ export class ResponsiveExtensionComponent implements OnInit {
   ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
-      columns: [{
-        title: 'ID',
-        data: 'id'
-      }, {
-        title: 'First name',
-        data: 'firstName'
-      }, {
-        title: 'Last name',
-        data: 'lastName',
-        className: 'none'
-      }],
+      columns: [
+        {
+          title: 'ID',
+          data: 'id',
+        },
+        {
+          title: 'First name',
+          data: 'firstName',
+        },
+        {
+          title: 'Last name',
+          data: 'lastName',
+          className: 'none',
+        },
+      ],
       // Use this attribute to enable the responsive extension
-      responsive: true
+      responsive: true,
     };
   }
 }

@@ -5,25 +5,28 @@ import 'datatables.net-buttons-dt';
 
 @Component({
   selector: 'app-buttons-extension',
-  templateUrl: 'buttons-extension.component.html'
+  templateUrl: 'buttons-extension.component.html',
 })
 export class ButtonsExtensionComponent implements OnInit {
-
   dtOptions: Config = {};
 
   ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
-      columns: [{
-        title: 'ID',
-        data: 'id'
-      }, {
-        title: 'First name',
-        data: 'firstName'
-      }, {
-        title: 'Last name',
-        data: 'lastName'
-      }],
+      columns: [
+        {
+          title: 'ID',
+          data: 'id',
+        },
+        {
+          title: 'First name',
+          data: 'firstName',
+        },
+        {
+          title: 'Last name',
+          data: 'lastName',
+        },
+      ],
       // Declare the use of the extension in the dom parameter
       dom: 'Bfrtip',
       // Configure the buttons
@@ -35,7 +38,7 @@ export class ButtonsExtensionComponent implements OnInit {
           extend: 'csv',
           text: 'CSV export',
           fieldSeparator: ';',
-          exportOptions: [1, 2, 3]
+          exportOptions: [1, 2, 3],
         },
         'excel',
         {
@@ -43,11 +46,10 @@ export class ButtonsExtensionComponent implements OnInit {
           key: '1',
           action: function (e, dt, node, config) {
             alert('Button activated');
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }
-
 ```

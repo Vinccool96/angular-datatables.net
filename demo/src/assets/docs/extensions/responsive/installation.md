@@ -8,6 +8,7 @@ npm install datatables.net-responsive --save
 # CSS file
 npm install datatables.net-responsive-dt --save
 ```
+
 ##### angular.json
 
 Add the dependencies in the scripts and styles attributes:

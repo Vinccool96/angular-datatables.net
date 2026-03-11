@@ -33,123 +33,123 @@ import { FixedColumnsExtensionComponent } from './extensions/fixed-columns-exten
 import { ServerSideAngularWayComponent } from './basic/server-side-angular-way.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        redirectTo: '/welcome',
-        pathMatch: 'full'
-    },
-    {
-        path: 'welcome',
-        component: WelcomeComponent
-    },
-    {
-        path: 'getting-started',
-        component: GettingStartedComponent
-    },
-    {
-        path: 'more-help',
-        component: MoreHelpComponent
-    },
-    {
-        path: 'person/:id',
-        component: PersonComponent
-    },
-    {
-        path: 'basic/zero-config',
-        component: ZeroConfigComponent
-    },
-    {
-        path: 'basic/with-options',
-        component: WithOptionsComponent
-    },
-    {
-        path: 'basic/with-ajax',
-        component: WithAjaxComponent
-    },
-    {
-        path: 'basic/with-ajax-callback',
-        component: WithAjaxCallbackComponent
-    },
-    {
-        path: 'basic/new-server-side',
-        component: NewServerSideComponent
-    },
-    {
-        path: 'basic/angular-way',
-        component: AngularWayComponent
-    },
-    {
-        path: 'basic/server-side-angular-way',
-        component: ServerSideAngularWayComponent
-    },
-    {
-        path: 'advanced/custom-range-search',
-        component: CustomRangeSearchComponent
-    },
-    {
-        path: 'advanced/dt-instance',
-        component: DtInstanceComponent
-    },
-    {
-        path: 'advanced/individual-column-filtering',
-        component: IndividualColumnFilteringComponent
-    },
-    {
-        path: 'advanced/load-dt-options-with-promise',
-        component: LoadDtOptionsWithPromiseComponent
-    },
-    {
-        path: 'advanced/rerender',
-        component: RerenderComponent
-    },
-    {
-        path: 'advanced/row-click-event',
-        component: RowClickEventComponent
-    },
-    {
-        path: 'advanced/multiple-tables',
-        component: MultipleTablesComponent
-    },
-    {
-        path: 'advanced/router-link',
-        component: RouterLinkComponent
-    },
-    {
-        path: 'advanced/using-pipe',
-        component: UsingNgPipeComponent
-    },
-    {
-        path: 'advanced/using-template-ref',
-        component: UsingNgTemplateRefComponent
-    },
-    {
-        path: 'extensions/buttons',
-        component: ButtonsExtensionComponent
-    },
-    {
-        path: 'extensions/colreorder',
-        component: ColreorderExtensionComponent
-    },
-    {
-        path: 'extensions/fixed-columns',
-        component: FixedColumnsExtensionComponent
-    },
-    {
-        path: 'extensions/responsive',
-        component: ResponsiveExtensionComponent
-    },
-    {
-        path: 'extensions/select',
-        component: SelectExtensionComponent
-    },
-    {
-        path: 'faq',
-        component: FAQComponent
-    }
+  {
+    path: '',
+    redirectTo: '/welcome',
+    pathMatch: 'full',
+  },
+  {
+    path: 'welcome',
+    component: WelcomeComponent,
+  },
+  {
+    path: 'getting-started',
+    component: GettingStartedComponent,
+  },
+  {
+    path: 'more-help',
+    component: MoreHelpComponent,
+  },
+  {
+    path: 'person/:id',
+    component: PersonComponent,
+  },
+  {
+    path: 'basic/zero-config',
+    component: ZeroConfigComponent,
+  },
+  {
+    path: 'basic/with-options',
+    component: WithOptionsComponent,
+  },
+  {
+    path: 'basic/with-ajax',
+    component: WithAjaxComponent,
+  },
+  {
+    path: 'basic/with-ajax-callback',
+    component: WithAjaxCallbackComponent,
+  },
+  {
+    path: 'basic/new-server-side',
+    component: NewServerSideComponent,
+  },
+  {
+    path: 'basic/angular-way',
+    component: AngularWayComponent,
+  },
+  {
+    path: 'basic/server-side-angular-way',
+    component: ServerSideAngularWayComponent,
+  },
+  {
+    path: 'advanced/custom-range-search',
+    component: CustomRangeSearchComponent,
+  },
+  {
+    path: 'advanced/dt-instance',
+    component: DtInstanceComponent,
+  },
+  {
+    path: 'advanced/individual-column-filtering',
+    component: IndividualColumnFilteringComponent,
+  },
+  {
+    path: 'advanced/load-dt-options-with-promise',
+    component: LoadDtOptionsWithPromiseComponent,
+  },
+  {
+    path: 'advanced/rerender',
+    component: RerenderComponent,
+  },
+  {
+    path: 'advanced/row-click-event',
+    component: RowClickEventComponent,
+  },
+  {
+    path: 'advanced/multiple-tables',
+    component: MultipleTablesComponent,
+  },
+  {
+    path: 'advanced/router-link',
+    component: RouterLinkComponent,
+  },
+  {
+    path: 'advanced/using-pipe',
+    component: UsingNgPipeComponent,
+  },
+  {
+    path: 'advanced/using-template-ref',
+    component: UsingNgTemplateRefComponent,
+  },
+  {
+    path: 'extensions/buttons',
+    component: ButtonsExtensionComponent,
+  },
+  {
+    path: 'extensions/colreorder',
+    component: ColreorderExtensionComponent,
+  },
+  {
+    path: 'extensions/fixed-columns',
+    component: FixedColumnsExtensionComponent,
+  },
+  {
+    path: 'extensions/responsive',
+    component: ResponsiveExtensionComponent,
+  },
+  {
+    path: 'extensions/select',
+    component: SelectExtensionComponent,
+  },
+  {
+    path: 'faq',
+    component: FAQComponent,
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { useHash: true })],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -15,14 +15,8 @@
             "index": "demo/src/index.html",
             "main": "demo/src/main.ts",
             "tsConfig": "demo/src/tsconfig.app.json",
-            "polyfills": [
-              "zone.js"
-            ],
-            "assets": [
-              "demo/src/assets",
-              "demo/src/data",
-              "demo/src/favicon.png"
-            ],
+            "polyfills": ["zone.js"],
+            "assets": ["demo/src/assets", "demo/src/data", "demo/src/favicon.png"],
             "styles": [
               "node_modules/datatables.net-dt/css/dataTables.dataTables.min.css",
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.min.css",
@@ -66,9 +60,7 @@
             "sourceMap": true,
             "optimization": false,
             "namedChunks": true,
-            "allowedCommonJsDependencies": [
-              "jquery"
-            ]
+            "allowedCommonJsDependencies": ["jquery"]
           },
           "configurations": {
             "production": {
@@ -102,10 +94,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "demo/src/tsconfig.spec.json",
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
@@ -131,15 +120,8 @@
               "node_modules/materialize-css/dist/css/materialize.css",
               "demo/src/styles.css"
             ],
-            "assets": [
-              "demo/src/assets",
-              "demo/src/archives",
-              "demo/src/data",
-              "demo/src/favicon.png"
-            ],
-            "include": [
-              "**/*.spec.ts"
-            ]
+            "assets": ["demo/src/assets", "demo/src/archives", "demo/src/data", "demo/src/favicon.png"],
+            "include": ["**/*.spec.ts"]
           }
         }
       }
@@ -169,15 +151,11 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "eslintConfig": "lib/.eslintrc.json",
-            "lintFilePatterns": [
-              "lib/**/*.ts",
-              "lib/**/*.html"
-            ]
+            "lintFilePatterns": ["lib/**/*.ts", "lib/**/*.html"]
           }
         }
       }
     }
-
   },
   "schematics": {
     "@schematics/angular:component": {

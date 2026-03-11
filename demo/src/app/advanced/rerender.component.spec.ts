@@ -9,27 +9,25 @@ import { AppRoutingModule } from '../app.routing';
 import { FormsModule } from '@angular/forms';
 import { RerenderComponent } from './rerender.component';
 
-
-let fixture: ComponentFixture<RerenderComponent>, component: null| RerenderComponent = null;
+let fixture: ComponentFixture<RerenderComponent>,
+  component: null | RerenderComponent = null;
 
 describe('RerenderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        RerenderComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, RerenderComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
+          sanitize: SecurityContext.NONE,
         }),
-        FormsModule],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(RerenderComponent);
+        FormsModule,
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(RerenderComponent);
 
     component = fixture.componentInstance;
 
@@ -53,12 +51,11 @@ describe('RerenderComponent', () => {
     const rerenderSpy = spyOn(app, 'rerender' as any);
 
     const triggerBtns = Array.from(fixture.nativeElement.querySelectorAll('button')) as HTMLButtonElement[];
-    const triggerBtn = triggerBtns.find(e => e.textContent?.includes('Rerender')) as HTMLButtonElement;
+    const triggerBtn = triggerBtns.find((e) => e.textContent?.includes('Rerender')) as HTMLButtonElement;
 
     triggerBtn.click();
     triggerBtn.dispatchEvent(new Event('click'));
 
     expect(rerenderSpy).toHaveBeenCalled();
   });
-
 });

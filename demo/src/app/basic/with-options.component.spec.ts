@@ -9,31 +9,29 @@ import { WithOptionsComponent } from './with-options.component';
 import { AppRoutingModule } from '../app.routing';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler';
 
-let fixture: ComponentFixture<WithOptionsComponent>, component: null| WithOptionsComponent = null;
+let fixture: ComponentFixture<WithOptionsComponent>,
+  component: null | WithOptionsComponent = null;
 
 describe('WithOptionsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        WithOptionsComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, WithOptionsComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
-        })],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(WithOptionsComponent);
+          sanitize: SecurityContext.NONE,
+        }),
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(WithOptionsComponent);
 
     component = fixture.componentInstance;
 
     fixture.detectChanges(); // initial binding
   });
-
 
   it('should create the app', waitForAsync(() => {
     const app = fixture.debugElement.componentInstance;
@@ -49,5 +47,4 @@ describe('WithOptionsComponent', () => {
     const app = fixture.debugElement.componentInstance as WithOptionsComponent;
     expect(app.dtOptions.pagingType).toBe('full_numbers');
   }));
-
 });

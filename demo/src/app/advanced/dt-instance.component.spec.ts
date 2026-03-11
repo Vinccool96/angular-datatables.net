@@ -10,27 +10,25 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { DtInstanceComponent } from './dt-instance.component';
 
-
-let fixture: ComponentFixture<DtInstanceComponent>, component: null| DtInstanceComponent = null;
+let fixture: ComponentFixture<DtInstanceComponent>,
+  component: null | DtInstanceComponent = null;
 
 describe('DtInstanceComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        DtInstanceComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, DtInstanceComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
+          sanitize: SecurityContext.NONE,
         }),
-        FormsModule],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(DtInstanceComponent);
+        FormsModule,
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(DtInstanceComponent);
 
     component = fixture.componentInstance;
 
@@ -58,5 +56,4 @@ describe('DtInstanceComponent', () => {
     const instance = await dir.dtInstance;
     expect(instance).toBeTruthy();
   });
-
 });

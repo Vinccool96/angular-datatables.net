@@ -7,11 +7,10 @@ import { Config } from 'datatables.net';
 // Example from https://datatables.net/examples/plug-ins/range_filtering.html
 @Component({
   selector: 'app-custom-range-search',
-  templateUrl: 'custom-range-search.component.html'
+  templateUrl: 'custom-range-search.component.html',
 })
 export class CustomRangeSearchComponent implements OnDestroy, OnInit {
-
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
   min: number;
   max: number;
@@ -22,10 +21,12 @@ export class CustomRangeSearchComponent implements OnDestroy, OnInit {
     // We need to call the $.fn.dataTable like this because DataTables typings do not have the "ext" property
     $.fn['dataTable'].ext.search.push((settings: Config, data: any, dataIndex: number) => {
       const id = parseFloat(data[0]) || 0; // use data for the id column
-      if ((isNaN(this.min) && isNaN(this.max)) ||
+      if (
+        (isNaN(this.min) && isNaN(this.max)) ||
         (isNaN(this.min) && id <= this.max) ||
         (this.min <= id && isNaN(this.max)) ||
-        (this.min <= id && id <= this.max)) {
+        (this.min <= id && id <= this.max)
+      ) {
         return true;
       }
       return false;
@@ -33,16 +34,20 @@ export class CustomRangeSearchComponent implements OnDestroy, OnInit {
 
     this.dtOptions = {
       ajax: 'data/data.json',
-      columns: [{
-        title: 'ID',
-        data: 'id'
-      }, {
-        title: 'First name',
-        data: 'firstName'
-      }, {
-        title: 'Last name',
-        data: 'lastName'
-      }]
+      columns: [
+        {
+          title: 'ID',
+          data: 'id',
+        },
+        {
+          title: 'First name',
+          data: 'firstName',
+        },
+        {
+          title: 'Last name',
+          data: 'lastName',
+        },
+      ],
     };
   }
 
@@ -54,11 +59,10 @@ export class CustomRangeSearchComponent implements OnDestroy, OnInit {
   }
 
   filterById(): boolean {
-    this.datatableElement.dtInstance.then(dtInstance => {
+    this.datatableElement.dtInstance.then((dtInstance) => {
       dtInstance.draw();
     });
     return false;
   }
 }
-
 ```

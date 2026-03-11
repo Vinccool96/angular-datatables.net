@@ -8,26 +8,24 @@ import { BaseDemoComponent } from '../base-demo/base-demo.component';
 import { ServerSideAngularWayComponent } from './server-side-angular-way.component';
 import { AppRoutingModule } from '../app.routing';
 
-
-let fixture: ComponentFixture<ServerSideAngularWayComponent>, component: null| ServerSideAngularWayComponent = null;
+let fixture: ComponentFixture<ServerSideAngularWayComponent>,
+  component: null | ServerSideAngularWayComponent = null;
 
 describe('ServerSideAngularWayComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        ServerSideAngularWayComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, ServerSideAngularWayComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
-        })],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(ServerSideAngularWayComponent);
+          sanitize: SecurityContext.NONE,
+        }),
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(ServerSideAngularWayComponent);
 
     component = fixture.componentInstance;
 

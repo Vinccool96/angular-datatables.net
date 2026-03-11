@@ -81,7 +81,7 @@ import { NewServerSideComponent } from './basic/new-server-side/new-server-side.
     DemoNgComponent,
     MoreHelpComponent,
     WithAjaxCallbackComponent,
-    NewServerSideComponent
+    NewServerSideComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -92,12 +92,9 @@ import { NewServerSideComponent } from './basic/new-server-side/new-server-side.
     DataTablesModule,
     AppRoutingModule,
     MarkdownModule.forRoot({
-      sanitize: SecurityContext.NONE
-    })],
-  providers: [
-    UpperCasePipe,
-    CurrencyPipe,
-    provideHttpClient(withInterceptorsFromDi())
-  ]
+      sanitize: SecurityContext.NONE,
+    }),
+  ],
+  providers: [UpperCasePipe, CurrencyPipe, provideHttpClient(withInterceptorsFromDi())],
 })
-export class AppModule { }
+export class AppModule {}

@@ -5,10 +5,10 @@ import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-rerender',
-  templateUrl: 'rerender.component.html'
+  templateUrl: 'rerender.component.html',
 })
 export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
@@ -18,16 +18,20 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
-      columns: [{
-        title: 'ID',
-        data: 'id'
-      }, {
-        title: 'First name',
-        data: 'firstName'
-      }, {
-        title: 'Last name',
-        data: 'lastName'
-      }]
+      columns: [
+        {
+          title: 'ID',
+          data: 'id',
+        },
+        {
+          title: 'First name',
+          data: 'firstName',
+        },
+        {
+          title: 'Last name',
+          data: 'lastName',
+        },
+      ],
     };
   }
 

@@ -10,27 +10,25 @@ import { By } from '@angular/platform-browser';
 import { CustomRangeSearchComponent } from './custom-range-search.component';
 import { FormsModule } from '@angular/forms';
 
-
-let fixture: ComponentFixture<CustomRangeSearchComponent>, component: null| CustomRangeSearchComponent = null;
+let fixture: ComponentFixture<CustomRangeSearchComponent>,
+  component: null | CustomRangeSearchComponent = null;
 
 describe('CustomRangeSearchComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        CustomRangeSearchComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, CustomRangeSearchComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
+          sanitize: SecurityContext.NONE,
         }),
-        FormsModule],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(CustomRangeSearchComponent);
+        FormsModule,
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(CustomRangeSearchComponent);
 
     component = fixture.componentInstance;
 
@@ -84,7 +82,5 @@ describe('CustomRangeSearchComponent', () => {
     fixture.detectChanges();
 
     expect(instance.rows({ page: 'current' }).count()).toBe(3);
-
   });
-
 });

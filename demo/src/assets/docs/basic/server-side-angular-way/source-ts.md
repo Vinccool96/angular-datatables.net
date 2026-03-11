@@ -13,10 +13,9 @@ class DataTablesResponse {
 @Component({
   selector: 'app-server-side-angular-way',
   templateUrl: 'server-side-angular-way.component.html',
-  styleUrls: ['server-side-angular-way.component.css']
+  styleUrls: ['server-side-angular-way.component.css'],
 })
 export class ServerSideAngularWayComponent implements OnInit {
-
   dtOptions: DataTables.Settings = {};
   persons: Person[];
 
@@ -32,22 +31,19 @@ export class ServerSideAngularWayComponent implements OnInit {
       processing: true,
       ajax: (dataTablesParameters: any, callback) => {
         that.http
-          .post<DataTablesResponse>(
-            'https://xtlncifojk.eu07.qoddiapp.com/',
-            dataTablesParameters, {}
-          ).subscribe(resp => {
+          .post<DataTablesResponse>('https://xtlncifojk.eu07.qoddiapp.com/', dataTablesParameters, {})
+          .subscribe((resp) => {
             that.persons = resp.data;
 
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsFiltered,
-              data: []
+              data: [],
             });
           });
       },
-      columns: [{ data: 'id' }, { data: 'firstName' }, { data: 'lastName' }]
+      columns: [{ data: 'id' }, { data: 'firstName' }, { data: 'lastName' }],
     };
   }
 }
-
 ```

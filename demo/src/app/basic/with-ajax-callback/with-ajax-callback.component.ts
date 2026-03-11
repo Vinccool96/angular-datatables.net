@@ -4,15 +4,12 @@ import { Config } from 'datatables.net';
 import { DataTablesResponse } from '../../datatables-response.model';
 
 @Component({
-    selector: 'app-with-ajax-callback',
-    templateUrl: './with-ajax-callback.component.html',
-    standalone: false
+  selector: 'app-with-ajax-callback',
+  templateUrl: './with-ajax-callback.component.html',
+  standalone: false,
 })
 export class WithAjaxCallbackComponent implements OnInit {
-
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   pageTitle = 'AJAX with callback';
   mdIntro = 'assets/docs/basic/with-ajax-callback/intro.md';
@@ -27,27 +24,29 @@ export class WithAjaxCallbackComponent implements OnInit {
     this.dtOptions = {
       ajax: (dataTablesParameters: any, callback) => {
         that.http
-          .post<DataTablesResponse>(
-            'https://xtlncifojk.eu07.qoddiapp.com/',
-            dataTablesParameters, {}
-          ).subscribe(resp => {
+          .post<DataTablesResponse>('https://xtlncifojk.eu07.qoddiapp.com/', dataTablesParameters, {})
+          .subscribe((resp) => {
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsFiltered,
-              data: resp.data
+              data: resp.data,
             });
           });
       },
-      columns: [{
-        title: 'ID',
-        data: 'id'
-      }, {
-        title: 'First name',
-        data: 'firstName'
-      }, {
-        title: 'Last name',
-        data: 'lastName'
-      }]
+      columns: [
+        {
+          title: 'ID',
+          data: 'id',
+        },
+        {
+          title: 'First name',
+          data: 'firstName',
+        },
+        {
+          title: 'Last name',
+          data: 'lastName',
+        },
+      ],
     };
   }
 }

@@ -1,4 +1,4 @@
 export interface IDemoNgComponentEventType {
-  cmd: string,
-  data: any
+  cmd: string;
+  data: any;
 }

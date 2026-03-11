@@ -5,12 +5,11 @@ import { Person } from '../person';
 import { Config } from 'datatables.net';
 
 @Component({
-    selector: 'app-angular-way',
-    templateUrl: 'angular-way.component.html',
-    standalone: false
+  selector: 'app-angular-way',
+  templateUrl: 'angular-way.component.html',
+  standalone: false,
 })
 export class AngularWayComponent implements OnDestroy, OnInit {
-
   pageTitle = 'Angular way';
   mdIntro = 'assets/docs/basic/angular-way/intro.md';
   mdHTML = 'assets/docs/basic/angular-way/source-html.md';
@@ -23,19 +22,18 @@ export class AngularWayComponent implements OnDestroy, OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2
+      pageLength: 2,
     };
-    this.httpClient.get<Person[]>('data/data.json')
-      .subscribe(data => {
-        this.persons = (data as any).data;
-        // Calling the DT trigger to manually render the table
-        this.dtTrigger.next(null);
-      });
+    this.httpClient.get<Person[]>('data/data.json').subscribe((data) => {
+      this.persons = (data as any).data;
+      // Calling the DT trigger to manually render the table
+      this.dtTrigger.next(null);
+    });
   }
 
   ngOnDestroy(): void {

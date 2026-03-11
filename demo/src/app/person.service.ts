@@ -6,10 +6,10 @@ import data from '../data/data.json';
 
 @Injectable()
 export class PersonService {
-  constructor() { }
+  constructor() {}
 
-  getPerson(id: string): Person|undefined {
+  getPerson(id: string): Person | undefined {
     const persons: Person[] = data.data;
-    return persons.find(person => person?.id == parseInt(id));
+    return persons.find((person) => person?.id == parseInt(id));
   }
 }

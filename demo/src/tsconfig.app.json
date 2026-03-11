@@ -8,10 +8,6 @@
       "angular-datatables.net": ["../../lib/index"]
     }
   },
-  "files": [
-    "./main.ts"
-  ],
-  "exclude": [
-    "**/*.spec.ts"
-  ]
+  "files": ["./main.ts"],
+  "exclude": ["**/*.spec.ts"]
 }

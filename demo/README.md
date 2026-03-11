@@ -18,11 +18,11 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 If you need to check if the currenct version of angular-datatables still works with the demo, simply follow the instructions below:
 
-> We use [linklocal](https://npmjs.org/package/linklocal) to link library with demo app. 
+> We use [linklocal](https://npmjs.org/package/linklocal) to link library with demo app.
 
 ```bash
 cd /path/to/angular-datatables
 npm start
-# The application will first build library (under dist/lib), 
+# The application will first build library (under dist/lib),
 # copy it to demo/node_modules and run the app on localhost:4200
 ```

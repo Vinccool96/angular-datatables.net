@@ -1,13 +1,13 @@
 ```typescript
 // demo-ng-template-ref.component.ts
 
-import { Component, Input, OnInit, Output } from "@angular/core";
-import { Subject } from "rxjs";
-import { IDemoNgComponentEventType } from "./demo-ng-template-ref-event-type";
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
 
 @Component({
-  selector: "app-demo-ng-template-ref",
-  templateUrl: "./demo-ng-template-ref.component.html",
+  selector: 'app-demo-ng-template-ref',
+  templateUrl: './demo-ng-template-ref.component.html',
 })
 export class DemoNgComponent implements OnInit {
   constructor() {}
@@ -22,7 +22,7 @@ export class DemoNgComponent implements OnInit {
 
   onAction1() {
     this.emitter.next({
-      cmd: "action1",
+      cmd: 'action1',
       data: this.data,
     });
   }
@@ -42,7 +42,7 @@ export interface IDemoNgComponentEventType {
 // ng-template-ref.component.ts
 
 import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ADTSettings,  } from 'angular-datatables.net';
+import { ADTSettings } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
 import { DemoNgComponent } from './demo-ng-template-ref.component';
@@ -52,8 +52,7 @@ import { DemoNgComponent } from './demo-ng-template-ref.component';
   templateUrl: './using-ng-template-ref.component.html',
 })
 export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
-
-  constructor() { }
+  constructor() {}
 
   dtOptions: ADTSettings = {};
   dtTrigger: Subject<ADTSettings> = new Subject<ADTSettings>();
@@ -70,7 +69,7 @@ export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
         columns: [
           {
             title: 'ID',
-            data: 'id'
+            data: 'id',
           },
           {
             title: 'First name',
@@ -78,7 +77,7 @@ export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
           },
           {
             title: 'Last name',
-            data: 'lastName'
+            data: 'lastName',
           },
           {
             title: 'Actions',
@@ -88,11 +87,11 @@ export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
               ref: this.demoNg,
               context: {
                 // needed for capturing events inside <ng-template>
-                captureEvents: self.onCaptureEvent.bind(self)
-              }
-            }
-          }
-        ]
+                captureEvents: self.onCaptureEvent.bind(self),
+              },
+            },
+          },
+        ],
       };
     });
   }

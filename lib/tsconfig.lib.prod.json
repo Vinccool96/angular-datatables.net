@@ -4,9 +4,9 @@
     "target": "ES5",
     "module": "ES2015",
     "sourceMap": false,
-    "declaration": false,
+    "declaration": false
   },
   "angularCompilerOptions": {
     "compilationMode": "partial"
-  },
+  }
 }

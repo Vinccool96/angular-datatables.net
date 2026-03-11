@@ -10,27 +10,25 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { MultipleTablesComponent } from './multiple-tables.component';
 
-
-let fixture: ComponentFixture<MultipleTablesComponent>, component: null| MultipleTablesComponent = null;
+let fixture: ComponentFixture<MultipleTablesComponent>,
+  component: null | MultipleTablesComponent = null;
 
 describe('MultipleTablesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        MultipleTablesComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, MultipleTablesComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
+          sanitize: SecurityContext.NONE,
         }),
-        FormsModule],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(MultipleTablesComponent);
+        FormsModule,
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(MultipleTablesComponent);
 
     component = fixture.componentInstance;
 
@@ -53,5 +51,4 @@ describe('MultipleTablesComponent', () => {
 
     expect(app.dtElements.length).toBe(2);
   });
-
 });

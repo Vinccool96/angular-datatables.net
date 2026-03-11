@@ -1,6 +1,7 @@
 ##### NPM
 
 You need to install its dependencies:
+
 ```bash
 # JS file
 npm install datatables.net-colreorder --save
@@ -12,7 +13,7 @@ npm install datatables.net-colreorder-dt --save
 
 Add the dependencies in the scripts and styles attributes:
 
-```json  
+```json
 {
   "projects": {
     "your-app-name": {

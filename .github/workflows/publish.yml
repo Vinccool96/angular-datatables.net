@@ -27,4 +27,3 @@ jobs:
         run: cd dist/lib && npm publish --ignore-scripts --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-

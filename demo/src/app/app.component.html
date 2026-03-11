@@ -18,14 +18,21 @@
       </h3>
     </li>
     <li>
-      <a class="dt-version-button btn-flat" data-activates='dropdown1'>
-        DT version: '{{dtVersion}}'
-        <svg class="caret" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+      <a class="dt-version-button btn-flat" data-activates="dropdown1">
+        DT version: '{{ dtVersion }}'
+        <svg class="caret" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 10l5 5 5-5z"></path>
+          <path d="M0 0h24v24H0z" fill="none"></path>
+        </svg>
       </a>
 
-      <ul id="dropdown1" [(ngModel)]="dtVersion" ngDefaultControl class='dropdown-content'>
-        <li [class.active]="dtVersion == 'v2'" (click)="onDTVersionChanged('v2')" value="v2" style="padding:0 32px">v2.x</li>
-        <li [class.active]="dtVersion == 'v1'" (click)="onDTVersionChanged('v1')" value="v1" style="padding:0 32px">v1.x</li>
+      <ul id="dropdown1" [(ngModel)]="dtVersion" ngDefaultControl class="dropdown-content">
+        <li [class.active]="dtVersion == 'v2'" (click)="onDTVersionChanged('v2')" value="v2" style="padding: 0 32px">
+          v2.x
+        </li>
+        <li [class.active]="dtVersion == 'v1'" (click)="onDTVersionChanged('v1')" value="v1" style="padding: 0 32px">
+          v1.x
+        </li>
       </ul>
     </li>
     <li>
@@ -71,7 +78,9 @@
                 <a class="waves-effect waves-blue" routerLink="/advanced/dt-instance">Fetching DataTable instances</a>
               </li>
               <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/load-dt-options-with-promise">Load DT options with promise</a>
+                <a class="waves-effect waves-blue" routerLink="/advanced/load-dt-options-with-promise"
+                  >Load DT options with promise</a
+                >
               </li>
             </ul>
           </div>
@@ -100,10 +109,14 @@
           <div class="collapsible-body">
             <ul>
               <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/custom-range-search">Custom filtering - Range search</a>
+                <a class="waves-effect waves-blue" routerLink="/advanced/custom-range-search"
+                  >Custom filtering - Range search</a
+                >
               </li>
               <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/individual-column-filtering">Individual column filtering</a>
+                <a class="waves-effect waves-blue" routerLink="/advanced/individual-column-filtering"
+                  >Individual column filtering</a
+                >
               </li>
             </ul>
           </div>
@@ -146,17 +159,19 @@
         </li>
         <!-- Hide deprecated section completely in DT v2 -->
         <ng-container *ngIf="dtVersion == 'v1'">
-
-        <li><a class="subheader">Deprecated <span class="new badge red" data-badge-caption="">NOT SUPPORTED</span></a>
-        </li>
-        <li class="bold">
-          <a class="waves-effect waves-blue" routerLink="/basic/angular-way">Angular way</a>
-        </li>
-        <li class="bold">
-          <a class="waves-effect waves-blue" routerLink="/basic/server-side-angular-way">Server side the Angular way</a>
-        </li>
-      </ng-container>
-    </ul>
+          <li>
+            <a class="subheader">Deprecated <span class="new badge red" data-badge-caption="">NOT SUPPORTED</span></a>
+          </li>
+          <li class="bold">
+            <a class="waves-effect waves-blue" routerLink="/basic/angular-way">Angular way</a>
+          </li>
+          <li class="bold">
+            <a class="waves-effect waves-blue" routerLink="/basic/server-side-angular-way"
+              >Server side the Angular way</a
+            >
+          </li>
+        </ng-container>
+      </ul>
     </li>
   </ul>
 </header>
@@ -169,10 +184,12 @@
   <div class="footer-copyright">
     <div class="container">
       <p>
-        <span class="white-text text-darken-2"> Designed and built with ❤️ by
-          <a class="grey-text text-darken-4" href="https://github.com/l-lin"><u>Louis LIN</u></a>, <a
-            class="grey-text text-darken-4" href="https://github.com/shanmukhateja"><u>Surya Teja K</u></a> and
-          contributors.
+        <span class="white-text text-darken-2">
+          Designed and built with ❤️ by
+          <a class="grey-text text-darken-4" href="https://github.com/l-lin"><u>Louis LIN</u></a
+          >,
+          <a class="grey-text text-darken-4" href="https://github.com/shanmukhateja"><u>Surya Teja K</u></a>
+          and contributors.
         </span>
       </p>
     </div>

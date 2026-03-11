@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-buttons-extension',
-  templateUrl: 'buttons-extension.component.html'
+  templateUrl: 'buttons-extension.component.html',
 })
 export class ButtonsExtensionComponent implements OnInit {
   // Must be declared as "any", not as "DataTables.Settings"
@@ -12,16 +12,20 @@ export class ButtonsExtensionComponent implements OnInit {
   ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
-      columns: [{
-        title: 'ID',
-        data: 'id'
-      }, {
-        title: 'First name',
-        data: 'firstName'
-      }, {
-        title: 'Last name',
-        data: 'lastName'
-      }],
+      columns: [
+        {
+          title: 'ID',
+          data: 'id',
+        },
+        {
+          title: 'First name',
+          data: 'firstName',
+        },
+        {
+          title: 'Last name',
+          data: 'lastName',
+        },
+      ],
       // Declare the use of the extension in the dom parameter
       dom: 'Bfrtip',
       // Configure the buttons
@@ -36,9 +40,9 @@ export class ButtonsExtensionComponent implements OnInit {
           key: '1',
           action: function (e, dt, node, config) {
             alert('Button activated');
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }

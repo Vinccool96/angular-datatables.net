@@ -9,27 +9,25 @@ import { AppRoutingModule } from '../app.routing';
 import { FormsModule } from '@angular/forms';
 import { RowClickEventComponent } from './row-click-event.component';
 
-
-let fixture: ComponentFixture<RowClickEventComponent>, component: null| RowClickEventComponent = null;
+let fixture: ComponentFixture<RowClickEventComponent>,
+  component: null | RowClickEventComponent = null;
 
 describe('RowClickEventComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        RowClickEventComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, RowClickEventComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
+          sanitize: SecurityContext.NONE,
         }),
-        FormsModule],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(RowClickEventComponent);
+        FormsModule,
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(RowClickEventComponent);
 
     component = fixture.componentInstance;
 
@@ -65,5 +63,4 @@ describe('RowClickEventComponent', () => {
     $('td:first-child', tr7).trigger('click');
     expect(app.message).toBe('32 - Batman');
   });
-
 });

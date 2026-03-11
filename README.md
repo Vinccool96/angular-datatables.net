@@ -24,4 +24,3 @@ Check the [developer guide](DEVELOPER.md)
 [MIT](LICENSE)
 
 [npm-link]: https://www.npmjs.com/package/angular-datatables.net
-

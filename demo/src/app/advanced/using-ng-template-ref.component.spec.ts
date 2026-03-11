@@ -12,31 +12,25 @@ import { By } from '@angular/platform-browser';
 import { UsingNgTemplateRefComponent } from './using-ng-template-ref.component';
 import { DemoNgComponent } from './demo-ng-template-ref.component';
 
-
-let fixture: ComponentFixture<UsingNgTemplateRefComponent>, component: null| UsingNgTemplateRefComponent = null;
+let fixture: ComponentFixture<UsingNgTemplateRefComponent>,
+  component: null | UsingNgTemplateRefComponent = null;
 
 describe('UsingNgTemplateRefComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        UsingNgTemplateRefComponent,
-        DemoNgComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, UsingNgTemplateRefComponent, DemoNgComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
+          sanitize: SecurityContext.NONE,
         }),
-        FormsModule],
-    providers: [
-        UpperCasePipe,
-        provideHttpClient(withInterceptorsFromDi())
-    ]
-}).createComponent(UsingNgTemplateRefComponent);
+        FormsModule,
+      ],
+      providers: [UpperCasePipe, provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(UsingNgTemplateRefComponent);
 
     component = fixture.componentInstance;
 
@@ -68,7 +62,6 @@ describe('UsingNgTemplateRefComponent', () => {
     button.click();
 
     expect(app.message).toBe(`Event 'action1' with data '{}`);
-
   });
 
   it('should not crash when using "visible: false" for columns', async () => {
@@ -88,7 +81,6 @@ describe('UsingNgTemplateRefComponent', () => {
     // verify app still works
     expect((await dir.dtInstance).column(0).visible()).toBeFalse();
   });
-
 
   it('should not have duplicate contents in ngTemplateRef column when navigating pages', async () => {
     await fixture.whenStable();
@@ -111,5 +103,4 @@ describe('UsingNgTemplateRefComponent', () => {
     const templatedCell = firstRow.children[0].children[3];
     expect(templatedCell.children.length).toBe(1);
   });
-
 });

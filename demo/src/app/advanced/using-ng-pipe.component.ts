@@ -3,16 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import { ADTSettings } from 'angular-datatables.net';
 
 @Component({
-    selector: 'app-using-ng-pipe',
-    templateUrl: './using-ng-pipe.component.html',
-    standalone: false
+  selector: 'app-using-ng-pipe',
+  templateUrl: './using-ng-pipe.component.html',
+  standalone: false,
 })
 export class UsingNgPipeComponent implements OnInit {
-
   constructor(
     private pipeInstance: UpperCasePipe,
-    public pipeCurrencyInstance: CurrencyPipe
-  ) { }
+    public pipeCurrencyInstance: CurrencyPipe,
+  ) {}
 
   pageTitle = 'Using Angular Pipe';
   mdIntro = 'assets/docs/advanced/using-ng-pipe/intro.md';
@@ -20,11 +19,9 @@ export class UsingNgPipeComponent implements OnInit {
   mdTSV1 = 'assets/docs/advanced/using-ng-pipe/source-ts-dtv1.md';
   mdTS = 'assets/docs/advanced/using-ng-pipe/source-ts.md';
 
-
   dtOptions: ADTSettings = {};
 
   ngOnInit(): void {
-
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
@@ -32,21 +29,19 @@ export class UsingNgPipeComponent implements OnInit {
           title: 'Id (Money)',
           data: 'id',
           ngPipeInstance: this.pipeCurrencyInstance,
-          ngPipeArgs: ['USD','symbol']
+          ngPipeArgs: ['USD', 'symbol'],
         },
         {
           title: 'First name',
           data: 'firstName',
-          ngPipeInstance: this.pipeInstance
+          ngPipeInstance: this.pipeInstance,
         },
         {
           title: 'Last name',
           data: 'lastName',
-          ngPipeInstance: this.pipeInstance
-        }
-      ]
+          ngPipeInstance: this.pipeInstance,
+        },
+      ],
     };
-
   }
-
 }

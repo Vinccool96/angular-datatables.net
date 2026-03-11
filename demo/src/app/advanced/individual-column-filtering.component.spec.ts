@@ -11,8 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { IndividualColumnFilteringComponent } from './individual-column-filtering.component';
 import { Api } from 'datatables.net';
 
-
-let fixture: ComponentFixture<IndividualColumnFilteringComponent>, component: null| IndividualColumnFilteringComponent = null;
+let fixture: ComponentFixture<IndividualColumnFilteringComponent>,
+  component: null | IndividualColumnFilteringComponent = null;
 
 function applyValueToInput(inputElement: HTMLInputElement, value: string, table: Api) {
   inputElement.value = value;
@@ -24,21 +24,19 @@ function applyValueToInput(inputElement: HTMLInputElement, value: string, table:
 describe('IndividualColumnFilteringComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        IndividualColumnFilteringComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, IndividualColumnFilteringComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
+          sanitize: SecurityContext.NONE,
         }),
-        FormsModule],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(IndividualColumnFilteringComponent);
+        FormsModule,
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(IndividualColumnFilteringComponent);
 
     component = fixture.componentInstance;
 
@@ -68,9 +66,9 @@ describe('IndividualColumnFilteringComponent', () => {
     const instance = await dir.dtInstance;
 
     const inputFields = Array.from(fixture.nativeElement.querySelectorAll('input')) as HTMLInputElement[];
-    const inputFieldID = inputFields.find(e => e.name == "search-id")!;
-    const inputFieldFirstName = inputFields.find(e => e.name == "search-first-name")!;
-    const inputFieldLastName = inputFields.find(e => e.name == "search-last-name")!;
+    const inputFieldID = inputFields.find((e) => e.name == 'search-id')!;
+    const inputFieldFirstName = inputFields.find((e) => e.name == 'search-first-name')!;
+    const inputFieldLastName = inputFields.find((e) => e.name == 'search-last-name')!;
 
     // # Test 1
     applyValueToInput(inputFieldID, '113', instance);
@@ -88,7 +86,5 @@ describe('IndividualColumnFilteringComponent', () => {
     applyValueToInput(inputFieldFirstName, '', instance);
     applyValueToInput(inputFieldLastName, 'Titi', instance);
     expect(instance.rows({ page: 'current' }).count()).toBe(28);
-
   });
-
 });

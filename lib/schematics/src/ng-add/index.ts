@@ -8,31 +8,42 @@ export default function (_options: IADTSchematicsOptions): Rule {
   return chain([
     addPackageJsonDependencies(_options),
     installPackageJsonDependencies(),
-    updateAngularJsonFile(_options)
+    updateAngularJsonFile(_options),
   ]);
 }
 
 function addPackageJsonDependencies(options: IADTSchematicsOptions) {
   return (tree: Tree, context: SchematicContext) => {
     // Update package.json
-    const styleDeps = ADT_SUPPORTED_STYLES.find(e => e.style == options.style);
+    const styleDeps = ADT_SUPPORTED_STYLES.find((e) => e.style == options.style);
 
     const dependencies = [
       { version: '^3.6.0', name: 'jquery', isDev: false },
-      { version: '^2.0.3', name: 'datatables.net', fancyName: 'datatables.net (v2)', isDev: false },
-      { version: '^3.5.9', name: '@types/jquery', isDev: true }
+      {
+        version: '^2.0.3',
+        name: 'datatables.net',
+        fancyName: 'datatables.net (v2)',
+        isDev: false,
+      },
+      { version: '^3.5.9', name: '@types/jquery', isDev: true },
     ];
 
     if (styleDeps) {
       if (styleDeps.style != ADTStyleOptions.DT)
-        context.logger.log('warn', 'Your project needs Bootstrap CSS installed and configured for changes to take affect.');
-      styleDeps.packageJson.forEach(e => dependencies.push(e));
+        context.logger.log(
+          'warn',
+          'Your project needs Bootstrap CSS installed and configured for changes to take affect.',
+        );
+      styleDeps.packageJson.forEach((e) => dependencies.push(e));
     }
 
-    dependencies.forEach(dependency => {
+    dependencies.forEach((dependency) => {
       const result = addPackageToPackageJson(tree, dependency.name, dependency.version, dependency.isDev);
       if (result) {
-        context.logger.log('info', `✅️ Added "${dependency.fancyName || dependency.name}" into "${dependency.isDev ? 'devDependencies' : 'dependencies'}"`);
+        context.logger.log(
+          'info',
+          `✅️ Added "${dependency.fancyName || dependency.name}" into "${dependency.isDev ? 'devDependencies' : 'dependencies'}"`,
+        );
       } else {
         context.logger.log('info', `ℹ️  Skipped adding "${dependency.name}" into package.json`);
       }
@@ -50,22 +61,28 @@ function installPackageJsonDependencies(): Rule {
   };
 }
 
-
 function updateAngularJsonFile(options: IADTSchematicsOptions) {
   return (tree: Tree, context: SchematicContext) => {
-
-    const styleDeps = ADT_SUPPORTED_STYLES.find(e => e.style == options.style);
+    const styleDeps = ADT_SUPPORTED_STYLES.find((e) => e.style == options.style);
 
     const assets = [
-      { path: 'node_modules/jquery/dist/jquery.min.js', target: 'scripts', fancyName: 'jQuery Core' },
-      { path: 'node_modules/datatables.net/js/dataTables.min.js', target: 'scripts', fancyName: 'DataTables.net Core JS' },
+      {
+        path: 'node_modules/jquery/dist/jquery.min.js',
+        target: 'scripts',
+        fancyName: 'jQuery Core',
+      },
+      {
+        path: 'node_modules/datatables.net/js/dataTables.min.js',
+        target: 'scripts',
+        fancyName: 'DataTables.net Core JS',
+      },
     ];
 
     if (styleDeps) {
-      styleDeps.angularJson.forEach(e => assets.push(e));
+      styleDeps.angularJson.forEach((e) => assets.push(e));
     }
 
-    assets.forEach(asset => {
+    assets.forEach((asset) => {
       const result = addAssetToAngularJson(tree, asset.target, asset.path);
       if (result) {
         context.logger.log('info', `✅️ Added "${asset.fancyName}" into angular.json`);

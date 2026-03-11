@@ -3,12 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Config } from 'datatables.net';
 
 @Component({
-    selector: 'app-load-dt-options-with-promise',
-    templateUrl: 'load-dt-options-with-promise.component.html',
-    standalone: false
+  selector: 'app-load-dt-options-with-promise',
+  templateUrl: 'load-dt-options-with-promise.component.html',
+  standalone: false,
 })
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
-
   pageTitle = 'Load DT Options with Promise';
   mdIntro = 'assets/docs/advanced/load-dt-opt-with-promise/intro.md';
   mdHTML = 'assets/docs/advanced/load-dt-opt-with-promise/source-html.md';
@@ -20,9 +19,7 @@ export class LoadDtOptionsWithPromiseComponent implements OnInit {
   constructor(@Inject(HttpClient) private httpClient: HttpClient) {}
 
   ngOnInit(): void {
-  this.dtOptions = this.httpClient.get<Config>('data/dtOptions.json')
-      .toPromise()
-      .catch(this.handleError);
+    this.dtOptions = this.httpClient.get<Config>('data/dtOptions.json').toPromise().catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

@@ -5,7 +5,7 @@ import { DataTableDirective } from 'angular-datatables.net';
 
 @Component({
   selector: 'app-multiple-tables',
-  templateUrl: 'multiple-tables.component.html'
+  templateUrl: 'multiple-tables.component.html',
 })
 export class MultipleTablesComponent implements OnInit {
   @ViewChildren(DataTableDirective)
@@ -29,16 +29,20 @@ export class MultipleTablesComponent implements OnInit {
   private buildDtOptions(url: string): DataTables.Settings {
     return {
       ajax: url,
-      columns: [{
-        title: 'ID',
-        data: 'id'
-      }, {
-        title: 'First name',
-        data: 'firstName'
-      }, {
-        title: 'Last name',
-        data: 'lastName'
-      }]
+      columns: [
+        {
+          title: 'ID',
+          data: 'id',
+        },
+        {
+          title: 'First name',
+          data: 'firstName',
+        },
+        {
+          title: 'Last name',
+          data: 'lastName',
+        },
+      ],
     };
   }
 }

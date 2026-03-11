@@ -5,14 +5,12 @@
     "target": "ES2015",
     "declaration": true,
     "declarationMap": true,
-    "inlineSources": true,
+    "inlineSources": true
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "enableResourceInlining": true
   },
-  "exclude": [
-    "**/*.spec.ts"
-  ]
+  "exclude": ["**/*.spec.ts"]
 }

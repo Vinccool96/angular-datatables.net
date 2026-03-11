@@ -11,8 +11,8 @@ import { ADTSettings, ADTColumns } from './models/settings';
 import { Api } from 'datatables.net';
 
 @Directive({
-    selector: '[datatable]',
-    standalone: false
+  selector: '[datatable]',
+  standalone: false,
 })
 export class DataTableDirective implements OnDestroy, OnInit {
   /**
@@ -42,8 +42,8 @@ export class DataTableDirective implements OnDestroy, OnInit {
   constructor(
     private el: ElementRef,
     private vcr: ViewContainerRef,
-    private renderer: Renderer2
-  ) { }
+    private renderer: Renderer2,
+  ) {}
 
   ngOnInit(): void {
     if (this.dtTrigger) {
@@ -70,9 +70,10 @@ export class DataTableDirective implements OnDestroy, OnInit {
       this.dtOptions = dtOptions;
     }
     this.dtInstance = new Promise((resolve, reject) => {
-      Promise.resolve(this.dtOptions).then(resolvedDTOptions => {
+      Promise.resolve(this.dtOptions).then((resolvedDTOptions) => {
         // validate object
-        const isTableEmpty = Object.keys(resolvedDTOptions).length === 0 && $('tbody tr', this.el.nativeElement).length === 0;
+        const isTableEmpty =
+          Object.keys(resolvedDTOptions).length === 0 && $('tbody tr', this.el.nativeElement).length === 0;
         if (isTableEmpty) {
           reject('Both the table and dtOptions cannot be empty');
           return;
@@ -80,7 +81,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
         // Set a column unique
         if (resolvedDTOptions.columns) {
-          resolvedDTOptions.columns.forEach(col => {
+          resolvedDTOptions.columns.forEach((col) => {
             if ((col.id ?? '').trim() === '') {
               col.id = this.getColumnUniqueId();
             }
@@ -102,7 +103,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
               if (resolvedDTOptions.rowCallback) {
                 resolvedDTOptions.rowCallback(row, data, index);
               }
-            }
+            },
           };
           // merge user's config with ours
           options = Object.assign({}, resolvedDTOptions, options);
@@ -115,12 +116,12 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
   private applyNgPipeTransform(row: Node, columns: ADTColumns[]): void {
     // Filter columns with pipe declared
-    const colsWithPipe = columns.filter(x => x.ngPipeInstance && !x.ngTemplateRef);
-    colsWithPipe.forEach(el => {
+    const colsWithPipe = columns.filter((x) => x.ngPipeInstance && !x.ngTemplateRef);
+    colsWithPipe.forEach((el) => {
       const pipe = el.ngPipeInstance!;
       const pipeArgs = el.ngPipeArgs || [];
       // find index of column using `data` attr
-      const i = columns.filter(c => c.visible !== false).findIndex(e => e.id === el.id);
+      const i = columns.filter((c) => c.visible !== false).findIndex((e) => e.id === el.id);
       // get <td> element which holds data using index
       const rowFromCol = row.childNodes.item(i);
       // Transform data with Pipe and PipeArgs
@@ -133,18 +134,18 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
   private applyNgRefTemplate(row: Node, columns: ADTColumns[], data: Object): void {
     // Filter columns using `ngTemplateRef`
-    const colsWithTemplate = columns.filter(x => x.ngTemplateRef && !x.ngPipeInstance);
-    colsWithTemplate.forEach(el => {
+    const colsWithTemplate = columns.filter((x) => x.ngTemplateRef && !x.ngPipeInstance);
+    colsWithTemplate.forEach((el) => {
       const { ref, context } = el.ngTemplateRef!;
       // get <td> element which holds data using index
-      const i = columns.filter(c => c.visible !== false).findIndex(e => e.id === el.id);
+      const i = columns.filter((c) => c.visible !== false).findIndex((e) => e.id === el.id);
       const cellFromIndex = row.childNodes.item(i);
       // reset cell before applying transform
       $(cellFromIndex).html('');
       // render onto DOM
       // finalize context to be sent to user
       const _context = Object.assign({}, context, context?.userData, {
-        adtData: data
+        adtData: data,
       });
       const instance = this.vcr.createEmbeddedView(ref, _context);
       this.renderer.appendChild(cellFromIndex, instance.rootNodes[0]);
@@ -162,5 +163,4 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
     return result.trim();
   }
-
 }

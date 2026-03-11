@@ -32,13 +32,8 @@ npm install @types/datatables.net --save-dev
       "architect": {
         "build": {
           "options": {
-            "styles": [
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
-            ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js"
-            ]
+            "styles": ["node_modules/datatables.net-dt/css/jquery.dataTables.css"],
+            "scripts": ["node_modules/jquery/dist/jquery.js", "node_modules/datatables.net/js/jquery.dataTables.js"]
           }
         }
       }
@@ -50,12 +45,12 @@ npm install @types/datatables.net --save-dev
 3. Import the DataTablesModule at the appropriate level of your app.
 
 ```typescript
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { DataTablesModule } from "angular-datatables";
+import { DataTablesModule } from 'angular-datatables';
 
-import { AppComponent } from "./app.component";
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],

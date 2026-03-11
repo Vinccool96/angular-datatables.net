@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-load-dt-options-with-promise',
-  templateUrl: 'load-dt-options-with-promise.component.html'
+  templateUrl: 'load-dt-options-with-promise.component.html',
 })
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
   dtOptions: Promise<DataTables.Settings>;
@@ -14,7 +14,8 @@ export class LoadDtOptionsWithPromiseComponent implements OnInit {
   constructor(@Inject(HttpClient) private httpClient: HttpClient) {}
 
   ngOnInit(): void {
-  this.dtOptions = this.httpClient.get<DataTables.Settings>('data/dtOptions.json')
+    this.dtOptions = this.httpClient
+      .get<DataTables.Settings>('data/dtOptions.json')
       .toPromise()
       .catch(this.handleError);
   }

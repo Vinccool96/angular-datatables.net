@@ -9,13 +9,12 @@
 import { Tree } from '@angular-devkit/schematics';
 
 function sortObjectByKeys(obj: { [key: string]: string }) {
-  return Object
-    .keys(obj)
-    .sort()
-    /* tslint:disable-next-line: no-any */
-    .reduce((result: any, key: any) => (
-      result[key] = obj[key]
-    ) && result, {});
+  return (
+    Object.keys(obj)
+      .sort()
+      /* tslint:disable-next-line: no-any */
+      .reduce((result: any, key: any) => (result[key] = obj[key]) && result, {})
+  );
 }
 
 /**
@@ -26,7 +25,6 @@ function sortObjectByKeys(obj: { [key: string]: string }) {
  * can place a given dependency in the correct dependencies array inside package.json
  */
 export function addPackageToPackageJson(host: Tree, pkg: string, version: string, isDevDependency = false): boolean {
-
   if (host.exists('package.json')) {
     /* tslint:disable-next-line: no-non-null-assertion */
     const sourceText = host.read('package.json')!.toString('utf-8');
@@ -81,5 +79,4 @@ export function addAssetToAngularJson(host: Tree, assetType: string, assetPath: 
   host.overwrite('angular.json', JSON.stringify(json, null, 2));
 
   return true;
-
 }

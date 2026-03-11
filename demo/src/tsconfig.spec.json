@@ -9,7 +9,5 @@
       "angular-datatables.net": ["../../lib/index"]
     }
   },
-  "include": [
-    "**/*.spec.ts"
-  ],
+  "include": ["**/*.spec.ts"]
 }

@@ -15,20 +15,18 @@ describe('WithAjaxCallbackComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        WithAjaxCallbackComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, WithAjaxCallbackComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
-        })],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(WithAjaxCallbackComponent);
+          sanitize: SecurityContext.NONE,
+        }),
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(WithAjaxCallbackComponent);
 
     component = fixture.componentInstance;
 
@@ -44,5 +42,4 @@ describe('WithAjaxCallbackComponent', () => {
     const app = fixture.debugElement.componentInstance as WithAjaxCallbackComponent;
     expect(app.pageTitle).toBe('AJAX with callback');
   }));
-
 });

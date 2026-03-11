@@ -12,31 +12,25 @@ import { UpperCasePipe, CurrencyPipe } from '@angular/common';
 import { By } from '@angular/platform-browser';
 import { Person } from 'app/person';
 
-
-let fixture: ComponentFixture<UsingNgPipeComponent>, component: null| UsingNgPipeComponent = null;
+let fixture: ComponentFixture<UsingNgPipeComponent>,
+  component: null | UsingNgPipeComponent = null;
 
 describe('UsingNgPipeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        UsingNgPipeComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
+      declarations: [BaseDemoComponent, UsingNgPipeComponent, DataTableDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
         MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
+          sanitize: SecurityContext.NONE,
         }),
-        FormsModule],
-    providers: [
-        UpperCasePipe,
-        CurrencyPipe,
-        provideHttpClient(withInterceptorsFromDi())
-    ]
-}).createComponent(UsingNgPipeComponent);
+        FormsModule,
+      ],
+      providers: [UpperCasePipe, CurrencyPipe, provideHttpClient(withInterceptorsFromDi())],
+    }).createComponent(UsingNgPipeComponent);
 
     component = fixture.componentInstance;
 
@@ -66,21 +60,23 @@ describe('UsingNgPipeComponent', () => {
     const rows = fixture.nativeElement.querySelectorAll('tbody tr');
 
     const testsArray = [0, 3, 6];
-    const expectedArray = testsArray.map(_ => true);
+    const expectedArray = testsArray.map((_) => true);
 
-    expect(testsArray.map(index => {
-      const dataRow = rows[index];
+    expect(
+      testsArray.map((index) => {
+        const dataRow = rows[index];
 
-      const firstNameFromData = (instance.row(dataRow).data() as Person).firstName;
-      const firstNameFromTable = $('td:nth-child(2)', dataRow).text();
+        const firstNameFromData = (instance.row(dataRow).data() as Person).firstName;
+        const firstNameFromTable = $('td:nth-child(2)', dataRow).text();
 
-      const lastNameFromData = (instance.row(dataRow).data() as Person).lastName;
-      const lastNameFromTable = $('td:nth-child(3)', dataRow).text();
-      return firstNameFromTable === firstNameFromData.toUpperCase() && lastNameFromTable === lastNameFromData.toUpperCase();
-    }))
-      .toEqual(expectedArray);
+        const lastNameFromData = (instance.row(dataRow).data() as Person).lastName;
+        const lastNameFromTable = $('td:nth-child(3)', dataRow).text();
+        return (
+          firstNameFromTable === firstNameFromData.toUpperCase() && lastNameFromTable === lastNameFromData.toUpperCase()
+        );
+      }),
+    ).toEqual(expectedArray);
   });
-
 
   it('should have money on id column', async () => {
     const app = fixture.debugElement.componentInstance as UsingNgPipeComponent;
@@ -95,20 +91,20 @@ describe('UsingNgPipeComponent', () => {
     const rows = fixture.nativeElement.querySelectorAll('tbody tr');
 
     const testsArray = [0, 3, 6];
-    const expectedArray = testsArray.map(_ => true);
+    const expectedArray = testsArray.map((_) => true);
 
-    expect(testsArray.map(index => {
-      const dataRow = rows[index];
+    expect(
+      testsArray.map((index) => {
+        const dataRow = rows[index];
 
-      const pipeInstance = app.pipeCurrencyInstance;
+        const pipeInstance = app.pipeCurrencyInstance;
 
-      const IdFromData = (instance.row(dataRow).data() as Person).id;
-      const IdFromTable = $('td:nth-child(1)', dataRow).text();
-      return IdFromTable === pipeInstance.transform(IdFromData,'USD','symbol');
-    }))
-      .toEqual(expectedArray);
+        const IdFromData = (instance.row(dataRow).data() as Person).id;
+        const IdFromTable = $('td:nth-child(1)', dataRow).text();
+        return IdFromTable === pipeInstance.transform(IdFromData, 'USD', 'symbol');
+      }),
+    ).toEqual(expectedArray);
   });
-
 
   it('should not crash when using "visible: false" for columns', async () => {
     await fixture.whenStable();
@@ -127,5 +123,4 @@ describe('UsingNgPipeComponent', () => {
     // verify app still works
     expect((await dir.dtInstance).column(0).visible()).toBeFalse();
   });
-
 });

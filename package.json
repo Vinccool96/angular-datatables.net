@@ -11,7 +11,9 @@
     "lib:schematics:build": "rimraf dist/lib/schematics && tsc -p lib/schematics/tsconfig.json && copyfiles lib/schematics/{src/collection.json,src/ng-add/schema.json} dist",
     "demo:build:prod": "npm run clean && ng build angular-datatables.net-demo --configuration production --base-href=/angular-datatables.net/",
     "version": "npm run build:lib && git add -A",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write ."
   },
   "keywords": [
     "Angular",
@@ -50,6 +52,7 @@
     "linklocal": "^2.8.2",
     "ng-packagr": "^19.0.1",
     "ngx-markdown": "^19.0.0",
+    "prettier": "^3.8.1",
     "rimraf": "~3.0.2",
     "typescript": "~5.6.3"
   },

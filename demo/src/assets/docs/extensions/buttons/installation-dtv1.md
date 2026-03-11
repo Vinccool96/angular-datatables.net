@@ -12,11 +12,12 @@ npm install datatables.net-buttons-dt --save
 # Typings
 npm install @types/datatables.net-buttons --save-dev
 ```
+
 ##### angular.json
 
 Add the dependencies in the scripts and styles attributes:
 
-```json  
+```json
 {
   "projects": {
     "your-app-name": {
@@ -39,4 +40,5 @@ Add the dependencies in the scripts and styles attributes:
             ...
 }
 ```
+
 > If you want to have the excel export functionnality, then you must import the jszip.js before the buttons.html5.js file.

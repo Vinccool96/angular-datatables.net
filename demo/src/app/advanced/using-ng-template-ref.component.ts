@@ -5,13 +5,12 @@ import { DemoNgComponent } from './demo-ng-template-ref.component';
 import { ADTSettings } from 'angular-datatables.net';
 
 @Component({
-    selector: 'app-using-ng-template-ref',
-    templateUrl: './using-ng-template-ref.component.html',
-    standalone: false
+  selector: 'app-using-ng-template-ref',
+  templateUrl: './using-ng-template-ref.component.html',
+  standalone: false,
 })
 export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
-
-  constructor() { }
+  constructor() {}
 
   pageTitle = 'Using Angular TemplateRef';
   mdIntro = 'assets/docs/advanced/using-ng-template-ref/intro.md';
@@ -33,7 +32,7 @@ export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
         columns: [
           {
             title: 'ID',
-            data: 'id'
+            data: 'id',
           },
           {
             title: 'First name',
@@ -41,7 +40,7 @@ export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
           },
           {
             title: 'Last name',
-            data: 'lastName'
+            data: 'lastName',
           },
           {
             title: 'Actions',
@@ -51,11 +50,11 @@ export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
               ref: this.demoNg,
               context: {
                 // needed for capturing events inside <ng-template>
-                captureEvents: self.onCaptureEvent.bind(self)
-              }
-            }
-          }
-        ]
+                captureEvents: self.onCaptureEvent.bind(self),
+              },
+            },
+          },
+        ],
       };
     });
   }
