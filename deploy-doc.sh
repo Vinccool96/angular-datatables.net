@@ -28,9 +28,9 @@ info "Building documentation..."
 npm run demo:build:prod
 
 info "Copying the doc folder to /tmp"
-rm -rf /tmp/angular-datatables-demo
-cp -r dist/demo /tmp/angular-datatables-demo
-cd /tmp/angular-datatables-demo
+rm -rf /tmp/angular-datatables.net-demo
+cp -r dist/demo /tmp/angular-datatables.net-demo
+cd /tmp/angular-datatables.net-demo
 
 info "Copying project to /tmp and switch to gh-pages branch"
 rm -rf /tmp/$project_name
@@ -44,7 +44,7 @@ info "Remove all files except .git"
 rm -rf * .angular .vscode
 
 info "Copy the doc to the gh-pages branch"
-cp -r /tmp/angular-datatables-demo/* /tmp/$project_name
+cp -r /tmp/angular-datatables.net-demo/* /tmp/$project_name
 
 info "Commit gh-pages"
 cd /tmp/$project_name
@@ -55,7 +55,7 @@ git push -u origin gh-pages
 
 info "Removing tmp folders"
 rm -rf /tmp/$project_name
-rm -rf /tmp/angular-datatables-demo
+rm -rf /tmp/angular-datatables.net-demo
 
 info "Github Pages deployed SUCCESSFULLY!!!"
 

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
+
 import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
 
 @Component({

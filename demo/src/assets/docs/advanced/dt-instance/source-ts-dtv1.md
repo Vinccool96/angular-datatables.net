@@ -1,7 +1,7 @@
 ```typescript
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { DataTableDirective } from 'angular-datatables';
+import { DataTableDirective } from 'angular-datatables.net';
 
 @Component({
   selector: 'dt-instance',

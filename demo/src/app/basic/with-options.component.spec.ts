@@ -2,7 +2,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { SecurityContext } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables';
+import { DataTableDirective, DataTablesModule } from 'angular-datatables.net';
 import { MarkdownModule } from 'ngx-markdown';
 import { BaseDemoComponent } from '../base-demo/base-demo.component';
 import { WithOptionsComponent } from './with-options.component';

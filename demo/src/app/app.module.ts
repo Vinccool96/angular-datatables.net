@@ -3,7 +3,7 @@ import { NgModule, SecurityContext } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
-import { DataTablesModule } from 'angular-datatables';
+import { DataTablesModule } from 'angular-datatables.net';
 
 import { AppRoutingModule } from './app.routing';
 

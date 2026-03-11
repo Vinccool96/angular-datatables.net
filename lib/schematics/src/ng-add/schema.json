@@ -5,7 +5,7 @@
   "type": "object",
   "properties": {
     "project": {
-      "title": "angular-datatables",
+      "title": "angular-datatables.net",
       "type": "string",
       "description": "The name of the project.",
       "$default": {
