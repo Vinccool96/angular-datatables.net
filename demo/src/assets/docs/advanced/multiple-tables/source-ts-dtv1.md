@@ -1,7 +1,7 @@
 ```typescript
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 
-import { DataTableDirective } from 'angular-datatables';
+import { DataTableDirective } from 'angular-datatables.net';
 
 @Component({
   selector: 'app-multiple-tables',

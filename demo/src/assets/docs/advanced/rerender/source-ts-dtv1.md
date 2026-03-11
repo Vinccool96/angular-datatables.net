@@ -1,6 +1,6 @@
 ```typescript
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables';
+import { DataTableDirective } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
 @Component({

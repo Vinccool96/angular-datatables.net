@@ -1,5 +1,5 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables';
+import { DataTableDirective } from 'angular-datatables.net';
 import { Config } from 'datatables.net';
 
 @Component({

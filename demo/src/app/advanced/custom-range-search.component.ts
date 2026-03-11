@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-
-import { DataTableDirective } from 'angular-datatables';
+import { DataTableDirective } from 'angular-datatables.net';
 import { Config } from 'datatables.net';
 
 // Example from https://datatables.net/examples/plug-ins/range_filtering.html

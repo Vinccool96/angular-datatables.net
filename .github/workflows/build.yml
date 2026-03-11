@@ -30,10 +30,6 @@ jobs:
       - name: Run build
         run: npm run build:lib
 
-      - name: Install current angular-datatables to demo
-        working-directory: ./demo
-        run: npm run link:lib
-
       - name: Run demo test
         working-directory: ./demo
         run: npm run demo:test-ci

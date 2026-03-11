@@ -1,15 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../out-tsc/spec",
+    "outDir": "../../out-tsc/app",
+    "module": "ES2015",
     "baseUrl": "",
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
     "paths": {
       "angular-datatables.net": ["../../lib/index"]
     }
-  },
-  "include": [
-    "**/*.spec.ts"
-  ],
+  }
 }

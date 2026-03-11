@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "",
   "projects": {
-    "angular-datatables-demo": {
+    "angular-datatables.net-demo": {
       "root": "demo",
       "sourceRoot": "demo/src",
       "projectType": "application",
