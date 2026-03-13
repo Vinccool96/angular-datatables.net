@@ -5,48 +5,55 @@
  * found in the LICENSE file at https://raw.githubusercontent.com/vinccool96/angular-datatables.net/master/LICENSE
  */
 
-import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewContainerRef } from '@angular/core';
-import { Subject } from 'rxjs';
-import { ADTSettings, ADTColumns } from './models/settings';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  input,
+  model,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewContainerRef,
+} from '@angular/core';
 import { Api } from 'datatables.net';
+import { Subject } from 'rxjs';
+
+import { ADTColumns, ADTSettings } from './models/settings';
 
 @Directive({
-  selector: '[datatable]',
+  selector: '[adtDatatable]',
 })
 export class DataTableDirective implements OnDestroy, OnInit {
   /**
    * The DataTable option you pass to configure your table.
    */
-  @Input()
-  dtOptions: ADTSettings = {};
+  readonly dtOptions = model<ADTSettings>({});
 
   /**
-   * This trigger is used if one wants to trigger manually the DT rendering
-   * Useful when rendering angular rendered DOM
+   * This trigger is used if one wants to trigger manually the DT rendering. Useful when rendering angular rendered DOM.
    */
-  @Input()
-  dtTrigger!: Subject<ADTSettings>;
+  readonly dtTrigger = input<Subject<ADTSettings>>();
 
   /**
    * The DataTable instance built by the jQuery library [DataTables](datatables.net).
    *
-   * It's possible to execute the [DataTables APIs](https://datatables.net/reference/api/) with
-   * this variable.
+   * It's possible to execute the [DataTables APIs](https://datatables.net/reference/api/) with this variable.
    */
   dtInstance!: Promise<Api>;
 
   // Only used for destroying the table when destroying this directive
-  private dt!: Api;
+  private dt: Api | null = null;
 
-  constructor(
-    private el: ElementRef,
-    private vcr: ViewContainerRef,
-    private renderer: Renderer2,
-  ) {}
+  private readonly el = inject(ElementRef);
+  private readonly vcr = inject(ViewContainerRef);
+  private readonly renderer = inject(Renderer2);
 
   ngOnInit(): void {
-    if (this.dtTrigger) {
-      this.dtTrigger.subscribe((options) => {
+    const trigger = this.dtTrigger();
+
+    if (trigger !== undefined) {
+      trigger.subscribe((options) => {
         this.displayTable(options);
       });
     } else {
@@ -55,26 +62,23 @@ export class DataTableDirective implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.dtTrigger) {
-      this.dtTrigger.unsubscribe();
-    }
+    this.dtTrigger()?.unsubscribe();
 
-    if (this.dt) {
-      this.dt.destroy(true);
-    }
+    this.dt?.destroy(true);
   }
 
   private displayTable(dtOptions: ADTSettings | null): void {
     // assign new options if provided
     if (dtOptions !== null) {
-      this.dtOptions = dtOptions;
+      this.dtOptions.set(dtOptions);
     }
 
     this.dtInstance = new Promise((resolve, reject) => {
-      Promise.resolve(this.dtOptions).then((resolvedDTOptions) => {
+      Promise.resolve(this.dtOptions()).then((resolvedDTOptions) => {
         // validate object
         const isTableEmpty =
           Object.keys(resolvedDTOptions).length === 0 && $('tbody tr', this.el.nativeElement).length === 0;
+
         if (isTableEmpty) {
           reject('Both the table and dtOptions cannot be empty');
           return;
@@ -117,7 +121,8 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
   private applyNgPipeTransform(row: Node, columns: ADTColumns[]): void {
     // Filter columns with pipe declared
-    const colsWithPipe = columns.filter((x) => x.ngPipeInstance && !x.ngTemplateRef);
+    const colsWithPipe = columns.filter((x) => x.ngPipeInstance !== undefined && x.ngTemplateRef === undefined);
+
     colsWithPipe.forEach((el) => {
       const pipe = el.ngPipeInstance!;
       const pipeArgs = el.ngPipeArgs ?? [];
@@ -135,7 +140,8 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
   private applyNgRefTemplate(row: Node, columns: ADTColumns[], data: object): void {
     // Filter columns using `ngTemplateRef`
-    const colsWithTemplate = columns.filter((x) => x.ngTemplateRef && !x.ngPipeInstance);
+    const colsWithTemplate = columns.filter((x) => x.ngTemplateRef !== undefined && x.ngPipeInstance === undefined);
+
     colsWithTemplate.forEach((el) => {
       const { ref, context } = el.ngTemplateRef!;
       // get <td> element which holds data using index

@@ -51,7 +51,8 @@ import { WithAjaxCallbackComponent } from './basic/with-ajax-callback/with-ajax-
 import { NewServerSideComponent } from './basic/new-server-side/new-server-side.component';
 
 @NgModule({
-  declarations: [
+  bootstrap: [AppComponent],
+  imports: [
     AppComponent,
     WelcomeComponent,
     GettingStartedComponent,
@@ -82,9 +83,6 @@ import { NewServerSideComponent } from './basic/new-server-side/new-server-side.
     MoreHelpComponent,
     WithAjaxCallbackComponent,
     NewServerSideComponent,
-  ],
-  bootstrap: [AppComponent],
-  imports: [
     CommonModule,
     BrowserModule,
     FormsModule,

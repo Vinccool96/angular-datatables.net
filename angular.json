@@ -158,7 +158,7 @@
       "root": "lib",
       "sourceRoot": "lib/src",
       "projectType": "library",
-      "prefix": "lib",
+      "prefix": "adt",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
