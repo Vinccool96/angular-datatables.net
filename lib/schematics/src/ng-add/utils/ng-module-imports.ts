@@ -20,7 +20,7 @@ export function hasNgModuleImport(tree: Tree, modulePath: string, className: str
   }
 
   const parsedFile = ts.createSourceFile(modulePath, moduleFileContent.toString(), ts.ScriptTarget.Latest, true);
-  let ngModuleMetadata: ts.ObjectLiteralExpression | null = null;
+  let ngModuleMetadata: ts.ObjectLiteralExpression | undefined;
 
   const findModuleDecorator = (node: ts.Node) => {
     if (ts.isDecorator(node) && ts.isCallExpression(node.expression) && isNgModuleCallExpression(node.expression)) {
@@ -34,11 +34,11 @@ export function hasNgModuleImport(tree: Tree, modulePath: string, className: str
 
   ts.forEachChild(parsedFile, findModuleDecorator);
 
-  if (ngModuleMetadata === null) {
+  if (ngModuleMetadata === undefined) {
     throw new Error(`Could not find NgModule declaration inside: "${modulePath}"`);
   }
 
-  for (const property of (ngModuleMetadata as ts.ObjectLiteralExpression)!.properties) {
+  for (const property of ngModuleMetadata.properties) {
     if (
       !ts.isPropertyAssignment(property) ||
       property.name.getText() !== 'imports' ||

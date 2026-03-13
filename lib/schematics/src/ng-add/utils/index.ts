@@ -7,7 +7,7 @@
  */
 
 import { Tree } from '@angular-devkit/schematics';
-import { PackageJson } from 'type-fest';
+import { JsonObject, PackageJson } from 'type-fest';
 
 function sortObjectByKeys(obj: Partial<Record<string, string>>) {
   return Object.keys(obj)
@@ -27,7 +27,7 @@ function sortObjectByKeys(obj: Partial<Record<string, string>>) {
  */
 export function addPackageToPackageJson(host: Tree, pkg: string, version: string, isDevDependency = false): boolean {
   if (host.exists('package.json')) {
-    const sourceText = host.read('package.json')!.toString('utf-8');
+    const sourceText = (host.read('package.json') as Buffer).toString('utf-8');
     const json = JSON.parse(sourceText) as PackageJson;
 
     if (json.dependencies === undefined) {
@@ -43,12 +43,12 @@ export function addPackageToPackageJson(host: Tree, pkg: string, version: string
       return false;
     }
 
-    if (json.dependencies[pkg] === undefined && !isDevDependency) {
+    if (!isDevDependency) {
       json.dependencies[pkg] = version;
       json.dependencies = sortObjectByKeys(json.dependencies);
     }
 
-    if (json.devDependencies[pkg] === undefined && isDevDependency) {
+    if (isDevDependency) {
       json.devDependencies[pkg] = version;
       json.devDependencies = sortObjectByKeys(json.devDependencies);
     }
@@ -61,18 +61,20 @@ export function addPackageToPackageJson(host: Tree, pkg: string, version: string
 }
 
 export function addAssetToAngularJson(host: Tree, assetType: string, assetPath: string): boolean {
-  const sourceText = host.read('angular.json')!.toString('utf-8');
-  const json = JSON.parse(sourceText);
+  const sourceText = (host.read('angular.json') as Buffer).toString('utf-8');
+  const json = JSON.parse(sourceText) as JsonObject | null;
 
   if (json === null) {
     return false;
   }
 
-  const projectName = Object.keys(json['projects'])[0];
-  const projectObject = json.projects[projectName];
+  const projectName = Object.keys(json['projects'] as JsonObject)[0];
+  const projectObject = (json.projects as JsonObject)[projectName] as JsonObject;
   const targets = projectObject.targets ?? projectObject.architect;
 
-  const targetLocation: string[] = targets.build.options[assetType];
+  const targetLocation: string[] = (((targets as JsonObject).build as JsonObject).options as Record<string, string[]>)[
+    assetType
+  ];
 
   // update UI that `assetPath` wasn't re-added to angular.json
   if (targetLocation.indexOf(assetPath) !== -1) {

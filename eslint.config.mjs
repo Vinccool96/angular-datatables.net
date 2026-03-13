@@ -15,7 +15,7 @@ export default tseslint.config(
     files: ['**/*.ts'],
     extends: [
       eslint.configs.recommended,
-      ...tseslint.configs.recommended,
+      ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
       eslintPluginPrettierRecommended,

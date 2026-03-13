@@ -13,13 +13,14 @@ import {
   model,
   OnDestroy,
   OnInit,
+  PipeTransform,
   Renderer2,
   ViewContainerRef,
 } from '@angular/core';
 import { Api } from 'datatables.net';
 import { Subject } from 'rxjs';
 
-import { ADTColumns, ADTSettings } from './models/settings';
+import { ADTColumns, ADTSettings, ADTTemplateRef } from './models/settings';
 
 @Directive({
   selector: '[adtDatatable]',
@@ -45,7 +46,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
   // Only used for destroying the table when destroying this directive
   private dt: Api | null = null;
 
-  private readonly el = inject(ElementRef);
+  private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly vcr = inject(ViewContainerRef);
   private readonly renderer = inject(Renderer2);
 
@@ -74,13 +75,13 @@ export class DataTableDirective implements OnDestroy, OnInit {
     }
 
     this.dtInstance = new Promise((resolve, reject) => {
-      Promise.resolve(this.dtOptions()).then((resolvedDTOptions) => {
+      void Promise.resolve(this.dtOptions()).then((resolvedDTOptions) => {
         // validate object
         const isTableEmpty =
           Object.keys(resolvedDTOptions).length === 0 && $('tbody tr', this.el.nativeElement).length === 0;
 
         if (isTableEmpty) {
-          reject('Both the table and dtOptions cannot be empty');
+          reject(new Error('Both the table and dtOptions cannot be empty'));
           return;
         }
 
@@ -124,7 +125,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
     const colsWithPipe = columns.filter((x) => x.ngPipeInstance !== undefined && x.ngTemplateRef === undefined);
 
     colsWithPipe.forEach((el) => {
-      const pipe = el.ngPipeInstance!;
+      const pipe = el.ngPipeInstance as PipeTransform;
       const pipeArgs = el.ngPipeArgs ?? [];
       // find index of column using `data` attr
       const i = columns.filter((c) => c.visible !== false).findIndex((e) => e.id === el.id);
@@ -132,7 +133,8 @@ export class DataTableDirective implements OnDestroy, OnInit {
       const rowFromCol = row.childNodes.item(i);
       // Transform data with Pipe and PipeArgs
       const rowVal = $(rowFromCol).text();
-      const rowValAfter = pipe.transform(rowVal, ...pipeArgs);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const rowValAfter = pipe.transform(rowVal, ...pipeArgs) as string;
       // Apply transformed string to <td>
       $(rowFromCol).text(rowValAfter);
     });
@@ -143,7 +145,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
     const colsWithTemplate = columns.filter((x) => x.ngTemplateRef !== undefined && x.ngPipeInstance === undefined);
 
     colsWithTemplate.forEach((el) => {
-      const { ref, context } = el.ngTemplateRef!;
+      const { ref, context } = el.ngTemplateRef as ADTTemplateRef;
       // get <td> element which holds data using index
       const i = columns.filter((c) => c.visible !== false).findIndex((e) => e.id === el.id);
       const cellFromIndex = row.childNodes.item(i);
@@ -151,6 +153,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
       $(cellFromIndex).html('');
       // render onto DOM
       // finalize context to be sent to user
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const _context = Object.assign({}, context, context?.userData, {
         adtData: data,
       });

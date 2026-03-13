@@ -26,6 +26,8 @@ export interface ADTTemplateRef {
 }
 
 export interface ADTTemplateRefContext {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   captureEvents: Function;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   userData?: any;
 }
