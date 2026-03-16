@@ -166,7 +166,8 @@
               "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js",
               "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
               "node_modules/datatables.net-select/js/dataTables.select.js",
-              "node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.js"
+              "node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.js",
+              "node_modules/materialize-css/dist/js/materialize.js"
             ],
             "styles": [
               "node_modules/datatables.net-dt/css/dataTables.dataTables.css",
@@ -176,7 +177,8 @@
               "node_modules/datatables.net-select-dt/css/select.dataTables.css",
               "node_modules/materialize-css/dist/css/materialize.css",
               "demo/src/styles.css"
-            ]
+            ],
+            "karmaConfig": "demo/karma.conf.js"
           }
         },
         "lint": {

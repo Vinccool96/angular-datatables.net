@@ -1,44 +1,28 @@
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables.net';
-import { MarkdownModule } from 'ngx-markdown';
-import { BaseDemoComponent } from '../base-demo/base-demo.component';
+import { waitForAsync } from '@angular/core/testing';
 import { ServerSideAngularWayComponent } from './server-side-angular-way.component';
-import { AppRoutingModule } from '../app.routing';
-
-let fixture: ComponentFixture<ServerSideAngularWayComponent>,
-  component: null | ServerSideAngularWayComponent = null;
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { MockComponent } from 'ng-mocks';
+import { MarkdownComponent } from 'ngx-markdown';
 
 describe('ServerSideAngularWayComponent', () => {
+  let spectator: Spectator<ServerSideAngularWayComponent>;
+  let component: ServerSideAngularWayComponent;
+
+  const createComponent = createComponentFactory({
+    component: ServerSideAngularWayComponent,
+    declarations: [MockComponent(MarkdownComponent)],
+  });
+
   beforeEach(() => {
-    fixture = TestBed.configureTestingModule({
-      declarations: [BaseDemoComponent, ServerSideAngularWayComponent, DataTableDirective],
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        AppRoutingModule,
-        RouterTestingModule,
-        DataTablesModule,
-        MarkdownModule.forRoot({
-          sanitize: SecurityContext.NONE,
-        }),
-      ],
-      providers: [provideHttpClient(withInterceptorsFromDi())],
-    }).createComponent(ServerSideAngularWayComponent);
-
-    component = fixture.componentInstance;
-
-    fixture.detectChanges(); // initial binding
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create the app', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   }));
 
   it('should have title "Server side the Angular way"', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance as ServerSideAngularWayComponent;
-    expect(app.pageTitle).toBe('Server side the Angular way');
+    expect(component.pageTitle).toBe('Server side the Angular way');
   }));
 });

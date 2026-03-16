@@ -1,64 +1,44 @@
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables.net';
-import { MarkdownModule } from 'ngx-markdown';
-import { BaseDemoComponent } from '../base-demo/base-demo.component';
-import { AppRoutingModule } from '../app.routing';
-import { FormsModule } from '@angular/forms';
+import { waitForAsync } from '@angular/core/testing';
+import { DataTableDirective } from 'angular-datatables.net';
 import { RouterLinkComponent } from './router-link.component';
 import { Router } from '@angular/router';
-import { By } from '@angular/platform-browser';
-import { DemoNgComponent } from './demo-ng-template-ref.component';
-
-let fixture: ComponentFixture<RouterLinkComponent>,
-  component: null | RouterLinkComponent = null,
-  router!: Router;
+import { createComponentFactory, mockProvider, Spectator, SpyObject } from '@ngneat/spectator';
+import { MockComponent } from 'ng-mocks';
+import { MarkdownComponent } from 'ngx-markdown';
 
 describe('RouterLinkComponent', () => {
+  let spectator: Spectator<RouterLinkComponent>;
+  let component: RouterLinkComponent;
+  let router: SpyObject<Router>;
+
+  const createComponent = createComponentFactory({
+    component: RouterLinkComponent,
+    declarations: [MockComponent(MarkdownComponent)],
+    providers: [mockProvider(Router)],
+  });
+
   beforeEach(() => {
-    fixture = TestBed.configureTestingModule({
-      declarations: [BaseDemoComponent, DemoNgComponent, RouterLinkComponent, DataTableDirective],
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        AppRoutingModule,
-        RouterTestingModule,
-        DataTablesModule,
-        MarkdownModule.forRoot({
-          sanitize: SecurityContext.NONE,
-        }),
-        FormsModule,
-      ],
-      providers: [provideHttpClient(withInterceptorsFromDi())],
-    }).createComponent(RouterLinkComponent);
-
-    component = fixture.componentInstance;
-    router = TestBed.inject(Router);
-
-    fixture.detectChanges(); // initial binding
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create the app', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   }));
 
   it('should have title "Router Link"', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance as RouterLinkComponent;
-    expect(app.pageTitle).toBe('Router Link');
+    expect(component.pageTitle).toBe('Router Link');
   }));
 
   it('should respond to button click event inside TemplateRef', async () => {
-    await fixture.whenStable();
+    await spectator.fixture.whenStable();
 
-    const query = fixture.debugElement.query(By.directive(DataTableDirective));
-    const dir = query.injector.get(DataTableDirective);
+    const dir = spectator.query(DataTableDirective) as DataTableDirective;
     expect(dir).toBeTruthy();
 
     const rSpy = spyOn(router, 'navigate');
 
-    const row: HTMLTableRowElement = fixture.nativeElement.querySelector('tbody tr:first-child');
+    const row = spectator.query<HTMLTableRowElement>('tbody tr:first-child') as HTMLTableRowElement;
     const button = row.querySelector('button.btn-sm') as HTMLButtonElement;
     button.click();
 

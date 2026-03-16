@@ -1,59 +1,39 @@
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
-import { ComponentFixture, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables.net';
-import { MarkdownModule } from 'ngx-markdown';
-import { BaseDemoComponent } from '../base-demo/base-demo.component';
-import { AppRoutingModule } from '../app.routing';
-import { By } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { waitForAsync } from '@angular/core/testing';
+import { DataTableDirective } from 'angular-datatables.net';
 import { DtInstanceComponent } from './dt-instance.component';
-
-let fixture: ComponentFixture<DtInstanceComponent>,
-  component: null | DtInstanceComponent = null;
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { MockComponent } from 'ng-mocks';
+import { MarkdownComponent } from 'ngx-markdown';
 
 describe('DtInstanceComponent', () => {
+  let spectator: Spectator<DtInstanceComponent>;
+  let component: DtInstanceComponent;
+
+  const createComponent = createComponentFactory({
+    component: DtInstanceComponent,
+    declarations: [MockComponent(MarkdownComponent)],
+  });
+
   beforeEach(() => {
-    fixture = TestBed.configureTestingModule({
-      declarations: [BaseDemoComponent, DtInstanceComponent, DataTableDirective],
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        AppRoutingModule,
-        RouterTestingModule,
-        DataTablesModule,
-        MarkdownModule.forRoot({
-          sanitize: SecurityContext.NONE,
-        }),
-        FormsModule,
-      ],
-      providers: [provideHttpClient(withInterceptorsFromDi())],
-    }).createComponent(DtInstanceComponent);
-
-    component = fixture.componentInstance;
-
-    fixture.detectChanges(); // initial binding
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create the app', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   }));
 
   it('should have title "Finding DataTable instance"', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance as DtInstanceComponent;
-    expect(app.pageTitle).toBe('Finding DataTable instance');
+    expect(component.pageTitle).toBe('Finding DataTable instance');
   }));
 
   it('should retrieve Table instance', async () => {
-    const app = fixture.componentInstance as DtInstanceComponent;
-    await fixture.whenStable();
+    await spectator.fixture.whenStable();
 
-    const query = fixture.debugElement.query(By.directive(DataTableDirective));
-    const dir = query.injector.get(DataTableDirective);
+    const dir = spectator.query(DataTableDirective);
     expect(dir).toBeTruthy();
 
-    const instance = await dir.dtInstance;
+    const instance = await dir?.dtInstance;
     expect(instance).toBeTruthy();
   });
 });

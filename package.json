@@ -99,6 +99,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "linklocal": "^2.8.2",
+    "ng-mocks": "^14.15.2",
     "ng-packagr": "^19.0.1",
     "ngx-markdown": "^19.0.0",
     "prettier": "^3.8.1",

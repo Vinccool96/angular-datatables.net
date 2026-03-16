@@ -1,61 +1,41 @@
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
-import { ComponentFixture, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables.net';
-import { MarkdownModule } from 'ngx-markdown';
-import { BaseDemoComponent } from '../base-demo/base-demo.component';
-import { AppRoutingModule } from '../app.routing';
-import { By } from '@angular/platform-browser';
+import { waitForAsync } from '@angular/core/testing';
+import { DataTableDirective } from 'angular-datatables.net';
 import { CustomRangeSearchComponent } from './custom-range-search.component';
-import { FormsModule } from '@angular/forms';
-
-let fixture: ComponentFixture<CustomRangeSearchComponent>,
-  component: null | CustomRangeSearchComponent = null;
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { MockComponent } from 'ng-mocks';
+import { MarkdownComponent } from 'ngx-markdown';
 
 describe('CustomRangeSearchComponent', () => {
+  let spectator: Spectator<CustomRangeSearchComponent>;
+  let component: CustomRangeSearchComponent;
+
+  const createComponent = createComponentFactory({
+    component: CustomRangeSearchComponent,
+    declarations: [MockComponent(MarkdownComponent)],
+  });
+
   beforeEach(() => {
-    fixture = TestBed.configureTestingModule({
-      declarations: [BaseDemoComponent, CustomRangeSearchComponent, DataTableDirective],
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        AppRoutingModule,
-        RouterTestingModule,
-        DataTablesModule,
-        MarkdownModule.forRoot({
-          sanitize: SecurityContext.NONE,
-        }),
-        FormsModule,
-      ],
-      providers: [provideHttpClient(withInterceptorsFromDi())],
-    }).createComponent(CustomRangeSearchComponent);
-
-    component = fixture.componentInstance;
-
-    fixture.detectChanges(); // initial binding
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create the app', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   }));
 
   it('should have title "Custom filtering - Range search"', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance as CustomRangeSearchComponent;
-    expect(app.pageTitle).toBe('Custom filtering - Range search');
+    expect(component.pageTitle).toBe('Custom filtering - Range search');
   }));
 
   it('should have data filtered when min, max values change', async () => {
-    const app = fixture.componentInstance as CustomRangeSearchComponent;
-    await fixture.whenStable();
+    await spectator.fixture.whenStable();
 
-    const query = fixture.debugElement.query(By.directive(DataTableDirective));
-    const dir = query.injector.get(DataTableDirective);
+    const dir = spectator.query(DataTableDirective) as DataTableDirective;
     expect(dir).toBeTruthy();
     const instance = await dir.dtInstance;
 
-    const inputFieldMin: HTMLInputElement = fixture.nativeElement.querySelector('input[name="min"]');
-    const inputFieldMax: HTMLInputElement = fixture.nativeElement.querySelector('input[name="max"]');
+    const inputFieldMin = spectator.query('input[name="min"]') as HTMLInputElement;
+    const inputFieldMax = spectator.query('input[name="max"]') as HTMLInputElement;
 
     //  # Test 1
 
@@ -66,7 +46,7 @@ describe('CustomRangeSearchComponent', () => {
     inputFieldMax.dispatchEvent(new Event('input'));
 
     instance.draw();
-    fixture.detectChanges();
+    spectator.detectChanges();
 
     expect(instance.rows({ page: 'current' }).count()).toBe(1);
 
@@ -79,7 +59,7 @@ describe('CustomRangeSearchComponent', () => {
     inputFieldMax.dispatchEvent(new Event('input'));
 
     instance.draw();
-    fixture.detectChanges();
+    spectator.detectChanges();
 
     expect(instance.rows({ page: 'current' }).count()).toBe(3);
   });

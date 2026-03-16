@@ -1,57 +1,38 @@
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables.net';
-import { MarkdownModule } from 'ngx-markdown';
-import { BaseDemoComponent } from '../base-demo/base-demo.component';
+import { DataTableDirective } from 'angular-datatables.net';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { WithAjaxComponent } from './with-ajax.component';
-import { AppRoutingModule } from '../app.routing';
-import { By } from '@angular/platform-browser';
-
-let fixture: ComponentFixture<WithAjaxComponent>,
-  component: null | WithAjaxComponent = null;
+import { MockComponent } from 'ng-mocks';
+import { MarkdownComponent } from 'ngx-markdown';
 
 describe('WithAjaxComponent', () => {
-  beforeEach(() => {
-    fixture = TestBed.configureTestingModule({
-      declarations: [BaseDemoComponent, WithAjaxComponent, DataTableDirective],
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        AppRoutingModule,
-        RouterTestingModule,
-        DataTablesModule,
-        MarkdownModule.forRoot({
-          sanitize: SecurityContext.NONE,
-        }),
-      ],
-      providers: [provideHttpClient(withInterceptorsFromDi())],
-    }).createComponent(WithAjaxComponent);
+  let spectator: Spectator<WithAjaxComponent>;
+  let component: WithAjaxComponent;
 
-    component = fixture.componentInstance;
-
-    fixture.detectChanges(); // initial binding
+  const createComponent = createComponentFactory({
+    component: WithAjaxComponent,
+    declarations: [MockComponent(MarkdownComponent)],
   });
 
-  it('should create the app', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+  beforeEach(() => {
+    spectator = createComponent();
+    component = spectator.component;
+  });
 
-  it('should have title "Quickstart"', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance as WithAjaxComponent;
-    expect(app.pageTitle).toBe('Quickstart');
-  }));
+  it('should create the app', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should have title "Quickstart"', () => {
+    expect(component.pageTitle).toBe('Quickstart');
+  });
 
   it('should have table populated via AJAX', async () => {
-    const app = fixture.debugElement.componentInstance as WithAjaxComponent;
-    await fixture.whenStable();
-    expect(app.dtOptions.columns).toBeDefined();
-    const query = fixture.debugElement.query(By.directive(DataTableDirective));
-    const dir = query.injector.get(DataTableDirective);
+    await spectator.fixture.whenStable();
+    expect(component.dtOptions().columns).toBeDefined();
+    const dir = spectator.query(DataTableDirective);
     expect(dir).toBeTruthy();
-    const instance = await dir.dtInstance;
-    fixture.detectChanges();
-    expect(instance.rows().length).toBeGreaterThan(0);
+    const instance = await dir?.dtInstance;
+    spectator.detectChanges();
+    expect(instance?.rows().length).toBeGreaterThan(0);
   });
 });

@@ -1,63 +1,42 @@
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables.net';
-import { MarkdownModule } from 'ngx-markdown';
-import { BaseDemoComponent } from '../base-demo/base-demo.component';
-import { AppRoutingModule } from '../app.routing';
-import { FormsModule } from '@angular/forms';
+import { waitForAsync } from '@angular/core/testing';
+import { DataTableDirective } from 'angular-datatables.net';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { UsingNgPipeComponent } from './using-ng-pipe.component';
-import { UpperCasePipe, CurrencyPipe } from '@angular/common';
-import { By } from '@angular/platform-browser';
-import { Person } from 'app/person';
-
-let fixture: ComponentFixture<UsingNgPipeComponent>,
-  component: null | UsingNgPipeComponent = null;
+import { Person } from '../../person/models/person';
+import { MockComponent } from 'ng-mocks';
+import { MarkdownComponent } from 'ngx-markdown';
 
 describe('UsingNgPipeComponent', () => {
+  let spectator: Spectator<UsingNgPipeComponent>;
+  let component: UsingNgPipeComponent;
+
+  const createComponent = createComponentFactory({
+    component: UsingNgPipeComponent,
+    declarations: [MockComponent(MarkdownComponent)],
+  });
+
   beforeEach(() => {
-    fixture = TestBed.configureTestingModule({
-      declarations: [BaseDemoComponent, UsingNgPipeComponent, DataTableDirective],
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        AppRoutingModule,
-        RouterTestingModule,
-        DataTablesModule,
-        MarkdownModule.forRoot({
-          sanitize: SecurityContext.NONE,
-        }),
-        FormsModule,
-      ],
-      providers: [UpperCasePipe, CurrencyPipe, provideHttpClient(withInterceptorsFromDi())],
-    }).createComponent(UsingNgPipeComponent);
-
-    component = fixture.componentInstance;
-
-    fixture.detectChanges(); // initial binding
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create the app', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   }));
 
   it('should have title "Using Angular Pipe"', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance as UsingNgPipeComponent;
-    expect(app.pageTitle).toBe('Using Angular Pipe');
+    expect(component.pageTitle).toBe('Using Angular Pipe');
   }));
 
   it('should have firstName, lastName columns have text in uppercase', async () => {
-    const app = fixture.debugElement.componentInstance as UsingNgPipeComponent;
-    await fixture.whenStable();
+    await spectator.fixture.whenStable();
 
-    const query = fixture.debugElement.query(By.directive(DataTableDirective));
-    const dir = query.injector.get(DataTableDirective);
+    const dir = spectator.query(DataTableDirective) as DataTableDirective;
     expect(dir).toBeTruthy();
 
     const instance = await dir.dtInstance;
 
-    const rows = fixture.nativeElement.querySelectorAll('tbody tr');
+    const rows = spectator.queryAll('tbody tr');
 
     const testsArray = [0, 3, 6];
     const expectedArray = testsArray.map((_) => true);
@@ -79,16 +58,14 @@ describe('UsingNgPipeComponent', () => {
   });
 
   it('should have money on id column', async () => {
-    const app = fixture.debugElement.componentInstance as UsingNgPipeComponent;
-    await fixture.whenStable();
+    await spectator.fixture.whenStable();
 
-    const query = fixture.debugElement.query(By.directive(DataTableDirective));
-    const dir = query.injector.get(DataTableDirective);
+    const dir = spectator.query(DataTableDirective) as DataTableDirective;
     expect(dir).toBeTruthy();
 
     const instance = await dir.dtInstance;
 
-    const rows = fixture.nativeElement.querySelectorAll('tbody tr');
+    const rows = spectator.queryAll<HTMLElement>('tbody tr');
 
     const testsArray = [0, 3, 6];
     const expectedArray = testsArray.map((_) => true);
@@ -97,7 +74,7 @@ describe('UsingNgPipeComponent', () => {
       testsArray.map((index) => {
         const dataRow = rows[index];
 
-        const pipeInstance = app.pipeCurrencyInstance;
+        const pipeInstance = component.pipeCurrencyInstance;
 
         const IdFromData = (instance.row(dataRow).data() as Person).id;
         const IdFromTable = $('td:nth-child(1)', dataRow).text();
@@ -107,18 +84,17 @@ describe('UsingNgPipeComponent', () => {
   });
 
   it('should not crash when using "visible: false" for columns', async () => {
-    await fixture.whenStable();
-    fixture.detectChanges();
+    await spectator.fixture.whenStable();
+    spectator.detectChanges();
 
-    const query = fixture.debugElement.query(By.directive(DataTableDirective));
-    const dir = query.injector.get(DataTableDirective);
+    const dir = spectator.query(DataTableDirective) as DataTableDirective;
     expect(dir).toBeTruthy();
 
     // hide first column
     (await dir.dtInstance).columns(0).visible(false);
-    await fixture.whenRenderingDone();
+    await spectator.fixture.whenRenderingDone();
 
-    fixture.detectChanges();
+    spectator.detectChanges();
 
     // verify app still works
     expect((await dir.dtInstance).column(0).visible()).toBeFalse();

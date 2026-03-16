@@ -1,61 +1,44 @@
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables.net';
-import { MarkdownModule } from 'ngx-markdown';
-import { By } from '@angular/platform-browser';
+import { DataTableDirective } from 'angular-datatables.net';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
 import { ZeroConfigComponent } from './zero-config.component';
-import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
-
-let fixture: ComponentFixture<ZeroConfigComponent>,
-  component: null | ZeroConfigComponent = null;
+import { MockComponent } from 'ng-mocks';
+import { MarkdownComponent } from 'ngx-markdown';
 
 describe('ZeroConfigComponent', () => {
+  let spectator: Spectator<ZeroConfigComponent>;
+  let component: ZeroConfigComponent;
+
+  const createComponent = createComponentFactory({
+    component: ZeroConfigComponent,
+    declarations: [MockComponent(MarkdownComponent)],
+  });
+
   beforeEach(() => {
-    fixture = TestBed.configureTestingModule({
-      declarations: [BaseDemoComponent, ZeroConfigComponent, DataTableDirective],
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        AppRoutingModule,
-        RouterTestingModule,
-        DataTablesModule,
-        MarkdownModule.forRoot({
-          sanitize: SecurityContext.NONE,
-        }),
-      ],
-      providers: [provideHttpClient(withInterceptorsFromDi())],
-    }).createComponent(ZeroConfigComponent);
-
-    component = fixture.componentInstance;
-
-    fixture.detectChanges(); // initial binding
+    spectator = createComponent();
+    component = spectator.component;
   });
 
-  it('should create the app', function (done) {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  it('should create the app', (done) => {
+    expect(component).toBeTruthy();
     done();
   });
 
-  it('should have title "Zero configuration"', function (done) {
-    const app = fixture.debugElement.componentInstance as ZeroConfigComponent;
-    expect(app.pageTitle).toBe('Zero configuration');
+  it('should have title "Zero configuration"', (done) => {
+    expect(component.pageTitle).toBe('Zero configuration');
     done();
   });
 
-  it('should create DataTables instance', function (done) {
-    const query = fixture.debugElement.query(By.directive(DataTableDirective));
-    const dir = query.injector.get(DataTableDirective);
+  it('should create DataTables instance', (done) => {
+    const dir = spectator.query(DataTableDirective);
     expect(dir).toBeTruthy();
-    dir.dtInstance
+    dir?.dtInstance
       .then((i) => {
         expect($.fn.dataTable.isDataTable(i)).toBeTruthy();
         done();
       })
-      .catch((e) => {
-        done.fail(e);
+      .catch((e: unknown) => {
+        fail(e);
       });
   });
 });
