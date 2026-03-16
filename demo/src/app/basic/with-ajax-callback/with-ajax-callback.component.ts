@@ -1,36 +1,32 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net';
-import { DataTablesResponse } from '../../datatables-response.model';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+
+import { AjaxService } from './service/ajax.service';
+import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
   selector: 'app-with-ajax-callback',
+  imports: [BaseDemoComponent, DataTableDirective],
   templateUrl: './with-ajax-callback.component.html',
+  styleUrl: './with-ajax-callback.component.css',
 })
 export class WithAjaxCallbackComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  readonly pageTitle = 'AJAX with callback';
+  readonly mdIntro = 'docs/basic/with-ajax-callback/intro.md';
+  readonly mdHTML = 'docs/basic/with-ajax-callback/source-html.md';
+  readonly mdTS = 'docs/basic/with-ajax-callback/source-ts.md';
+  readonly mdTSV1 = 'docs/basic/with-ajax-callback/source-ts-dtv1.md';
 
-  pageTitle = 'AJAX with callback';
-  mdIntro = 'assets/docs/basic/with-ajax-callback/intro.md';
-  mdHTML = 'assets/docs/basic/with-ajax-callback/source-html.md';
-  mdTS = 'assets/docs/basic/with-ajax-callback/source-ts.md';
-  mdTSV1 = 'assets/docs/basic/with-ajax-callback/source-ts-dtv1.md';
+  private readonly ajax = inject(AjaxService);
 
-  dtOptions: Config = {};
+  readonly dtOptions = signal<ADTSettings>({});
 
-  ngOnInit(): void {
-    const that = this;
-    this.dtOptions = {
-      ajax: (dataTablesParameters: any, callback) => {
-        that.http
-          .post<DataTablesResponse>('https://xtlncifojk.eu07.qoddiapp.com/', dataTablesParameters, {})
-          .subscribe((resp) => {
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: resp.data,
-            });
-          });
+  ngOnInit() {
+    this.dtOptions.set({
+      ajax: (_, callback) => {
+        this.ajax.getResult().subscribe((result) => {
+          callback(result);
+        });
       },
       columns: [
         {
@@ -46,6 +42,6 @@ export class WithAjaxCallbackComponent implements OnInit {
           data: 'lastName',
         },
       ],
-    };
+    });
   }
 }

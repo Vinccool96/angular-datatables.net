@@ -3,7 +3,7 @@
   "version": "19.0.0",
   "description": "Angular directive for DataTables",
   "scripts": {
-    "start": "ng serve",
+    "start": "ng serve angular-datatables.net-demo",
     "build:lib": "npm run clean && ng build angular-datatables.net --configuration=production && npm run lib:schematics:build",
     "clean": "rimraf -f lib/**/index.{d.ts,js,js.map,metadata.json} demo/**/*.{d.ts,js,map,metadata.json} schematics/**/*.{d.ts,js,map}",
     "demo:test": "ng test",
@@ -46,6 +46,7 @@
     "@eslint/js": "^9.39.2",
     "@types/jasmine": "~5.1.0",
     "@types/jquery": "^3.5.29",
+    "@types/materialize-css": "^1.0.14",
     "@types/node": "^20.11.16",
     "angular-eslint": "^19.8.1",
     "copyfiles": "^2.4.1",

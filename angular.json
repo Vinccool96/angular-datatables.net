@@ -3,25 +3,61 @@
   "version": 1,
   "newProjectRoot": ".",
   "projects": {
-    "angular-datatables.net-demo": {
-      "root": "demo",
-      "sourceRoot": "demo/src",
-      "projectType": "application",
+    "angular-datatables.net": {
+      "root": "lib",
+      "sourceRoot": "lib/src",
+      "projectType": "library",
+      "prefix": "adt",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "lib/ng-package.prod.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "lib/**/*.ts",
+              "lib/**/*.html"
+            ],
+            "eslintConfig": "lib/eslint.config.mjs"
+          }
+        }
+      }
+    },
+    "angular-datatables.net-demo": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "demo",
+      "sourceRoot": "demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/demo",
             "index": "demo/src/index.html",
-            "main": "demo/src/main.ts",
-            "tsConfig": "demo/src/tsconfig.app.json",
+            "browser": "demo/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
+            "tsConfig": "demo/tsconfig.app.json",
             "assets": [
-              "demo/src/assets",
-              "demo/src/data",
-              "demo/src/favicon.png"
+              {
+                "glob": "**/*",
+                "input": "demo/public"
+              }
             ],
             "styles": [
               "node_modules/datatables.net-dt/css/dataTables.dataTables.min.css",
@@ -60,44 +96,48 @@
               "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js",
               "node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.js"
             ],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true,
             "allowedCommonJsDependencies": [
               "jquery"
             ]
           },
           "configurations": {
             "production": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "angular-datatables.net-demo:build"
-          },
           "configurations": {
             "production": {
               "buildTarget": "angular-datatables.net-demo:build:production"
+            },
+            "development": {
+              "buildTarget": "angular-datatables.net-demo:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "angular-datatables.net-demo:build"
-          }
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -106,7 +146,13 @@
               "zone.js",
               "zone.js/testing"
             ],
-            "tsConfig": "demo/src/tsconfig.spec.json",
+            "tsConfig": "demo/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "demo/public"
+              }
+            ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/tether/dist/js/tether.js",
@@ -130,15 +176,6 @@
               "node_modules/datatables.net-select-dt/css/select.dataTables.css",
               "node_modules/materialize-css/dist/css/materialize.css",
               "demo/src/styles.css"
-            ],
-            "assets": [
-              "demo/src/assets",
-              "demo/src/archives",
-              "demo/src/data",
-              "demo/src/favicon.png"
-            ],
-            "include": [
-              "**/*.spec.ts"
             ]
           }
         },
@@ -149,40 +186,7 @@
               "demo/**/*.ts",
               "demo/**/*.html"
             ],
-            "eslintConfig": "demo/eslint.config.mjs"
-          }
-        }
-      }
-    },
-    "angular-datatables.net": {
-      "root": "lib",
-      "sourceRoot": "lib/src",
-      "projectType": "library",
-      "prefix": "adt",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "lib/ng-package.prod.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "lib/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "lib/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "lib/**/*.ts",
-              "lib/**/*.html"
-            ],
-            "eslintConfig": "lib/eslint.config.mjs"
+            "eslintConfig": "demo/eslint.config.js"
           }
         }
       }

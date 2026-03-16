@@ -10,9 +10,9 @@
       <h3>
         <a id="logo-container" routerLink="" class="brand-logo">
           <div class="logo-img">
-            <img src="assets/angular.png" alt="Angular" />
+            <img src="./angular.png" alt="Angular" />
             <span class="plus">+</span>
-            <img src="assets/datatables.png" alt="DataTables" />
+            <img src="./datatables.png" alt="DataTables" />
           </div>
         </a>
       </h3>
@@ -27,10 +27,22 @@
       </a>
 
       <ul id="dropdown1" [(ngModel)]="dtVersion" ngDefaultControl class="dropdown-content">
-        <li [class.active]="dtVersion === 'v2'" (click)="onDTVersionChanged('v2')" value="v2" style="padding: 0 32px">
+        <li
+          [class.active]="dtVersion === 'v2'"
+          (click)="onDTVersionChanged('v2')"
+          value="v2"
+          style="padding: 0 32px"
+          aria-hidden="true"
+        >
           v2.x
         </li>
-        <li [class.active]="dtVersion === 'v1'" (click)="onDTVersionChanged('v1')" value="v1" style="padding: 0 32px">
+        <li
+          [class.active]="dtVersion === 'v1'"
+          (click)="onDTVersionChanged('v1')"
+          value="v1"
+          style="padding: 0 32px"
+          aria-hidden="true"
+        >
           v1.x
         </li>
       </ul>
@@ -41,9 +53,6 @@
     <li><a class="subheader">Getting Started</a></li>
     <li class="bold">
       <a routerLink="/getting-started" class="waves-effect waves-blue">Installation</a>
-    </li>
-    <li class="bold">
-      <a routerLink="/basic/with-ajax" class="waves-effect waves-blue">Quickstart</a>
     </li>
     <li>
       <div class="divider"></div>
@@ -63,13 +72,16 @@
                 <a class="waves-effect waves-blue" routerLink="/basic/with-options">With options</a>
               </li>
               <li>
+                <a class="waves-effect waves-blue" routerLink="/basic/with-ajax">AJAX</a>
+              </li>
+              <li>
                 <a class="waves-effect waves-blue" routerLink="/basic/with-ajax-callback">AJAX using DT callback</a>
               </li>
               <li>
                 <a class="waves-effect waves-blue" routerLink="/basic/new-server-side">Server side</a>
               </li>
               <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/row-click-event">Row click event</a>
+                <a class="waves-effect waves-blue" routerLink="/advanced/row-click">Row click event</a>
               </li>
               <li>
                 <a class="waves-effect waves-blue" routerLink="/advanced/multiple-tables">Multiple tables</a>
@@ -90,10 +102,10 @@
           <div class="collapsible-body">
             <ul>
               <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/using-pipe">Using Pipes</a>
+                <a class="waves-effect waves-blue" routerLink="/advanced/using-ng-pipe">Using Pipes</a>
               </li>
               <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/using-template-ref">Using TemplateRef</a>
+                <a class="waves-effect waves-blue" routerLink="/advanced/using-ng-template-ref">Using TemplateRef</a>
               </li>
               <li>
                 <a class="waves-effect waves-blue" routerLink="/advanced/rerender">Re-render table</a>
@@ -138,7 +150,7 @@
                 <a class="waves-effect waves-blue" routerLink="/extensions/select">Select extension</a>
               </li>
               <li>
-                <a class="waves-effect waves-blue" routerLink="/extensions/fixed-columns">Fixed Columns extension</a>
+                <a class="waves-effect waves-blue" routerLink="/extensions/fixedcolumns">Fixed Columns extension</a>
               </li>
             </ul>
           </div>
@@ -158,7 +170,7 @@
           <div class="divider"></div>
         </li>
         <!-- Hide deprecated section completely in DT v2 -->
-        <ng-container *ngIf="dtVersion === 'v1'">
+        @if (dtVersion === 'v1') {
           <li>
             <a class="subheader">Deprecated <span class="new badge red" data-badge-caption="">NOT SUPPORTED</span></a>
           </li>
@@ -170,7 +182,7 @@
               >Server side the Angular way</a
             >
           </li>
-        </ng-container>
+        }
       </ul>
     </li>
   </ul>
@@ -186,9 +198,12 @@
       <p>
         <span class="white-text text-darken-2">
           Designed and built with ❤️ by
-          <a class="grey-text text-darken-4" href="https://github.com/l-lin"><u>Louis LIN</u></a
-          >,
-          <a class="grey-text text-darken-4" href="https://github.com/shanmukhateja"><u>Surya Teja K</u></a>
+          <a class="grey-text text-darken-4" href="https://github.com/vinccool96" target="_blank"
+            ><u>Vincent Girard</u></a
+          >, <a class="grey-text text-darken-4" href="https://github.com/l-lin" target="_blank"> <u>Louis LIN</u> </a>,
+          <a class="grey-text text-darken-4" href="https://github.com/shanmukhateja" target="_blank">
+            <u>Surya Teja K</u>
+          </a>
           and contributors.
         </span>
       </p>

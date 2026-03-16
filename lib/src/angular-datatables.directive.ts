@@ -34,7 +34,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
   /**
    * This trigger is used if one wants to trigger manually the DT rendering. Useful when rendering angular rendered DOM.
    */
-  readonly dtTrigger = input<Subject<ADTSettings>>();
+  readonly dtTrigger = input<Subject<ADTSettings> | Subject<ADTSettings | null>>();
 
   /**
    * The DataTable instance built by the jQuery library [DataTables](datatables.net).
