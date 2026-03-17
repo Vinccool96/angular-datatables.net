@@ -1,11 +1,12 @@
 import { waitForAsync } from '@angular/core/testing';
-import { DataTableDirective } from 'angular-datatables.net';
-import { RouterLinkComponent } from './router-link.component';
 import { Router } from '@angular/router';
 import { createComponentFactory, mockProvider, Spectator, SpyObject } from '@ngneat/spectator';
+import { DataTableDirective } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { RouterLinkComponent } from './router-link.component';
 
 describe('RouterLinkComponent', () => {
   let spectator: Spectator<RouterLinkComponent>;

@@ -3,14 +3,14 @@ import { Component } from '@angular/core';
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
-  selector: 'app-server-side-angular-way',
   imports: [BaseDemoComponent],
-  templateUrl: './server-side-angular-way.component.html',
+  selector: 'app-server-side-angular-way',
   styleUrl: './server-side-angular-way.component.css',
+  templateUrl: './server-side-angular-way.component.html',
 })
 export class ServerSideAngularWayComponent {
-  readonly pageTitle = 'Server side the Angular way';
-  readonly mdIntro = 'docs/basic/server-side-angular-way/intro.md';
-  readonly mdHTML = 'docs/basic/server-side-angular-way/source-html.md';
-  readonly mdTSV1 = 'docs/basic/server-side-angular-way/source-ts.md';
+  public readonly pageTitle = 'Server side the Angular way';
+  protected readonly mdHTML = 'docs/basic/server-side-angular-way/source-html.md';
+  protected readonly mdIntro = 'docs/basic/server-side-angular-way/intro.md';
+  protected readonly mdTSV1 = 'docs/basic/server-side-angular-way/source-ts.md';
 }

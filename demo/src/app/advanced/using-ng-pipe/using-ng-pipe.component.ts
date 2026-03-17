@@ -1,47 +1,46 @@
+import { CurrencyPipe, UpperCasePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
-import { CurrencyPipe, UpperCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-using-ng-pipe',
   imports: [DataTableDirective, BaseDemoComponent],
-  templateUrl: './using-ng-pipe.component.html',
-  styleUrl: './using-ng-pipe.component.css',
   providers: [UpperCasePipe, CurrencyPipe],
+  selector: 'app-using-ng-pipe',
+  styleUrl: './using-ng-pipe.component.css',
+  templateUrl: './using-ng-pipe.component.html',
 })
 export class UsingNgPipeComponent implements OnInit {
-  readonly pageTitle = 'Using Angular Pipe';
-  readonly mdIntro = 'docs/advanced/using-ng-pipe/intro.md';
-  readonly mdHTML = 'docs/advanced/using-ng-pipe/source-html.md';
-  readonly mdTS = 'docs/advanced/using-ng-pipe/source-ts.md';
-  readonly mdTSV1 = 'docs/advanced/using-ng-pipe/source-ts-dtv1.md';
+  public readonly pageTitle = 'Using Angular Pipe';
+  public readonly pipeCurrencyInstance = inject(CurrencyPipe);
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/advanced/using-ng-pipe/source-html.md';
+  protected readonly mdIntro = 'docs/advanced/using-ng-pipe/intro.md';
+  protected readonly mdTS = 'docs/advanced/using-ng-pipe/source-ts.md';
+  protected readonly mdTSV1 = 'docs/advanced/using-ng-pipe/source-ts-dtv1.md';
 
   private readonly pipeInstance = inject(UpperCasePipe);
-  public readonly pipeCurrencyInstance = inject(CurrencyPipe);
 
-  dtOptions: ADTSettings = {};
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'Id (Money)',
           data: 'id',
-          ngPipeInstance: this.pipeCurrencyInstance,
           ngPipeArgs: ['USD', 'symbol'],
+          ngPipeInstance: this.pipeCurrencyInstance,
+          title: 'Id (Money)',
         },
         {
-          title: 'First name',
           data: 'firstName',
           ngPipeInstance: this.pipeInstance,
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
           ngPipeInstance: this.pipeInstance,
+          title: 'Last name',
         },
       ],
     };

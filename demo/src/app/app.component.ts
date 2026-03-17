@@ -7,24 +7,29 @@ import { filter, Subject, takeUntil } from 'rxjs';
 import { DtVersionService } from './shared/services/dt-version.service';
 
 @Component({
-  selector: 'app-root',
   imports: [RouterOutlet, FormsModule, RouterLink],
-  templateUrl: './app.component.html',
+  selector: 'app-root',
   styleUrl: './app.component.css',
+  templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit, OnDestroy {
-  dtVersion: 'v2' | 'v1' = 'v2';
-
-  private readonly router = inject(Router);
-  private readonly dtVersionService = inject(DtVersionService);
-
+export class AppComponent implements OnDestroy, OnInit {
   protected readonly destroy$ = new Subject<void>();
 
-  constructor() {
+  protected dtVersion: 'v1' | 'v2' = 'v2';
+  private readonly dtVersionService = inject(DtVersionService);
+
+  private readonly router = inject(Router);
+
+  public constructor() {
     this.dtVersion = this.dtVersionService.dtVersion;
   }
 
-  ngOnInit() {
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  public ngOnInit(): void {
     DataTable.ext.errMode = 'none';
     $('.button-collapse').sideNav({
       closeOnClick: true,
@@ -33,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.events
       .pipe(
         takeUntil(this.destroy$),
-        filter((e) => e instanceof NavigationEnd),
+        filter((event) => event instanceof NavigationEnd),
       )
       .subscribe((_) => {
         // Note: setTimeout is needed to let DOM render tabs
@@ -43,24 +48,19 @@ export class AppComponent implements OnInit, OnDestroy {
       });
 
     $('.dt-version-button').dropdown({
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      belowOrigin: true,
+      constrainWidth: true, // Does not change width of dropdown to that of the activator
+      gutter: 14,
+      hover: false, // Activate on hover
       inDuration: 300,
       outDuration: 225,
-      constrainWidth: true, // Does not change width of dropdown to that of the activator
-      hover: false, // Activate on hover
-      gutter: 14,
-      belowOrigin: true,
-      alignment: 'left', // Displays dropdown with edge aligned to the left of button
       stopPropagation: true, // Stops event propagation
     } as Partial<M.DropdownOptions>);
   }
 
-  onDTVersionChanged(v: 'v2' | 'v1') {
+  protected onDTVersionChanged(v: 'v1' | 'v2'): void {
     this.dtVersion = v;
     this.dtVersionService.versionChanged$.next(v);
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

@@ -1,5 +1,5 @@
 /**
- * @license
+ * @license MIT
  * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
@@ -10,6 +10,8 @@ import { BrowserBuilderOptions, WorkspaceProject } from '@schematics/angular/uti
 
 /**
  * Resolves the architect options for the build target of the given project.
+ * @param project The project
+ * @returns The options
  */
 export function getProjectTargetOptions(project: WorkspaceProject): BrowserBuilderOptions {
   const targetsBuild = project.targets?.build;

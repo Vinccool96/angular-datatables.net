@@ -1,9 +1,10 @@
 import { waitForAsync } from '@angular/core/testing';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { RowClickComponent } from './row-click.component';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { RowClickComponent } from './row-click.component';
 
 describe('RowClickComponent', () => {
   let spectator: Spectator<RowClickComponent>;

@@ -5,54 +5,52 @@ import { Subject } from 'rxjs';
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
-  selector: 'app-rerender',
   imports: [BaseDemoComponent, DataTableDirective],
-  templateUrl: './rerender.component.html',
+  selector: 'app-rerender',
   styleUrl: './rerender.component.css',
+  templateUrl: './rerender.component.html',
 })
-export class RerenderComponent implements OnInit, AfterViewInit, OnDestroy {
-  readonly pageTitle = 'Rerender';
-  readonly mdIntro = 'docs/advanced/rerender/intro.md';
-  readonly mdHTML = 'docs/advanced/rerender/source-html.md';
-  readonly mdTS = 'docs/advanced/rerender/source-ts.md';
-  readonly mdTSV1 = 'docs/advanced/rerender/source-ts-dtv1.md';
+export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
+  public readonly pageTitle = 'Rerender';
+  protected dtOptions: ADTSettings = {};
+  protected readonly dtTrigger = new Subject<ADTSettings | null>();
+  protected readonly mdHTML = 'docs/advanced/rerender/source-html.md';
+  protected readonly mdIntro = 'docs/advanced/rerender/intro.md';
+  protected readonly mdTS = 'docs/advanced/rerender/source-ts.md';
+  protected readonly mdTSV1 = 'docs/advanced/rerender/source-ts-dtv1.md';
 
-  readonly datatableElement = viewChild(DataTableDirective);
+  private readonly datatableElement = viewChild(DataTableDirective);
 
-  dtOptions: ADTSettings = {};
+  public ngAfterViewInit(): void {
+    this.dtTrigger.next(null);
+  }
 
-  readonly dtTrigger = new Subject<ADTSettings | null>();
+  public ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
     };
   }
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.next(null);
-  }
-
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
-
-  rerender(): void {
+  public rerender(): void {
     void this.datatableElement()?.dtInstance.then((dtInstance) => {
       // Destroy the table first
       dtInstance.destroy();

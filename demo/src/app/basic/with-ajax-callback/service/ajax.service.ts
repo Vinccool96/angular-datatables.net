@@ -1,6 +1,7 @@
-import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { Person } from '../../../person/models/person';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Person } from '../../../person/models/person';
 export class AjaxService {
   private readonly http = inject(HttpClient);
 
-  public getResult() {
+  public getResult(): Observable<{ data: Person[] }> {
     return this.http.get('data/data.json') as Observable<{ data: Person[] }>;
   }
 }

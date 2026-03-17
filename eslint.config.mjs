@@ -5,6 +5,9 @@ import tseslint from 'typescript-eslint';
 import globals from 'globals';
 import angular from 'angular-eslint';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import perfectionist from 'eslint-plugin-perfectionist';
+import jsdocPlugin from 'eslint-plugin-jsdoc';
 import { includeIgnoreFile } from '@eslint/compat';
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
@@ -19,9 +22,21 @@ export default tseslint.config(
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
       eslintPluginPrettierRecommended,
+      eslintPluginUnicorn.configs.recommended,
+      perfectionist.configs['recommended-natural'],
+      jsdocPlugin.configs['flat/recommended-typescript-error'],
     ],
+    settings: {
+      perfectionist: {
+        order: 'asc',
+        partitionByComment: true,
+        type: 'natural',
+      },
+    },
     processor: angular.processInlineTemplates,
     rules: {
+      '@typescript-eslint/explicit-function-return-type': ['error', { allowHigherOrderFunctions: false }],
+      '@typescript-eslint/explicit-member-accessibility': 'error',
       '@typescript-eslint/no-extraneous-class': 'off',
       '@typescript-eslint/no-misused-promises': [
         'error',
@@ -61,6 +76,43 @@ export default tseslint.config(
       'curly': 'error',
       'eqeqeq': 'error',
       'no-multi-assign': 'error',
+      'perfectionist/sort-classes': [
+        'error',
+        {
+          groups: [
+            'index-signature',
+            ['property', 'accessor-property'],
+            ['protected-property', 'protected-accessor-property'],
+            ['private-property', 'private-accessor-property'],
+            'constructor',
+            'method',
+            'protected-method',
+            'private-method',
+            ['get-method', 'set-method'],
+            'static-property',
+            'static-block',
+            'static-method',
+            'unknown',
+          ],
+        },
+      ],
+      'perfectionist/sort-union-types': [
+        'error',
+        {
+          groups: ['keyword', 'unknown', 'nullish'],
+          type: 'natural',
+        },
+      ],
+      'unicorn/no-null': 'off',
+      'unicorn/prevent-abbreviations': [
+        'error',
+        {
+          replacements: {
+            ref: false,
+            dir: false,
+          },
+        },
+      ],
     },
   },
   {
@@ -78,6 +130,7 @@ export default tseslint.config(
     languageOptions: {
       globals: {
         ...globals.node,
+        ...globals.builtin,
         ...globals.jasmine,
       },
       parserOptions: {

@@ -7,7 +7,7 @@
     "target": "ES2022",
     "module": "esnext",
     "moduleResolution": "node",
-    "lib": ["ES2022", "es2016", "dom"],
+    "lib": ["ES2022", "dom", "ESNext", "ESNext.Array"],
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

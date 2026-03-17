@@ -1,11 +1,12 @@
 import { waitForAsync } from '@angular/core/testing';
-import { DataTableDirective } from 'angular-datatables.net';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { UsingNgPipeComponent } from './using-ng-pipe.component';
-import { Person } from '../../person/models/person';
+import { DataTableDirective } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { Person } from '../../person/models/person';
+import { UsingNgPipeComponent } from './using-ng-pipe.component';
 
 describe('UsingNgPipeComponent', () => {
   let spectator: Spectator<UsingNgPipeComponent>;
@@ -93,12 +94,14 @@ describe('UsingNgPipeComponent', () => {
     expect(dir).toBeTruthy();
 
     // hide first column
-    (await dir.dtInstance).columns(0).visible(false);
+    let instance = await dir.dtInstance;
+    instance.columns(0).visible(false);
     await spectator.fixture.whenRenderingDone();
 
     spectator.detectChanges();
 
     // verify app still works
-    expect((await dir.dtInstance).column(0).visible()).toBeFalse();
+    instance = await dir.dtInstance;
+    expect(instance.column(0).visible()).toBeFalse();
   });
 });

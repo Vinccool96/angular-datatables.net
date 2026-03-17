@@ -5,43 +5,42 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
 import 'datatables.net-colreorder';
 
 @Component({
-  selector: 'app-colreorder',
   imports: [DataTableDirective, BaseDemoComponent],
-  templateUrl: './colreorder.component.html',
+  selector: 'app-colreorder',
   styleUrl: './colreorder.component.css',
+  templateUrl: './colreorder.component.html',
 })
 export class ColreorderComponent implements OnInit {
-  readonly pageTitle = 'DataTables ColReorder extension';
-  readonly mdIntro = 'docs/extensions/colreorder/intro.md';
-  readonly mdInstall = 'docs/extensions/colreorder/installation.md';
-  readonly mdHTML = 'docs/extensions/colreorder/source-html.md';
-  readonly mdTS = 'docs/extensions/colreorder/source-ts.md';
-  readonly mdTSV1 = 'docs/extensions/colreorder/source-ts-dtv1.md';
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/extensions/colreorder/source-html.md';
+  protected readonly mdInstall = 'docs/extensions/colreorder/installation.md';
+  protected readonly mdIntro = 'docs/extensions/colreorder/intro.md';
+  protected readonly mdTS = 'docs/extensions/colreorder/source-ts.md';
+  protected readonly mdTSV1 = 'docs/extensions/colreorder/source-ts-dtv1.md';
+  protected readonly pageTitle = 'DataTables ColReorder extension';
 
-  dtOptions: ADTSettings = {};
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
-      columns: [
-        {
-          title: 'No move me!',
-          data: 'id',
-        },
-        {
-          title: 'Try to move me!',
-          data: 'firstName',
-        },
-        {
-          title: 'You cannot move me! *evil laugh*',
-          data: 'lastName',
-        },
-      ],
-      dom: 'Rt',
       // Use this attribute to enable colreorder
       colReorder: {
         columns: ':nth-child(2)',
       },
+      columns: [
+        {
+          data: 'id',
+          title: 'No move me!',
+        },
+        {
+          data: 'firstName',
+          title: 'Try to move me!',
+        },
+        {
+          data: 'lastName',
+          title: 'You cannot move me! *evil laugh*',
+        },
+      ],
+      dom: 'Rt',
     };
   }
 }

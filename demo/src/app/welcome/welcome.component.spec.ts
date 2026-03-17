@@ -1,7 +1,7 @@
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
-import { WelcomeComponent } from './welcome.component';
 import { provideMarkdownServiceTesting } from '../../../test/provide-markdown-service-testing';
+import { WelcomeComponent } from './welcome.component';
 
 describe('WelcomeComponent', () => {
   let spectator: Spectator<WelcomeComponent>;

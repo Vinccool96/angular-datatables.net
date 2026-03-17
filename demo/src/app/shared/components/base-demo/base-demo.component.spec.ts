@@ -1,7 +1,7 @@
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
-import { BaseDemoComponent } from './base-demo.component';
 import { provideMarkdownServiceTesting } from '../../../../../test/provide-markdown-service-testing';
+import { BaseDemoComponent } from './base-demo.component';
 
 describe('BaseDemoComponent', () => {
   let spectator: Spectator<BaseDemoComponent>;
@@ -9,8 +9,8 @@ describe('BaseDemoComponent', () => {
 
   const createComponent = createComponentFactory({
     component: BaseDemoComponent,
-    shallow: true,
     providers: [provideMarkdownServiceTesting()],
+    shallow: true,
   });
 
   beforeEach(() => {

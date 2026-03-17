@@ -1,9 +1,10 @@
 import { waitForAsync } from '@angular/core/testing';
-import { MultipleTablesComponent } from './multiple-tables.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { MultipleTablesComponent } from './multiple-tables.component';
 
 describe('MultipleTablesComponent', () => {
   let spectator: Spectator<MultipleTablesComponent>;

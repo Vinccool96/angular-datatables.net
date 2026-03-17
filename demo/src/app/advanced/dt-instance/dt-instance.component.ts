@@ -1,27 +1,45 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, viewChild } from '@angular/core';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
-import { AsyncPipe } from '@angular/common';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
-  selector: 'app-dt-instance',
   imports: [BaseDemoComponent, DataTableDirective, AsyncPipe],
-  templateUrl: './dt-instance.component.html',
+  selector: 'app-dt-instance',
   styleUrl: './dt-instance.component.css',
+  templateUrl: './dt-instance.component.html',
 })
 export class DtInstanceComponent implements OnInit {
-  readonly pageTitle = 'Finding DataTable instance';
-  readonly mdIntro = 'docs/advanced/dt-instance/intro.md';
-  readonly mdHTML = 'docs/advanced/dt-instance/source-html.md';
-  readonly mdTS = 'docs/advanced/dt-instance/source-ts.md';
-  readonly mdTSV1 = 'docs/advanced/dt-instance/source-ts-dtv1.md';
+  public readonly pageTitle = 'Finding DataTable instance';
+  protected readonly datatableElement = viewChild(DataTableDirective);
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/advanced/dt-instance/source-html.md';
+  protected readonly mdIntro = 'docs/advanced/dt-instance/intro.md';
+  protected readonly mdTS = 'docs/advanced/dt-instance/source-ts.md';
+  protected readonly mdTSV1 = 'docs/advanced/dt-instance/source-ts-dtv1.md';
 
-  readonly datatableElement = viewChild(DataTableDirective);
+  public ngOnInit(): void {
+    this.dtOptions = {
+      ajax: 'data/data.json',
+      columns: [
+        {
+          data: 'id',
+          title: 'ID',
+        },
+        {
+          data: 'firstName',
+          title: 'First name',
+        },
+        {
+          data: 'lastName',
+          title: 'Last name',
+        },
+      ],
+    };
+  }
 
-  dtOptions: ADTSettings = {};
-
-  displayToConsole(datatableElement: DataTableDirective | undefined): void {
+  protected displayToConsole(datatableElement: DataTableDirective | undefined): void {
     if (datatableElement === undefined) {
       return;
     }
@@ -29,25 +47,5 @@ export class DtInstanceComponent implements OnInit {
     void datatableElement.dtInstance.then((dtInstance) => {
       console.log(dtInstance);
     });
-  }
-
-  ngOnInit(): void {
-    this.dtOptions = {
-      ajax: 'data/data.json',
-      columns: [
-        {
-          title: 'ID',
-          data: 'id',
-        },
-        {
-          title: 'First name',
-          data: 'firstName',
-        },
-        {
-          title: 'Last name',
-          data: 'lastName',
-        },
-      ],
-    };
   }
 }

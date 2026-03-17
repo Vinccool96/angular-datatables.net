@@ -1,10 +1,10 @@
-import { DataTableDirective } from 'angular-datatables.net';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-
-import { ZeroConfigComponent } from './zero-config.component';
+import { DataTableDirective } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { ZeroConfigComponent } from './zero-config.component';
 
 describe('ZeroConfigComponent', () => {
   let spectator: Spectator<ZeroConfigComponent>;
@@ -35,12 +35,12 @@ describe('ZeroConfigComponent', () => {
     const dir = spectator.query(DataTableDirective);
     expect(dir).toBeTruthy();
     dir?.dtInstance
-      .then((i) => {
-        expect($.fn.dataTable.isDataTable(i)).toBeTruthy();
+      .then((api) => {
+        expect($.fn.dataTable.isDataTable(api)).toBeTruthy();
         done();
       })
-      .catch((e: unknown) => {
-        fail(e);
+      .catch((error: unknown) => {
+        fail(error);
       });
   });
 });

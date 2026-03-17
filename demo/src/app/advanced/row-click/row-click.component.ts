@@ -5,44 +5,40 @@ import { Person } from '../../person/models/person';
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
-  selector: 'app-row-click',
   imports: [BaseDemoComponent, DataTableDirective],
-  templateUrl: './row-click.component.html',
+  selector: 'app-row-click',
   styleUrl: './row-click.component.css',
+  templateUrl: './row-click.component.html',
 })
 export class RowClickComponent implements OnInit {
-  readonly pageTitle = 'Row click event';
-  readonly mdIntro = 'docs/advanced/row-click/intro.md';
-  readonly mdHTML = 'docs/advanced/row-click/source-html.md';
-  readonly mdTS = 'docs/advanced/row-click/source-ts.md';
-  readonly mdTSV1 = 'docs/advanced/row-click/source-ts-dtv1.md';
+  public readonly message = signal('');
+  public readonly pageTitle = 'Row click event';
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/advanced/row-click/source-html.md';
+  protected readonly mdIntro = 'docs/advanced/row-click/intro.md';
 
-  readonly message = signal('');
+  protected readonly mdTS = 'docs/advanced/row-click/source-ts.md';
 
-  dtOptions: ADTSettings = {};
+  protected readonly mdTSV1 = 'docs/advanced/row-click/source-ts-dtv1.md';
 
-  someClickHandler(info: Person): void {
-    this.message.set(`${info.id} - ${info.firstName}`);
-  }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
-      rowCallback: (row: Node, data: object, _index: number) => {
+      rowCallback: (row: Node, data: object, _index: number): Node => {
         // Unbind first in order to avoid any duplicate handler
         // (see https://github.com/l-lin/angular-datatables/issues/87)
         // Note: In newer jQuery v3 versions, `unbind` and `bind` are
@@ -54,5 +50,9 @@ export class RowClickComponent implements OnInit {
         return row;
       },
     };
+  }
+
+  private someClickHandler(info: Person): void {
+    this.message.set(`${info.id} - ${info.firstName}`);
   }
 }

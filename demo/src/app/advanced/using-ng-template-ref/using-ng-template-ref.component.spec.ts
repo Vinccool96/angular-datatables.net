@@ -1,10 +1,11 @@
 import { waitForAsync } from '@angular/core/testing';
-import { DataTableDirective } from 'angular-datatables.net';
-import { UsingNgTemplateRefComponent } from './using-ng-template-ref.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { DataTableDirective } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { UsingNgTemplateRefComponent } from './using-ng-template-ref.component';
 
 describe('UsingNgTemplateRefComponent', () => {
   let spectator: Spectator<UsingNgTemplateRefComponent>;
@@ -52,13 +53,15 @@ describe('UsingNgTemplateRefComponent', () => {
     expect(dir).toBeTruthy();
 
     // hide first column
-    (await dir.dtInstance).columns(0).visible(false);
+    let instance = await dir.dtInstance;
+    instance.columns(0).visible(false);
     await spectator.fixture.whenRenderingDone();
 
     spectator.detectChanges();
 
     // verify app still works
-    expect((await dir.dtInstance).column(0).visible()).toBeFalse();
+    instance = await dir.dtInstance;
+    expect(instance.column(0).visible()).toBeFalse();
   });
 
   it('should not have duplicate contents in ngTemplateRef column when navigating pages', async () => {
@@ -69,10 +72,12 @@ describe('UsingNgTemplateRefComponent', () => {
     expect(dir).toBeTruthy();
 
     // trigger pagination events
-    (await dir.dtInstance).page(2).draw(false);
+    let instance = await dir.dtInstance;
+    instance.page(2).draw(false);
     await spectator.fixture.whenRenderingDone();
 
-    (await dir.dtInstance).page(0).draw(false);
+    instance = await dir.dtInstance;
+    instance.page(0).draw(false);
     await spectator.fixture.whenRenderingDone();
     spectator.detectChanges();
 

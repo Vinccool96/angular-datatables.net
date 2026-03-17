@@ -1,7 +1,7 @@
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
-import { FaqComponent } from './faq.component';
 import { provideMarkdownServiceTesting } from '../../../test/provide-markdown-service-testing';
+import { FaqComponent } from './faq.component';
 
 describe('FaqComponent', () => {
   let spectator: Spectator<FaqComponent>;

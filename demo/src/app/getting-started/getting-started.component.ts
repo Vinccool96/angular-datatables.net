@@ -5,29 +5,27 @@ import { Subject, takeUntil } from 'rxjs';
 import { DtVersionService } from '../shared/services/dt-version.service';
 
 @Component({
-  selector: 'app-getting-started',
   imports: [MarkdownComponent],
-  templateUrl: './getting-started.component.html',
+  selector: 'app-getting-started',
   styleUrl: './getting-started.component.css',
+  templateUrl: './getting-started.component.html',
 })
-export class GettingStartedComponent implements OnInit, OnDestroy {
+export class GettingStartedComponent implements OnDestroy, OnInit {
   protected readonly dtVersion = signal<'v1' | 'v2'>('v2');
-
-  private readonly dtVersionService = inject(DtVersionService);
-
-  protected readonly mdV1 = 'docs/get-started-dtv1.md';
   protected readonly md = 'docs/get-started.md';
+  protected readonly mdV1 = 'docs/get-started-dtv1.md';
 
   private readonly destroy$ = new Subject<void>();
+  private readonly dtVersionService = inject(DtVersionService);
 
-  ngOnInit() {
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  public ngOnInit(): void {
     this.dtVersionService.versionChanged$.pipe(takeUntil(this.destroy$)).subscribe((v) => {
       this.dtVersion.set(v);
     });
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

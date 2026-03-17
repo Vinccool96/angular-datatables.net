@@ -1,5 +1,5 @@
-import { createHttpFactory, SpectatorHttp } from '@ngneat/spectator';
 import { HttpTestingController } from '@angular/common/http/testing';
+import { createHttpFactory, SpectatorHttp } from '@ngneat/spectator';
 
 import { AjaxService } from './ajax.service';
 

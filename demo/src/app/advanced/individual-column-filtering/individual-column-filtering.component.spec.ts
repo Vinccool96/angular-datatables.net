@@ -1,13 +1,20 @@
 import { waitForAsync } from '@angular/core/testing';
-import { DataTableDirective } from 'angular-datatables.net';
-import { IndividualColumnFilteringComponent } from './individual-column-filtering.component';
-import { Api } from 'datatables.net';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { DataTableDirective } from 'angular-datatables.net';
+import { Api } from 'datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
-import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
-function applyValueToInput(inputElement: HTMLInputElement, value: string, table: Api) {
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { IndividualColumnFilteringComponent } from './individual-column-filtering.component';
+
+/**
+ * Applies the input value to the field and redraws the table
+ * @param inputElement The input
+ * @param value The value
+ * @param table The table to redraw
+ */
+function applyValueToInput(inputElement: HTMLInputElement, value: string, table: Api): void {
   inputElement.value = value;
   inputElement.dispatchEvent(new Event('input'));
   inputElement.dispatchEvent(new Event('change'));
@@ -47,10 +54,10 @@ describe('IndividualColumnFilteringComponent', () => {
 
     const instance = await dir.dtInstance;
 
-    const inputFields = Array.from(spectator.queryAll<HTMLInputElement>('input'));
-    const inputFieldID = inputFields.find((e) => e.name === 'search-id') as HTMLInputElement;
-    const inputFieldFirstName = inputFields.find((e) => e.name === 'search-first-name') as HTMLInputElement;
-    const inputFieldLastName = inputFields.find((e) => e.name === 'search-last-name') as HTMLInputElement;
+    const inputFields = [...spectator.queryAll<HTMLInputElement>('input')];
+    const inputFieldID = inputFields.find((element) => element.name === 'search-id') as HTMLInputElement;
+    const inputFieldFirstName = inputFields.find((element) => element.name === 'search-first-name') as HTMLInputElement;
+    const inputFieldLastName = inputFields.find((element) => element.name === 'search-last-name') as HTMLInputElement;
 
     // # Test 1
     applyValueToInput(inputFieldID, '113', instance);

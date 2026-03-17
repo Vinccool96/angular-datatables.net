@@ -1,9 +1,10 @@
-import { DataTableDirective } from 'angular-datatables.net';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { WithAjaxComponent } from './with-ajax.component';
+import { DataTableDirective } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { WithAjaxComponent } from './with-ajax.component';
 
 describe('WithAjaxComponent', () => {
   let spectator: Spectator<WithAjaxComponent>;

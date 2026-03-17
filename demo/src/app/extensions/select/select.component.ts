@@ -6,37 +6,36 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
 import 'datatables.net-select';
 
 @Component({
-  selector: 'app-select',
   imports: [DataTableDirective, BaseDemoComponent],
-  templateUrl: './select.component.html',
+  selector: 'app-select',
   styleUrl: './select.component.css',
+  templateUrl: './select.component.html',
 })
 export class SelectComponent implements OnInit {
-  readonly pageTitle = 'DataTables Select extension';
-  readonly mdIntro = 'docs/extensions/select/intro.md';
-  readonly mdInstall = 'docs/extensions/select/installation.md';
-  readonly mdInstallV1 = 'docs/extensions/select/installation-dtv1.md';
-  readonly mdHTML = 'docs/extensions/select/source-html.md';
-  readonly mdTS = 'docs/extensions/select/source-ts.md';
-  readonly mdTSV1 = 'docs/extensions/select/source-ts-dtv1.md';
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/extensions/select/source-html.md';
+  protected readonly mdInstall = 'docs/extensions/select/installation.md';
+  protected readonly mdInstallV1 = 'docs/extensions/select/installation-dtv1.md';
+  protected readonly mdIntro = 'docs/extensions/select/intro.md';
+  protected readonly mdTS = 'docs/extensions/select/source-ts.md';
+  protected readonly mdTSV1 = 'docs/extensions/select/source-ts-dtv1.md';
+  protected readonly pageTitle = 'DataTables Select extension';
 
-  dtOptions: ADTSettings = {};
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
       // Use this attribute to enable the select extension

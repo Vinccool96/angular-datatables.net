@@ -1,8 +1,9 @@
-import { ColreorderComponent } from './colreorder.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { ColreorderComponent } from './colreorder.component';
 
 describe('ColreorderComponent', () => {
   let spectator: Spectator<ColreorderComponent>;

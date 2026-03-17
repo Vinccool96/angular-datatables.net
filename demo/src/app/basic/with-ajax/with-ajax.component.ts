@@ -1,40 +1,40 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
-  selector: 'app-with-ajax',
   imports: [BaseDemoComponent, DataTableDirective],
-  templateUrl: './with-ajax.component.html',
+  selector: 'app-with-ajax',
   styleUrl: './with-ajax.component.css',
+  templateUrl: './with-ajax.component.html',
 })
 export class WithAjaxComponent implements OnInit {
-  readonly pageTitle = 'With Ajax';
-  readonly mdIntro = 'docs/basic/with-ajax/intro.md';
-  readonly mdHTML = 'docs/basic/with-ajax/source-html.md';
-  readonly mdTS = 'docs/basic/with-ajax/source-ts.md';
-  readonly mdTSV1 = 'docs/basic/with-ajax/source-ts-dtv1.md';
+  public readonly dtOptions = signal<ADTSettings>({});
+  public readonly pageTitle = 'With Ajax';
+  protected readonly mdHTML = 'docs/basic/with-ajax/source-html.md';
+  protected readonly mdIntro = 'docs/basic/with-ajax/intro.md';
+  protected readonly mdTS = 'docs/basic/with-ajax/source-ts.md';
+  protected readonly mdTSV1 = 'docs/basic/with-ajax/source-ts-dtv1.md';
 
-  readonly dtOptions = signal<ADTSettings>({});
-
-  ngOnInit() {
+  public ngOnInit(): void {
     this.dtOptions.set({
       ajax: 'data/data.json',
-      search: false,
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
+      search: false,
     });
   }
 }

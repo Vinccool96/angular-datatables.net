@@ -7,69 +7,68 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
 import 'datatables.net-buttons-dt';
 
 @Component({
-  selector: 'app-buttons',
   imports: [DataTableDirective, BaseDemoComponent],
-  templateUrl: './buttons.component.html',
+  selector: 'app-buttons',
   styleUrl: './buttons.component.css',
+  templateUrl: './buttons.component.html',
 })
 export class ButtonsComponent implements OnInit {
-  readonly pageTitle = 'DataTables Buttons extension';
-  readonly mdIntro = 'docs/extensions/buttons/intro.md';
-  readonly mdInstall = 'docs/extensions/buttons/installation.md';
-  readonly mdInstallV1 = 'docs/extensions/buttons/installation-dtv1.md';
-  readonly mdHTML = 'docs/extensions/buttons/source-html.md';
-  readonly mdTS = 'docs/extensions/buttons/source-ts.md';
-  readonly mdTSV1 = 'docs/extensions/buttons/source-ts-dtv1.md';
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/extensions/buttons/source-html.md';
+  protected readonly mdInstall = 'docs/extensions/buttons/installation.md';
+  protected readonly mdInstallV1 = 'docs/extensions/buttons/installation-dtv1.md';
+  protected readonly mdIntro = 'docs/extensions/buttons/intro.md';
+  protected readonly mdTS = 'docs/extensions/buttons/source-ts.md';
+  protected readonly mdTSV1 = 'docs/extensions/buttons/source-ts-dtv1.md';
+  protected readonly pageTitle = 'DataTables Buttons extension';
 
-  dtOptions: ADTSettings = {};
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
-      columns: [
-        {
-          title: 'ID',
-          data: 'id',
-        },
-        {
-          title: 'First name',
-          data: 'firstName',
-        },
-        {
-          title: 'Last name',
-          data: 'lastName',
-        },
-      ],
-      // Declare the use of the extension in the dom parameter
-      // dom: 'Bftip',
-      layout: {
-        bottomStart: 'info',
-        bottom2Start: 'paging',
-        bottomEnd: null as unknown as Feature,
-        topEnd: null as unknown as Feature,
-        topStart: 'search',
-        top1Start: 'buttons' as keyof Feature,
-      },
       // Configure the buttons
       buttons: [
         'columnsToggle',
         'colvis',
         'copy',
         {
-          extend: 'csv',
-          text: 'CSV export',
-          fieldSeparator: ';',
           exportOptions: [1, 2, 3],
+          extend: 'csv',
+          fieldSeparator: ';',
+          text: 'CSV export',
         },
         'excel',
         {
-          text: 'Some button',
-          key: '1',
-          action: () => {
+          action: (): void => {
             alert('Button activated');
           },
+          key: '1',
+          text: 'Some button',
         },
       ],
+      columns: [
+        {
+          data: 'id',
+          title: 'ID',
+        },
+        {
+          data: 'firstName',
+          title: 'First name',
+        },
+        {
+          data: 'lastName',
+          title: 'Last name',
+        },
+      ],
+      // Declare the use of the extension in the dom parameter
+      // dom: 'Bftip',
+      layout: {
+        bottom2Start: 'paging',
+        bottomEnd: null as unknown as Feature,
+        bottomStart: 'info',
+        top1Start: 'buttons' as keyof Feature,
+        topEnd: null as unknown as Feature,
+        topStart: 'search',
+      },
     };
   }
 }

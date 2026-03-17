@@ -1,7 +1,7 @@
 import { waitForAsync } from '@angular/core/testing';
+import { createRoutingFactory, Spectator } from '@ngneat/spectator';
 
 import { AppComponent } from './app.component';
-import { createRoutingFactory, Spectator } from '@ngneat/spectator';
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
@@ -9,8 +9,8 @@ describe('AppComponent', () => {
 
   const createComponent = createRoutingFactory({
     component: AppComponent,
-    shallow: true,
     routes: [],
+    shallow: true,
   });
 
   beforeEach(() => {
