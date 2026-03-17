@@ -25,9 +25,9 @@ runs:
     - name: Use Node.js ${{ inputs.node-version }}
       uses: actions/setup-node@v4
       with:
-       cache: 'npm'
-       node-version: ${{ inputs.node-version }}
-       registry-url: ${{ inputs.registry-url }}
+        cache: 'npm'
+        node-version: ${{ inputs.node-version }}
+        registry-url: ${{ inputs.registry-url }}
     - name: Install dependencies
       shell: bash
       working-directory: ${{ inputs.working-directory }}

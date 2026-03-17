@@ -62,7 +62,7 @@ jobs:
     needs: [build]
     strategy:
       matrix:
-        lint-task: [ 'lint:lib', 'lint:demo' ]
+        lint-task: ['lint:lib', 'lint:demo']
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -81,9 +81,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest ]
+        os: [ubuntu-latest, windows-latest]
         # just run on the oldest and latest supported versions and assume the intermediate versions are good
-        node-version: [ 18, 20 ]
+        node-version: [18, 20]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
