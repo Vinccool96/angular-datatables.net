@@ -27,10 +27,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vinccool96/angular-datatables.git"
+    "url": "git+https://github.com/vinccool96/angular-datatables.net.git"
   },
   "bugs": {
-    "url": "https://github.com/vinccool96/angular-datatables/issues"
+    "url": "https://github.com/vinccool96/angular-datatables.net/issues"
   },
-  "homepage": "https://github.com/vinccool96/angular-datatables#readme"
+  "homepage": "https://github.com/vinccool96/angular-datatables.net#readme"
 }

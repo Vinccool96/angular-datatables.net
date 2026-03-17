@@ -1,34 +1,33 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { waitForAsync } from '@angular/core/testing';
+
 import { AppComponent } from './app.component';
+import { createRoutingFactory, Spectator } from '@ngneat/spectator';
 
 describe('AppComponent', () => {
+  let spectator: Spectator<AppComponent>;
+  let component: AppComponent;
+
+  const createComponent = createRoutingFactory({
+    component: AppComponent,
+    shallow: true,
+    routes: [],
+  });
+
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-      imports: [
-        RouterTestingModule
-      ]
-    });
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create the app', waitForAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   }));
 
   it(`should have angular logo on navbar`, waitForAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('img[src="assets/angular.png"]')).toBeTruthy();
+    spectator.detectChanges();
+    expect(spectator.query('img[src="./angular.png"]')).toBeTruthy();
   }));
 
   it(`should have datatables logo on navbar`, waitForAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('img[src="assets/datatables.png"]')).toBeTruthy();
+    expect(spectator.query('img[src="./datatables.png"]')).toBeTruthy();
   }));
 });

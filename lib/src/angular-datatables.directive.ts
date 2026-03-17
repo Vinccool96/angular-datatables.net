@@ -5,49 +5,56 @@
  * found in the LICENSE file at https://raw.githubusercontent.com/vinccool96/angular-datatables.net/master/LICENSE
  */
 
-import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewContainerRef } from '@angular/core';
-import { Subject } from 'rxjs';
-import { ADTSettings, ADTColumns } from './models/settings';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  input,
+  model,
+  OnDestroy,
+  OnInit,
+  PipeTransform,
+  Renderer2,
+  ViewContainerRef,
+} from '@angular/core';
 import { Api } from 'datatables.net';
+import { Subject } from 'rxjs';
+
+import { ADTColumns, ADTSettings, ADTTemplateRef } from './models/settings';
 
 @Directive({
-    selector: '[datatable]',
-    standalone: false
+  selector: '[adtDatatable]',
 })
 export class DataTableDirective implements OnDestroy, OnInit {
   /**
    * The DataTable option you pass to configure your table.
    */
-  @Input()
-  dtOptions: ADTSettings = {};
+  readonly dtOptions = model<ADTSettings>({});
 
   /**
-   * This trigger is used if one wants to trigger manually the DT rendering
-   * Useful when rendering angular rendered DOM
+   * This trigger is used if one wants to trigger manually the DT rendering. Useful when rendering angular rendered DOM.
    */
-  @Input()
-  dtTrigger!: Subject<ADTSettings>;
+  readonly dtTrigger = input<Subject<ADTSettings> | Subject<ADTSettings | null>>();
 
   /**
    * The DataTable instance built by the jQuery library [DataTables](datatables.net).
    *
-   * It's possible to execute the [DataTables APIs](https://datatables.net/reference/api/) with
-   * this variable.
+   * It's possible to execute the [DataTables APIs](https://datatables.net/reference/api/) with this variable.
    */
   dtInstance!: Promise<Api>;
 
   // Only used for destroying the table when destroying this directive
-  private dt!: Api;
+  private dt: Api | null = null;
 
-  constructor(
-    private el: ElementRef,
-    private vcr: ViewContainerRef,
-    private renderer: Renderer2
-  ) { }
+  private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly vcr = inject(ViewContainerRef);
+  private readonly renderer = inject(Renderer2);
 
   ngOnInit(): void {
-    if (this.dtTrigger) {
-      this.dtTrigger.subscribe((options) => {
+    const trigger = this.dtTrigger();
+
+    if (trigger !== undefined) {
+      trigger.subscribe((options) => {
         this.displayTable(options);
       });
     } else {
@@ -56,31 +63,31 @@ export class DataTableDirective implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.dtTrigger) {
-      this.dtTrigger.unsubscribe();
-    }
-    if (this.dt) {
-      this.dt.destroy(true);
-    }
+    this.dtTrigger()?.unsubscribe();
+
+    this.dt?.destroy(true);
   }
 
   private displayTable(dtOptions: ADTSettings | null): void {
     // assign new options if provided
-    if (dtOptions) {
-      this.dtOptions = dtOptions;
+    if (dtOptions !== null) {
+      this.dtOptions.set(dtOptions);
     }
+
     this.dtInstance = new Promise((resolve, reject) => {
-      Promise.resolve(this.dtOptions).then(resolvedDTOptions => {
+      void Promise.resolve(this.dtOptions()).then((resolvedDTOptions) => {
         // validate object
-        const isTableEmpty = Object.keys(resolvedDTOptions).length === 0 && $('tbody tr', this.el.nativeElement).length === 0;
+        const isTableEmpty =
+          Object.keys(resolvedDTOptions).length === 0 && $('tbody tr', this.el.nativeElement).length === 0;
+
         if (isTableEmpty) {
-          reject('Both the table and dtOptions cannot be empty');
+          reject(new Error('Both the table and dtOptions cannot be empty'));
           return;
         }
 
         // Set a column unique
-        if (resolvedDTOptions.columns) {
-          resolvedDTOptions.columns.forEach(col => {
+        if (resolvedDTOptions.columns !== undefined) {
+          resolvedDTOptions.columns.forEach((col) => {
             if ((col.id ?? '').trim() === '') {
               col.id = this.getColumnUniqueId();
             }
@@ -92,17 +99,17 @@ export class DataTableDirective implements OnDestroy, OnInit {
           // Assign DT properties here
           let options: ADTSettings = {
             rowCallback: (row, data, index) => {
-              if (resolvedDTOptions.columns) {
+              if (resolvedDTOptions.columns !== undefined) {
                 const columns = resolvedDTOptions.columns;
                 this.applyNgPipeTransform(row, columns);
                 this.applyNgRefTemplate(row, columns, data);
               }
 
               // run user specified row callback if provided.
-              if (resolvedDTOptions.rowCallback) {
+              if (resolvedDTOptions.rowCallback !== undefined) {
                 resolvedDTOptions.rowCallback(row, data, index);
               }
-            }
+            },
           };
           // merge user's config with ours
           options = Object.assign({}, resolvedDTOptions, options);
@@ -115,36 +122,40 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
   private applyNgPipeTransform(row: Node, columns: ADTColumns[]): void {
     // Filter columns with pipe declared
-    const colsWithPipe = columns.filter(x => x.ngPipeInstance && !x.ngTemplateRef);
-    colsWithPipe.forEach(el => {
-      const pipe = el.ngPipeInstance!;
-      const pipeArgs = el.ngPipeArgs || [];
+    const colsWithPipe = columns.filter((x) => x.ngPipeInstance !== undefined && x.ngTemplateRef === undefined);
+
+    colsWithPipe.forEach((el) => {
+      const pipe = el.ngPipeInstance as PipeTransform;
+      const pipeArgs = el.ngPipeArgs ?? [];
       // find index of column using `data` attr
-      const i = columns.filter(c => c.visible !== false).findIndex(e => e.id === el.id);
+      const i = columns.filter((c) => c.visible !== false).findIndex((e) => e.id === el.id);
       // get <td> element which holds data using index
       const rowFromCol = row.childNodes.item(i);
       // Transform data with Pipe and PipeArgs
       const rowVal = $(rowFromCol).text();
-      const rowValAfter = pipe.transform(rowVal, ...pipeArgs);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const rowValAfter = pipe.transform(rowVal, ...pipeArgs) as string;
       // Apply transformed string to <td>
       $(rowFromCol).text(rowValAfter);
     });
   }
 
-  private applyNgRefTemplate(row: Node, columns: ADTColumns[], data: Object): void {
+  private applyNgRefTemplate(row: Node, columns: ADTColumns[], data: object): void {
     // Filter columns using `ngTemplateRef`
-    const colsWithTemplate = columns.filter(x => x.ngTemplateRef && !x.ngPipeInstance);
-    colsWithTemplate.forEach(el => {
-      const { ref, context } = el.ngTemplateRef!;
+    const colsWithTemplate = columns.filter((x) => x.ngTemplateRef !== undefined && x.ngPipeInstance === undefined);
+
+    colsWithTemplate.forEach((el) => {
+      const { ref, context } = el.ngTemplateRef as ADTTemplateRef;
       // get <td> element which holds data using index
-      const i = columns.filter(c => c.visible !== false).findIndex(e => e.id === el.id);
+      const i = columns.filter((c) => c.visible !== false).findIndex((e) => e.id === el.id);
       const cellFromIndex = row.childNodes.item(i);
       // reset cell before applying transform
       $(cellFromIndex).html('');
       // render onto DOM
       // finalize context to be sent to user
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const _context = Object.assign({}, context, context?.userData, {
-        adtData: data
+        adtData: data,
       });
       const instance = this.vcr.createEmbeddedView(ref, _context);
       this.renderer.appendChild(cellFromIndex, instance.rootNodes[0]);
@@ -162,5 +173,4 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
     return result.trim();
   }
-
 }

@@ -1,47 +1,31 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { SecurityContext, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables.net';
-import { AppRoutingModule } from 'app/app.routing';
-import { BaseDemoComponent } from 'app/base-demo/base-demo.component';
-import { MarkdownModule } from 'ngx-markdown';
+import { waitForAsync } from '@angular/core/testing';
 
 import { NewServerSideComponent } from './new-server-side.component';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { MockComponent } from 'ng-mocks';
+import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('NewServerSideComponent', () => {
+  let spectator: Spectator<NewServerSideComponent>;
   let component: NewServerSideComponent;
-  let fixture: ComponentFixture<NewServerSideComponent>;
+
+  const createComponent = createComponentFactory({
+    component: NewServerSideComponent,
+    declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
+  });
 
   beforeEach(() => {
-    fixture = TestBed.configureTestingModule({
-    declarations: [
-        BaseDemoComponent,
-        NewServerSideComponent,
-        DataTableDirective
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [AppRoutingModule,
-        RouterTestingModule,
-        DataTablesModule,
-        MarkdownModule.forRoot({
-            sanitize: SecurityContext.NONE
-        })],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).createComponent(NewServerSideComponent);
-
-    component = fixture.componentInstance;
-
-    fixture.detectChanges(); // initial binding
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create the app', () => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
   it('should have title "Server-side processing"', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance as NewServerSideComponent;
-    expect(app.pageTitle).toBe('Server-side processing');
+    expect(component.pageTitle).toBe('Server-side processing');
   }));
 });

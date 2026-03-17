@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": ".",
+    "paths": {
+      "angular-datatables.net": ["../lib/index"]
+    }
+  }
+}

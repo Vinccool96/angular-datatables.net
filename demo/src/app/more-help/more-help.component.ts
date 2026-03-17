@@ -1,18 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-more-help',
-    templateUrl: './more-help.component.html',
-    styleUrls: ['./more-help.component.css'],
-    standalone: false
+  selector: 'app-more-help',
+  templateUrl: './more-help.component.html',
+  styleUrl: './more-help.component.css',
 })
-export class MoreHelpComponent implements OnInit {
-
-  constructor() { }
-
-  resourcesMd = 'assets/docs/more-help.md'
-
-  ngOnInit(): void {
-  }
-
-}
+export class MoreHelpComponent {}

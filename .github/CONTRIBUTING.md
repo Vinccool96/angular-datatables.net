@@ -1,6 +1,6 @@
 # Got a Question or Problem?
 
-You can ask questions by opening a discussion. We want to strictly restrict issues section for bug reports. 
+You can ask questions by opening a discussion. We want to strictly restrict issues section for bug reports.
 
 However, please follow those simple guidelines before posting:
 
@@ -9,8 +9,9 @@ However, please follow those simple guidelines before posting:
 3. Provide a StackBlitz link or GitHub repo to reproduce the issue. It can help speed-up investigating your issue faster.
 4. Github provides us a wonderful [Markdown](https://help.github.com/articles/github-flavored-markdown) (text-to-HTML), so use it without restraint, especially when putting your code.
 5. Some really good advices on how to ask question:
-  * on [StackOverflow](http://stackoverflow.com/help/how-to-ask)
-  * on [DataTables](https://datatables.net/manual/tech-notes/10)
+
+- on [StackOverflow](http://stackoverflow.com/help/how-to-ask)
+- on [DataTables](https://datatables.net/manual/tech-notes/10)
 
 Well, that's just some common sense, so it should not be so hard to follow them.
 

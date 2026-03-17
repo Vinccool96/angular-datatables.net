@@ -12,4 +12,4 @@
  */
 export { DataTableDirective } from './src/angular-datatables.directive';
 export { DataTablesModule } from './src/angular-datatables.module';
-export { ADTColumns, ADTSettings, ADTTemplateRef, ADTTemplateRefContext } from './src/models/settings'
+export { ADTColumns, ADTSettings, ADTTemplateRef, ADTTemplateRefContext } from './src/models/settings';

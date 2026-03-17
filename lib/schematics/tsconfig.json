@@ -2,10 +2,7 @@
   "compilerOptions": {
     // FIXME: investigate and remove `src` suffix
     "outDir": "../../dist/lib/schematics/src",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "lib": ["es2018", "dom"],
     "declaration": true,
     "moduleResolution": "node",
     "noEmitOnError": true,
@@ -21,9 +18,6 @@
     "strictNullChecks": true,
     "declarationMap": false,
     "target": "es5",
-    "types": [
-      "jasmine",
-      "node"
-    ]
+    "types": ["jasmine", "node"]
   }
 }

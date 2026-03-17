@@ -1,11 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
 
-header, main, footer {
+header,
+main,
+footer {
   padding-left: 300px;
 }
 
@@ -14,7 +17,9 @@ header, main, footer {
 }
 
 @media only screen and (max-width: 992px) {
-  header, main, footer {
+  header,
+  main,
+  footer {
     padding-left: 0;
   }
 }
@@ -28,7 +33,7 @@ header, main, footer {
 }
 
 .banner .header {
-  color: #FFF;
+  color: #fff;
 }
 
 .banner h1 {
@@ -119,19 +124,19 @@ blockquote {
   height: inherit;
 }
 
-.dataTables_wrapper .dataTables_filter input[type="search"] {
+.dataTables_wrapper .dataTables_filter input[type='search'] {
   border: 1px solid #000;
   height: inherit;
   width: inherit;
   font-size: inherit;
   margin: 0 0 0 0.5em;
   display: inline-block;
-  background-color: #FFF;
+  background-color: #fff;
   visibility: visible !important;
 }
 
 .dataTables_empty {
-    display: none;
+  display: none;
 }
 
 /** copy to clipboard button css */
@@ -155,7 +160,6 @@ markdown h5:not(markdown.faqMarkdown) {
   color: #2196f3;
 }
 
-
 /** Fixed columns css
 
 These classes are injected by fixed columns extensions
@@ -163,7 +167,6 @@ and can be tweaked here to match the colors of headers and body
 to hide the scrolling element behind the fixed header.
 
 */
-
 
 table.dataTable thead tr > .dtfc-fixed-left,
 table.dataTable thead tr > .dtfc-fixed-right,

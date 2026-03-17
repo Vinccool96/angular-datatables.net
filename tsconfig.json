@@ -7,11 +7,7 @@
     "target": "ES2022",
     "module": "esnext",
     "moduleResolution": "node",
-    "lib": [
-      "ES2022",
-      "es2016",
-      "dom"
-    ],
+    "lib": ["ES2022", "es2016", "dom"],
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -26,15 +22,13 @@
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "paths": {
-      "@angular/*": [
-        "node_modules/@angular/*"
-      ]
+      "@angular/*": ["node_modules/@angular/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "useDefineForClassFields": false,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
+    "skipDefaultLibCheck": true
   },
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true,
