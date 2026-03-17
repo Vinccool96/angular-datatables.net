@@ -12,17 +12,16 @@ import 'datatables.net-select';
   templateUrl: './select.component.html',
 })
 export class SelectComponent implements OnInit {
-  dtOptions: ADTSettings = {};
-  readonly mdHTML = 'docs/extensions/select/source-html.md';
-  readonly mdInstall = 'docs/extensions/select/installation.md';
-  readonly mdInstallV1 = 'docs/extensions/select/installation-dtv1.md';
-  readonly mdIntro = 'docs/extensions/select/intro.md';
-  readonly mdTS = 'docs/extensions/select/source-ts.md';
-  readonly mdTSV1 = 'docs/extensions/select/source-ts-dtv1.md';
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/extensions/select/source-html.md';
+  protected readonly mdInstall = 'docs/extensions/select/installation.md';
+  protected readonly mdInstallV1 = 'docs/extensions/select/installation-dtv1.md';
+  protected readonly mdIntro = 'docs/extensions/select/intro.md';
+  protected readonly mdTS = 'docs/extensions/select/source-ts.md';
+  protected readonly mdTSV1 = 'docs/extensions/select/source-ts-dtv1.md';
+  protected readonly pageTitle = 'DataTables Select extension';
 
-  readonly pageTitle = 'DataTables Select extension';
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [

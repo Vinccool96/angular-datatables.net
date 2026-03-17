@@ -8,7 +8,13 @@ import { MarkdownComponent } from 'ngx-markdown';
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 import { IndividualColumnFilteringComponent } from './individual-column-filtering.component';
 
-function applyValueToInput(inputElement: HTMLInputElement, value: string, table: Api) {
+/**
+ * Applies the input value to the field and redraws the table
+ * @param inputElement The input
+ * @param value The value
+ * @param table The table to redraw
+ */
+function applyValueToInput(inputElement: HTMLInputElement, value: string, table: Api): void {
   inputElement.value = value;
   inputElement.dispatchEvent(new Event('input'));
   inputElement.dispatchEvent(new Event('change'));

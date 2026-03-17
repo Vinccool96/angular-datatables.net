@@ -11,16 +11,15 @@ import 'datatables.net-fixedcolumns-dt';
   templateUrl: './fixedcolumns.component.html',
 })
 export class FixedcolumnsComponent implements OnInit {
-  dtOptions: ADTSettings = {};
-  readonly mdHTML = 'docs/extensions/fixedcolumns/source-html.md';
-  readonly mdInstall = 'docs/extensions/fixedcolumns/installation.md';
-  readonly mdIntro = 'docs/extensions/fixedcolumns/intro.md';
-  readonly mdTS = 'docs/extensions/fixedcolumns/source-ts.md';
-  readonly mdTSV1 = 'docs/extensions/fixedcolumns/source-ts-dtv1.md';
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/extensions/fixedcolumns/source-html.md';
+  protected readonly mdInstall = 'docs/extensions/fixedcolumns/installation.md';
+  protected readonly mdIntro = 'docs/extensions/fixedcolumns/intro.md';
+  protected readonly mdTS = 'docs/extensions/fixedcolumns/source-ts.md';
+  protected readonly mdTSV1 = 'docs/extensions/fixedcolumns/source-ts-dtv1.md';
+  protected readonly pageTitle = 'DataTables Fixed Columns extension';
 
-  readonly pageTitle = 'DataTables Fixed Columns extension';
-
-  ngOnInit() {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [

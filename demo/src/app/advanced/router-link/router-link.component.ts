@@ -15,23 +15,21 @@ import { DemoNgTemplateRefEventType } from '../../shared/models/demo-ng-template
   templateUrl: './router-link.component.html',
 })
 export class RouterLinkComponent implements AfterViewInit, OnDestroy {
-  readonly demoNg = viewChild<TemplateRef<unknown>>('demoNg');
-  dtOptions: ADTSettings = {};
-  readonly dtTrigger = new Subject<ADTSettings | null>();
-  readonly mdHTML = 'docs/advanced/router-link/source-html.md';
-  readonly mdIntro = 'docs/advanced/router-link/intro.md';
-
-  readonly mdTS = 'docs/advanced/router-link/source-ts.md';
-  readonly mdTSV1 = 'docs/advanced/router-link/source-ts-dtv1.md';
-
-  readonly pageTitle = 'Router Link';
-
+  public readonly pageTitle = 'Router Link';
+  protected dtOptions: ADTSettings = {};
+  protected readonly dtTrigger = new Subject<ADTSettings | null>();
+  protected readonly mdHTML = 'docs/advanced/router-link/source-html.md';
+  protected readonly mdIntro = 'docs/advanced/router-link/intro.md';
+  protected readonly mdTS = 'docs/advanced/router-link/source-ts.md';
+  protected readonly mdTSV1 = 'docs/advanced/router-link/source-ts-dtv1.md';
   private readonly afterViewInit = signal(false);
+
+  private readonly demoNg = viewChild<TemplateRef<unknown>>('demoNg');
 
   private readonly ready = signal(false);
   private readonly router = inject(Router);
 
-  constructor() {
+  public constructor() {
     effect(() => {
       const demo = this.demoNg();
 
@@ -78,15 +76,15 @@ export class RouterLinkComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.afterViewInit.set(true);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
 
-  onCaptureEvent(event: DemoNgTemplateRefEventType) {
+  private onCaptureEvent(event: DemoNgTemplateRefEventType): void {
     void this.router.navigate([`/person/${(event.data as Person).id}`]);
   }
 }

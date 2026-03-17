@@ -13,21 +13,20 @@ import { DemoNgTemplateRefEventType } from '../../shared/models/demo-ng-template
   templateUrl: './using-ng-template-ref.component.html',
 })
 export class UsingNgTemplateRefComponent implements AfterViewInit, OnDestroy {
-  readonly demoNg = viewChild<TemplateRef<DemoNgTemplateRefComponent>>('demoNg');
-  dtOptions: ADTSettings = {};
-  readonly dtTrigger = new Subject<ADTSettings>();
-  readonly mdHTML = 'docs/advanced/using-ng-template-ref/source-html.md';
+  public readonly message = signal('');
+  public readonly pageTitle = 'Using Angular TemplateRef';
+  protected dtOptions: ADTSettings = {};
+  protected readonly dtTrigger = new Subject<ADTSettings>();
+  protected readonly mdHTML = 'docs/advanced/using-ng-template-ref/source-html.md';
+  protected readonly mdIntro = 'docs/advanced/using-ng-template-ref/intro.md';
 
-  readonly mdIntro = 'docs/advanced/using-ng-template-ref/intro.md';
-  readonly mdTS = 'docs/advanced/using-ng-template-ref/source-ts.md';
+  protected readonly mdTS = 'docs/advanced/using-ng-template-ref/source-ts.md';
 
-  readonly message = signal('');
-
-  readonly pageTitle = 'Using Angular TemplateRef';
   private readonly afterViewInit = signal(false);
+  private readonly demoNg = viewChild<TemplateRef<DemoNgTemplateRefComponent>>('demoNg');
   private readonly ready = signal(false);
 
-  constructor() {
+  public constructor() {
     effect(() => {
       const demo = this.demoNg();
 
@@ -75,16 +74,16 @@ export class UsingNgTemplateRefComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.afterViewInit.set(true);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
 
-  onCaptureEvent(event: DemoNgTemplateRefEventType) {
+  private onCaptureEvent(event: DemoNgTemplateRefEventType): void {
     this.message.set(`Event '${event.cmd}' with data '${JSON.stringify(event.data)}`);
   }
 }

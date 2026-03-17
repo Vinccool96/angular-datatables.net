@@ -11,27 +11,15 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
   templateUrl: './dt-instance.component.html',
 })
 export class DtInstanceComponent implements OnInit {
-  readonly datatableElement = viewChild(DataTableDirective);
-  dtOptions: ADTSettings = {};
-  readonly mdHTML = 'docs/advanced/dt-instance/source-html.md';
-  readonly mdIntro = 'docs/advanced/dt-instance/intro.md';
-  readonly mdTS = 'docs/advanced/dt-instance/source-ts.md';
+  public readonly pageTitle = 'Finding DataTable instance';
+  protected readonly datatableElement = viewChild(DataTableDirective);
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/advanced/dt-instance/source-html.md';
+  protected readonly mdIntro = 'docs/advanced/dt-instance/intro.md';
+  protected readonly mdTS = 'docs/advanced/dt-instance/source-ts.md';
+  protected readonly mdTSV1 = 'docs/advanced/dt-instance/source-ts-dtv1.md';
 
-  readonly mdTSV1 = 'docs/advanced/dt-instance/source-ts-dtv1.md';
-
-  readonly pageTitle = 'Finding DataTable instance';
-
-  displayToConsole(datatableElement: DataTableDirective | undefined): void {
-    if (datatableElement === undefined) {
-      return;
-    }
-
-    void datatableElement.dtInstance.then((dtInstance) => {
-      console.log(dtInstance);
-    });
-  }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
@@ -49,5 +37,15 @@ export class DtInstanceComponent implements OnInit {
         },
       ],
     };
+  }
+
+  protected displayToConsole(datatableElement: DataTableDirective | undefined): void {
+    if (datatableElement === undefined) {
+      return;
+    }
+
+    void datatableElement.dtInstance.then((dtInstance) => {
+      console.log(dtInstance);
+    });
   }
 }

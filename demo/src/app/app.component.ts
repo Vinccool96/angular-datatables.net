@@ -13,23 +13,23 @@ import { DtVersionService } from './shared/services/dt-version.service';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnDestroy, OnInit {
-  dtVersion: 'v1' | 'v2' = 'v2';
-
   protected readonly destroy$ = new Subject<void>();
+
+  protected dtVersion: 'v1' | 'v2' = 'v2';
   private readonly dtVersionService = inject(DtVersionService);
 
   private readonly router = inject(Router);
 
-  constructor() {
+  public constructor() {
     this.dtVersion = this.dtVersionService.dtVersion;
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     DataTable.ext.errMode = 'none';
     $('.button-collapse').sideNav({
       closeOnClick: true,
@@ -59,7 +59,7 @@ export class AppComponent implements OnDestroy, OnInit {
     } as Partial<M.DropdownOptions>);
   }
 
-  onDTVersionChanged(v: 'v1' | 'v2') {
+  protected onDTVersionChanged(v: 'v1' | 'v2'): void {
     this.dtVersion = v;
     this.dtVersionService.versionChanged$.next(v);
   }

@@ -10,17 +10,15 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
   templateUrl: './individual-column-filtering.component.html',
 })
 export class IndividualColumnFilteringComponent implements AfterViewInit, OnInit {
-  readonly datatableElement = viewChild(DataTableDirective);
-  dtOptions: ADTSettings = {};
-  readonly mdHTML = 'docs/advanced/indi-col-filter/source-html.md';
-  readonly mdIntro = 'docs/advanced/indi-col-filter/intro.md';
-  readonly mdTS = 'docs/advanced/indi-col-filter/source-ts.md';
+  public dtOptions: ADTSettings = {};
+  public readonly pageTitle = 'Individual column searching';
+  protected readonly mdHTML = 'docs/advanced/indi-col-filter/source-html.md';
+  protected readonly mdIntro = 'docs/advanced/indi-col-filter/intro.md';
+  protected readonly mdTS = 'docs/advanced/indi-col-filter/source-ts.md';
+  protected readonly mdTSV1 = 'docs/advanced/indi-col-filter/source-ts-dtv1.md';
+  private readonly datatableElement = viewChild(DataTableDirective);
 
-  readonly mdTSV1 = 'docs/advanced/indi-col-filter/source-ts-dtv1.md';
-
-  readonly pageTitle = 'Individual column searching';
-
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     void this.datatableElement()?.dtInstance.then((dtInstance) => {
       dtInstance.columns().every(function () {
         const search = this.search.bind(this);
@@ -34,7 +32,7 @@ export class IndividualColumnFilteringComponent implements AfterViewInit, OnInit
     });
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [

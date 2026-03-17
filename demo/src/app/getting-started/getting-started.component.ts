@@ -12,20 +12,18 @@ import { DtVersionService } from '../shared/services/dt-version.service';
 })
 export class GettingStartedComponent implements OnDestroy, OnInit {
   protected readonly dtVersion = signal<'v1' | 'v2'>('v2');
-
   protected readonly md = 'docs/get-started.md';
-
   protected readonly mdV1 = 'docs/get-started-dtv1.md';
-  private readonly destroy$ = new Subject<void>();
 
+  private readonly destroy$ = new Subject<void>();
   private readonly dtVersionService = inject(DtVersionService);
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.dtVersionService.versionChanged$.pipe(takeUntil(this.destroy$)).subscribe((v) => {
       this.dtVersion.set(v);
     });

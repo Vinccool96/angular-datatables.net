@@ -8,5 +8,5 @@ import { MarkdownComponent } from 'ngx-markdown';
   templateUrl: './welcome.component.html',
 })
 export class WelcomeComponent {
-  readonly installMd = 'docs/welcome/installation.md';
+  protected readonly installMd = 'docs/welcome/installation.md';
 }

@@ -11,16 +11,15 @@ import 'datatables.net-responsive';
   templateUrl: './responsive.component.html',
 })
 export class ResponsiveComponent implements OnInit {
-  dtOptions: ADTSettings = {};
-  readonly mdHTML = 'docs/extensions/responsive/source-html.md';
-  readonly mdInstall = 'docs/extensions/responsive/installation.md';
-  readonly mdIntro = 'docs/extensions/responsive/intro.md';
-  readonly mdTS = 'docs/extensions/responsive/source-ts.md';
-  readonly mdTSV1 = 'docs/extensions/responsive/source-ts-dtv1.md';
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/extensions/responsive/source-html.md';
+  protected readonly mdInstall = 'docs/extensions/responsive/installation.md';
+  protected readonly mdIntro = 'docs/extensions/responsive/intro.md';
+  protected readonly mdTS = 'docs/extensions/responsive/source-ts.md';
+  protected readonly mdTSV1 = 'docs/extensions/responsive/source-ts-dtv1.md';
+  protected readonly pageTitle = 'DataTables Responsive extension';
 
-  readonly pageTitle = 'DataTables Responsive extension';
-
-  ngOnInit() {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [

@@ -13,21 +13,19 @@ import { AngularWayDataService } from './services/angular-way-data.service';
   templateUrl: './angular-way.component.html',
 })
 export class AngularWayComponent implements AfterViewInit, OnDestroy, OnInit {
-  dtOptions: ADTSettings = {};
+  public readonly pageTitle = 'Angular way';
+  protected dtOptions: ADTSettings = {};
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
-  dtTrigger = new Subject<ADTSettings | null>();
-  readonly mdHTML = 'docs/basic/angular-way/source-html.md';
-  readonly mdIntro = 'docs/basic/angular-way/intro.md';
-
-  readonly mdTSV1 = 'docs/basic/angular-way/source-ts.md';
-  readonly pageTitle = 'Angular way';
-
-  readonly persons = signal<Person[]>([]);
+  protected dtTrigger = new Subject<ADTSettings | null>();
+  protected readonly mdHTML = 'docs/basic/angular-way/source-html.md';
+  protected readonly mdIntro = 'docs/basic/angular-way/intro.md';
+  protected readonly mdTSV1 = 'docs/basic/angular-way/source-ts.md';
+  protected readonly persons = signal<Person[]>([]);
 
   private readonly dataService = inject(AngularWayDataService);
 
-  ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.dataService.obtainData().subscribe((data) => {
       this.persons.set(data.data);
       // Calling the DT trigger to manually render the table
@@ -35,12 +33,12 @@ export class AngularWayComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       lengthMenu: [2, 10, 25],
       pageLength: 2,

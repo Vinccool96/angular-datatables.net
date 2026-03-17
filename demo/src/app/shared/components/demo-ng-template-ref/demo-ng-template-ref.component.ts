@@ -9,12 +9,12 @@ import { DemoNgTemplateRefEventType } from '../../models/demo-ng-template-ref-ev
   templateUrl: './demo-ng-template-ref.component.html',
 })
 export class DemoNgTemplateRefComponent {
-  readonly actionText = input('Action 1');
-  readonly data = input<object>({});
+  public readonly actionText = input('Action 1');
+  public readonly data = input<object>({});
 
-  readonly emitter = output<DemoNgTemplateRefEventType>();
+  public readonly emitter = output<DemoNgTemplateRefEventType>();
 
-  onAction1() {
+  protected onAction1(): void {
     this.emitter.emit({
       cmd: 'action1',
       data: this.data(),

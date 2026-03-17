@@ -10,15 +10,14 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
   templateUrl: './with-options.component.html',
 })
 export class WithOptionsComponent implements OnInit {
-  readonly dtOptions = signal<ADTSettings>({});
-  readonly mdHTML = 'docs/basic/with-options/source-html.md';
-  readonly mdIntro = 'docs/basic/with-options/intro.md';
-  readonly mdTS = 'docs/basic/with-options/source-ts.md';
-  readonly mdTSV1 = 'docs/basic/with-options/source-ts-dtv1.md';
+  public readonly dtOptions = signal<ADTSettings>({});
+  public readonly pageTitle = 'With Options';
+  protected readonly mdHTML = 'docs/basic/with-options/source-html.md';
+  protected readonly mdIntro = 'docs/basic/with-options/intro.md';
+  protected readonly mdTS = 'docs/basic/with-options/source-ts.md';
+  protected readonly mdTSV1 = 'docs/basic/with-options/source-ts-dtv1.md';
 
-  readonly pageTitle = 'With Options';
-
-  ngOnInit() {
+  public ngOnInit(): void {
     this.dtOptions.set({
       pagingType: 'simple',
     });

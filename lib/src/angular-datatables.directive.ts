@@ -1,5 +1,5 @@
 /**
- * @license
+ * @license MIT
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://raw.githubusercontent.com/vinccool96/angular-datatables.net/master/LICENSE
@@ -31,17 +31,17 @@ export class DataTableDirective implements OnDestroy, OnInit {
    *
    * It's possible to execute the [DataTables APIs](https://datatables.net/reference/api/) with this variable.
    */
-  dtInstance!: Promise<Api>;
+  public dtInstance!: Promise<Api>;
 
   /**
    * The DataTable option you pass to configure your table.
    */
-  readonly dtOptions = model<ADTSettings>({});
+  public readonly dtOptions = model<ADTSettings>({});
 
   /**
    * This trigger is used if one wants to trigger manually the DT rendering. Useful when rendering angular rendered DOM.
    */
-  readonly dtTrigger = input<Subject<ADTSettings> | Subject<ADTSettings | null>>();
+  public readonly dtTrigger = input<Subject<ADTSettings> | Subject<ADTSettings | null>>();
 
   // Only used for destroying the table when destroying this directive
   private dt: Api | undefined;
@@ -50,13 +50,13 @@ export class DataTableDirective implements OnDestroy, OnInit {
   private readonly renderer = inject(Renderer2);
   private readonly vcr = inject(ViewContainerRef);
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.dtTrigger()?.unsubscribe();
 
     this.dt?.destroy(true);
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const trigger = this.dtTrigger();
 
     if (trigger === undefined) {

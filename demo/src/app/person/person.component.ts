@@ -12,18 +12,18 @@ import { PersonService } from './services/person.service';
   templateUrl: './person.component.html',
 })
 export class PersonComponent implements OnInit {
-  protected readonly person = signal<null | Person>(null);
+  protected readonly person = signal<Person | null>(null);
 
   private readonly location = inject(Location);
   private readonly personService = inject(PersonService);
   private readonly route = inject(ActivatedRoute);
 
-  goBack(): void {
-    this.location.back();
-  }
-
-  ngOnInit() {
+  public ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') as string;
     this.person.set(this.personService.getPerson(id));
+  }
+
+  protected goBack(): void {
+    this.location.back();
   }
 }

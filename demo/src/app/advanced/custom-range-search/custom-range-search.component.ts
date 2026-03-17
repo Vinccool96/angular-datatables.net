@@ -14,37 +14,29 @@ import { CustomRangeForm } from './models/custom-range.form';
   templateUrl: './custom-range-search.component.html',
 })
 export class CustomRangeSearchComponent implements AfterViewInit, OnDestroy, OnInit {
-  dtOptions: ADTSettings = {};
+  public readonly pageTitle = 'Custom filtering - Range search';
+  protected dtOptions: ADTSettings = {};
   private readonly formBuilder = inject(FormBuilder);
-  readonly form: FormGroup<CustomRangeForm> = this.formBuilder.group<CustomRangeForm>({
+  protected readonly form: FormGroup<CustomRangeForm> = this.formBuilder.group<CustomRangeForm>({
     max: this.formBuilder.control(null),
     min: this.formBuilder.control(null),
   });
-  readonly mdHTML = 'docs/advanced/custom-range/source-html.md';
-  readonly mdIntro = 'docs/advanced/custom-range/intro.md';
-
-  readonly mdTS = 'docs/advanced/custom-range/source-ts.md';
-
-  readonly mdTSV1 = 'docs/advanced/custom-range/source-ts-dtv1.md';
-
-  readonly pageTitle = 'Custom filtering - Range search';
+  protected readonly mdHTML = 'docs/advanced/custom-range/source-html.md';
+  protected readonly mdIntro = 'docs/advanced/custom-range/intro.md';
+  protected readonly mdTS = 'docs/advanced/custom-range/source-ts.md';
+  protected readonly mdTSV1 = 'docs/advanced/custom-range/source-ts-dtv1.md';
 
   private readonly datatableElement = viewChild(DataTableDirective);
 
   private dtInstance: Api | null = null;
 
-  filterById(): boolean {
-    this.dtInstance?.draw();
-    return false;
-  }
-
-  ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     void this.datatableElement()?.dtInstance.then((instance) => {
       this.dtInstance = instance;
       instance.search.fixed('range', (_data, rowData: Person): boolean => {
         const id = rowData.id; // use data for the id column
-        const min = (this.form.get('min') as FormControl<null | number>).value ?? Number.NaN;
-        const max = (this.form.get('max') as FormControl<null | number>).value ?? Number.NaN;
+        const min = (this.form.get('min') as FormControl<number | null>).value ?? Number.NaN;
+        const max = (this.form.get('max') as FormControl<number | null>).value ?? Number.NaN;
         return (
           (Number.isNaN(min) && Number.isNaN(max)) ||
           (Number.isNaN(min) && id <= max) ||
@@ -55,14 +47,14 @@ export class CustomRangeSearchComponent implements AfterViewInit, OnDestroy, OnI
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     // We remove the last function in the global ext search array so we do not add the fn each time the component is drawn
     // /!\ This is not the ideal solution as other components may add other search function in this array, so be careful when
     // handling this global variable
     DataTables.ext.search.pop();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
@@ -84,5 +76,10 @@ export class CustomRangeSearchComponent implements AfterViewInit, OnDestroy, OnI
     this.form.valueChanges.subscribe(() => {
       this.dtInstance?.draw();
     });
+  }
+
+  protected filterById(): boolean {
+    this.dtInstance?.draw();
+    return false;
   }
 }

@@ -11,16 +11,15 @@ import 'datatables.net-colreorder';
   templateUrl: './colreorder.component.html',
 })
 export class ColreorderComponent implements OnInit {
-  dtOptions: ADTSettings = {};
-  readonly mdHTML = 'docs/extensions/colreorder/source-html.md';
-  readonly mdInstall = 'docs/extensions/colreorder/installation.md';
-  readonly mdIntro = 'docs/extensions/colreorder/intro.md';
-  readonly mdTS = 'docs/extensions/colreorder/source-ts.md';
-  readonly mdTSV1 = 'docs/extensions/colreorder/source-ts-dtv1.md';
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/extensions/colreorder/source-html.md';
+  protected readonly mdInstall = 'docs/extensions/colreorder/installation.md';
+  protected readonly mdIntro = 'docs/extensions/colreorder/intro.md';
+  protected readonly mdTS = 'docs/extensions/colreorder/source-ts.md';
+  protected readonly mdTSV1 = 'docs/extensions/colreorder/source-ts-dtv1.md';
+  protected readonly pageTitle = 'DataTables ColReorder extension';
 
-  readonly pageTitle = 'DataTables ColReorder extension';
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       // Use this attribute to enable colreorder

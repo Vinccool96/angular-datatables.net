@@ -5,15 +5,21 @@ import { IADTSchematicsOptions } from './models/schematics-options';
 import { ADT_SUPPORTED_STYLES, ADTStyleOptions } from './models/style-options';
 import { addAssetToAngularJson, addPackageToPackageJson } from './utils';
 
-export default function add(_options: IADTSchematicsOptions): Rule {
-  return chain([
-    addPackageJsonDependencies(_options),
-    installPackageJsonDependencies(),
-    updateAngularJsonFile(_options),
-  ]);
+/**
+ * Add the settings to angular
+ * @param options The options
+ * @returns The rules
+ */
+export default function add(options: IADTSchematicsOptions): Rule {
+  return chain([addPackageJsonDependencies(options), installPackageJsonDependencies(), updateAngularJsonFile(options)]);
 }
 
-function addPackageJsonDependencies(options: IADTSchematicsOptions) {
+/**
+ * Adds the package to the dependencies
+ * @param options The options
+ * @returns The rule that add to the dependencies
+ */
+function addPackageJsonDependencies(options: IADTSchematicsOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
     // Update package.json
     const styleDeps = ADT_SUPPORTED_STYLES.find((element) => element.style === options.style);
@@ -57,19 +63,28 @@ function addPackageJsonDependencies(options: IADTSchematicsOptions) {
   };
 }
 
-const install = (host: Tree, context: SchematicContext) => {
+const install = (host: Tree, context: SchematicContext): Tree => {
   context.addTask(new NodePackageInstallTask());
   context.logger.log('info', `🔍 Installing packages...`);
 
   return host;
 };
 
+/**
+ * Installs the dependencies
+ * @returns The rule that install the dependencies
+ */
 function installPackageJsonDependencies(): Rule {
   return install;
 }
 
-function updateAngularJsonFile(options: IADTSchematicsOptions) {
-  return (tree: Tree, context: SchematicContext) => {
+/**
+ * Updates the angular.json file.
+ * @param options The current options
+ * @returns The rule that updates the angular.json file
+ */
+function updateAngularJsonFile(options: IADTSchematicsOptions): Rule {
+  return (tree: Tree, context: SchematicContext): void => {
     const styleDeps = ADT_SUPPORTED_STYLES.find((element) => element.style === options.style);
 
     const assets = [

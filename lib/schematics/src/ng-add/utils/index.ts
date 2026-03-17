@@ -1,5 +1,5 @@
 /**
- * @license
+ * @license MIT
  * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
@@ -9,6 +9,13 @@
 import { Tree } from '@angular-devkit/schematics';
 import { JsonObject, PackageJson } from 'type-fest';
 
+/**
+ * Determines if the asset should be added to angular.json
+ * @param host The file host
+ * @param assetType The type of asset
+ * @param assetPath The path of the asset
+ * @returns If the asset should be added to angular.json
+ */
 export function addAssetToAngularJson(host: Tree, assetType: string, assetPath: string): boolean {
   const sourceText = (host.read('angular.json') as Buffer).toString('utf8');
   const json = JSON.parse(sourceText) as JsonObject | null;
@@ -43,6 +50,11 @@ export function addAssetToAngularJson(host: Tree, assetType: string, assetPath: 
  *
  * Note: This function accepts an additional parameter `isDevDependency` so we
  * can place a given dependency in the correct dependencies array inside package.json
+ * @param host The file host
+ * @param thePackage The package to add
+ * @param version The version of the package to add
+ * @param isDevelopmentDependency If it's a dev dependency
+ * @returns If the package should be added
  */
 export function addPackageToPackageJson(
   host: Tree,
@@ -84,6 +96,11 @@ export function addPackageToPackageJson(
   return false;
 }
 
+/**
+ * Sorts the object by keys in another object
+ * @param object The object that should have its keys sorted
+ * @returns A new object
+ */
 function sortObjectByKeys(object: Partial<Record<string, string>>): Partial<Record<string, string>> {
   const result: Partial<Record<string, string>> = {};
 

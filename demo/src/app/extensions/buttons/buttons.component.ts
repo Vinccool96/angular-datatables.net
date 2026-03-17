@@ -13,17 +13,16 @@ import 'datatables.net-buttons-dt';
   templateUrl: './buttons.component.html',
 })
 export class ButtonsComponent implements OnInit {
-  dtOptions: ADTSettings = {};
-  readonly mdHTML = 'docs/extensions/buttons/source-html.md';
-  readonly mdInstall = 'docs/extensions/buttons/installation.md';
-  readonly mdInstallV1 = 'docs/extensions/buttons/installation-dtv1.md';
-  readonly mdIntro = 'docs/extensions/buttons/intro.md';
-  readonly mdTS = 'docs/extensions/buttons/source-ts.md';
-  readonly mdTSV1 = 'docs/extensions/buttons/source-ts-dtv1.md';
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/extensions/buttons/source-html.md';
+  protected readonly mdInstall = 'docs/extensions/buttons/installation.md';
+  protected readonly mdInstallV1 = 'docs/extensions/buttons/installation-dtv1.md';
+  protected readonly mdIntro = 'docs/extensions/buttons/intro.md';
+  protected readonly mdTS = 'docs/extensions/buttons/source-ts.md';
+  protected readonly mdTSV1 = 'docs/extensions/buttons/source-ts-dtv1.md';
+  protected readonly pageTitle = 'DataTables Buttons extension';
 
-  readonly pageTitle = 'DataTables Buttons extension';
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       // Configure the buttons
@@ -39,7 +38,7 @@ export class ButtonsComponent implements OnInit {
         },
         'excel',
         {
-          action: () => {
+          action: (): void => {
             alert('Button activated');
           },
           key: '1',

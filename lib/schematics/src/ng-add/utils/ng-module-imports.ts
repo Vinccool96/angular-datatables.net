@@ -1,5 +1,5 @@
 /**
- * @license
+ * @license MIT
  * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
@@ -10,7 +10,11 @@ import { Tree } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 
 /**
- * Whether the Angular module in the given path imports the specifed module class name.
+ * Whether the Angular module in the given path imports the specified module class name.
+ * @param tree The file tree
+ * @param modulePath The path of the module
+ * @param className The class to verify
+ * @returns If it is imported
  */
 export function hasNgModuleImport(tree: Tree, modulePath: string, className: string): boolean {
   const moduleFileContent = tree.read(modulePath);
@@ -22,7 +26,7 @@ export function hasNgModuleImport(tree: Tree, modulePath: string, className: str
   const parsedFile = ts.createSourceFile(modulePath, moduleFileContent.toString(), ts.ScriptTarget.Latest, true);
   let ngModuleMetadata: ts.ObjectLiteralExpression | undefined;
 
-  const findModuleDecorator = (node: ts.Node) => {
+  const findModuleDecorator = (node: ts.Node): void => {
     if (ts.isDecorator(node) && ts.isCallExpression(node.expression) && isNgModuleCallExpression(node.expression)) {
       ngModuleMetadata = node.expression.arguments[0] as ts.ObjectLiteralExpression;
 
@@ -55,7 +59,11 @@ export function hasNgModuleImport(tree: Tree, modulePath: string, className: str
   return false;
 }
 
-/** Whether the specified call expression is referring to a NgModule definition. */
+/**
+ * Whether the specified call expression is referring to a NgModule definition.
+ * @param callExpression The call expression
+ * @returns boolean
+ */
 function isNgModuleCallExpression(callExpression: ts.CallExpression): boolean {
   if (callExpression.arguments.length === 0 || !ts.isObjectLiteralExpression(callExpression.arguments[0])) {
     return false;
@@ -69,6 +77,8 @@ function isNgModuleCallExpression(callExpression: ts.CallExpression): boolean {
 /**
  * Resolves the last identifier that is part of the given expression. This helps resolving
  * identifiers of nested property access expressions (e.g. myNamespace.core.NgModule).
+ * @param expression The expression
+ * @returns The identifier, if any
  */
 function resolveIdentifierOfExpression(expression: ts.Expression): ts.Identifier | undefined {
   if (ts.isIdentifier(expression)) {

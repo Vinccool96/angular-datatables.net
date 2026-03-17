@@ -11,17 +11,16 @@ import { AjaxService } from './service/ajax.service';
   templateUrl: './with-ajax-callback.component.html',
 })
 export class WithAjaxCallbackComponent implements OnInit {
-  readonly dtOptions = signal<ADTSettings>({});
-  readonly mdHTML = 'docs/basic/with-ajax-callback/source-html.md';
-  readonly mdIntro = 'docs/basic/with-ajax-callback/intro.md';
-  readonly mdTS = 'docs/basic/with-ajax-callback/source-ts.md';
-  readonly mdTSV1 = 'docs/basic/with-ajax-callback/source-ts-dtv1.md';
-
-  readonly pageTitle = 'AJAX with callback';
+  public readonly pageTitle = 'AJAX with callback';
+  protected readonly dtOptions = signal<ADTSettings>({});
+  protected readonly mdHTML = 'docs/basic/with-ajax-callback/source-html.md';
+  protected readonly mdIntro = 'docs/basic/with-ajax-callback/intro.md';
+  protected readonly mdTS = 'docs/basic/with-ajax-callback/source-ts.md';
+  protected readonly mdTSV1 = 'docs/basic/with-ajax-callback/source-ts-dtv1.md';
 
   private readonly ajax = inject(AjaxService);
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.dtOptions.set({
       ajax: (_, callback) => {
         this.ajax.getResult().subscribe((result) => {

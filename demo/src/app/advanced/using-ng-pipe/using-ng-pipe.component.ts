@@ -12,18 +12,17 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
   templateUrl: './using-ng-pipe.component.html',
 })
 export class UsingNgPipeComponent implements OnInit {
-  dtOptions: ADTSettings = {};
-  readonly mdHTML = 'docs/advanced/using-ng-pipe/source-html.md';
-  readonly mdIntro = 'docs/advanced/using-ng-pipe/intro.md';
-  readonly mdTS = 'docs/advanced/using-ng-pipe/source-ts.md';
-  readonly mdTSV1 = 'docs/advanced/using-ng-pipe/source-ts-dtv1.md';
-
-  readonly pageTitle = 'Using Angular Pipe';
+  public readonly pageTitle = 'Using Angular Pipe';
   public readonly pipeCurrencyInstance = inject(CurrencyPipe);
+  protected dtOptions: ADTSettings = {};
+  protected readonly mdHTML = 'docs/advanced/using-ng-pipe/source-html.md';
+  protected readonly mdIntro = 'docs/advanced/using-ng-pipe/intro.md';
+  protected readonly mdTS = 'docs/advanced/using-ng-pipe/source-ts.md';
+  protected readonly mdTSV1 = 'docs/advanced/using-ng-pipe/source-ts-dtv1.md';
 
   private readonly pipeInstance = inject(UpperCasePipe);
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [

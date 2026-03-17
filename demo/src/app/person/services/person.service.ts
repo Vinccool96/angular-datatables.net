@@ -7,7 +7,7 @@ import { Person } from '../models/person';
   providedIn: 'root',
 })
 export class PersonService {
-  getPerson(id: string): null | Person {
+  public getPerson(id: string): Person | null {
     const persons: Person[] = data.data;
     return persons.find((person) => person.id === Number.parseInt(id)) ?? null;
   }

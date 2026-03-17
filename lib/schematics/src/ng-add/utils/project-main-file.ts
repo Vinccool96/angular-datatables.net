@@ -1,5 +1,5 @@
 /**
- * @license
+ * @license MIT
  * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
@@ -13,6 +13,8 @@ import { getProjectTargetOptions } from './project-targets';
 
 /**
  * Looks for the main TypeScript file in the given project and returns its path.
+ * @param project The project
+ * @returns The file location
  */
 export function getProjectMainFile(project: WorkspaceProject): string {
   const buildOptions = getProjectTargetOptions(project);

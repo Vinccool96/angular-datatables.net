@@ -11,28 +11,26 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
   templateUrl: './rerender.component.html',
 })
 export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
-  readonly datatableElement = viewChild(DataTableDirective);
-  dtOptions: ADTSettings = {};
-  readonly dtTrigger = new Subject<ADTSettings | null>();
-  readonly mdHTML = 'docs/advanced/rerender/source-html.md';
-  readonly mdIntro = 'docs/advanced/rerender/intro.md';
+  public readonly pageTitle = 'Rerender';
+  protected dtOptions: ADTSettings = {};
+  protected readonly dtTrigger = new Subject<ADTSettings | null>();
+  protected readonly mdHTML = 'docs/advanced/rerender/source-html.md';
+  protected readonly mdIntro = 'docs/advanced/rerender/intro.md';
+  protected readonly mdTS = 'docs/advanced/rerender/source-ts.md';
+  protected readonly mdTSV1 = 'docs/advanced/rerender/source-ts-dtv1.md';
 
-  readonly mdTS = 'docs/advanced/rerender/source-ts.md';
+  private readonly datatableElement = viewChild(DataTableDirective);
 
-  readonly mdTSV1 = 'docs/advanced/rerender/source-ts-dtv1.md';
-
-  readonly pageTitle = 'Rerender';
-
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.dtTrigger.next(null);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
@@ -52,7 +50,7 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
     };
   }
 
-  rerender(): void {
+  public rerender(): void {
     void this.datatableElement()?.dtInstance.then((dtInstance) => {
       // Destroy the table first
       dtInstance.destroy();

@@ -10,15 +10,14 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
   templateUrl: './with-ajax.component.html',
 })
 export class WithAjaxComponent implements OnInit {
-  readonly dtOptions = signal<ADTSettings>({});
-  readonly mdHTML = 'docs/basic/with-ajax/source-html.md';
-  readonly mdIntro = 'docs/basic/with-ajax/intro.md';
-  readonly mdTS = 'docs/basic/with-ajax/source-ts.md';
-  readonly mdTSV1 = 'docs/basic/with-ajax/source-ts-dtv1.md';
+  public readonly dtOptions = signal<ADTSettings>({});
+  public readonly pageTitle = 'With Ajax';
+  protected readonly mdHTML = 'docs/basic/with-ajax/source-html.md';
+  protected readonly mdIntro = 'docs/basic/with-ajax/intro.md';
+  protected readonly mdTS = 'docs/basic/with-ajax/source-ts.md';
+  protected readonly mdTSV1 = 'docs/basic/with-ajax/source-ts-dtv1.md';
 
-  readonly pageTitle = 'With Ajax';
-
-  ngOnInit() {
+  public ngOnInit(): void {
     this.dtOptions.set({
       ajax: 'data/data.json',
       columns: [

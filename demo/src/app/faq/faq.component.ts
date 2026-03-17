@@ -8,9 +8,9 @@ import { MarkdownComponent } from 'ngx-markdown';
   templateUrl: './faq.component.html',
 })
 export class FaqComponent {
-  readonly faqMd = 'docs/faq.md';
+  protected readonly faqMd = 'docs/faq.md';
 
-  onLoad() {
+  protected onLoad(): void {
     // Hide Copy button
     $('.toolbar').hide();
 

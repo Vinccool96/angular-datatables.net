@@ -10,8 +10,8 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
   templateUrl: './zero-config.component.html',
 })
 export class ZeroConfigComponent {
-  readonly mdHTML = 'docs/basic/zero-config/source-html.md';
-  readonly mdIntro = 'docs/basic/zero-config/intro.md';
-  readonly mdTSV1 = 'docs/basic/zero-config/source-ts.md';
-  readonly pageTitle = 'Zero configuration';
+  public readonly pageTitle = 'Zero configuration';
+  protected readonly mdHTML = 'docs/basic/zero-config/source-html.md';
+  protected readonly mdIntro = 'docs/basic/zero-config/intro.md';
+  protected readonly mdTSV1 = 'docs/basic/zero-config/source-ts.md';
 }

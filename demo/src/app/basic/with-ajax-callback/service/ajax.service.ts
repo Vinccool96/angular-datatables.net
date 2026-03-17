@@ -10,7 +10,7 @@ import { Person } from '../../../person/models/person';
 export class AjaxService {
   private readonly http = inject(HttpClient);
 
-  public getResult() {
+  public getResult(): Observable<{ data: Person[] }> {
     return this.http.get('data/data.json') as Observable<{ data: Person[] }>;
   }
 }
