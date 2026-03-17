@@ -149,6 +149,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
               // run user specified row callback if provided.
               if (resolvedDTOptions.rowCallback !== undefined) {
+                // @ts-expect-error It's normal
                 resolvedDTOptions.rowCallback(row, data, index);
               }
             },
