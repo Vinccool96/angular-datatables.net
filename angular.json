@@ -191,7 +191,7 @@
               "demo/**/*.ts",
               "demo/**/*.html"
             ],
-            "eslintConfig": "demo/eslint.config.js"
+            "eslintConfig": "demo/eslint.config.mjs"
           }
         }
       }
