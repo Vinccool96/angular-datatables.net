@@ -1,4 +1,4 @@
-import { Component, inject, input, signal, TemplateRef } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MarkdownComponent } from 'ngx-markdown';
 
