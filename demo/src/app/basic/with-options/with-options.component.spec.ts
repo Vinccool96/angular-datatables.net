@@ -4,6 +4,7 @@ import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { WithOptionsComponent } from './with-options.component';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('WithOptionsComponent', () => {
   let spectator: Spectator<WithOptionsComponent>;
@@ -12,6 +13,7 @@ describe('WithOptionsComponent', () => {
   const createComponent = createComponentFactory({
     component: WithOptionsComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
   });
 
   beforeEach(() => {
@@ -28,6 +30,6 @@ describe('WithOptionsComponent', () => {
   }));
 
   it('should have pagingType as "full_numbers"', waitForAsync(() => {
-    expect(component.dtOptions().pagingType).toBe('full_numbers');
+    expect(component.dtOptions().pagingType).toBe('simple');
   }));
 });

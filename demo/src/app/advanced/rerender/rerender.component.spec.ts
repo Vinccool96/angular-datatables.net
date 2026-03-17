@@ -3,6 +3,7 @@ import { RerenderComponent } from './rerender.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('RerenderComponent', () => {
   let spectator: Spectator<RerenderComponent>;
@@ -11,6 +12,7 @@ describe('RerenderComponent', () => {
   const createComponent = createComponentFactory({
     component: RerenderComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
   });
 
   beforeEach(() => {

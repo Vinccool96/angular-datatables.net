@@ -1,9 +1,13 @@
 import { waitForAsync } from '@angular/core/testing';
 
 import { WithAjaxCallbackComponent } from './with-ajax-callback.component';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { AjaxService } from './service/ajax.service';
+import { of } from 'rxjs';
+import { loadDataJson } from '../../../../test/load-json';
 
 describe('WithAjaxCallbackComponent', () => {
   let spectator: Spectator<WithAjaxCallbackComponent>;
@@ -12,6 +16,7 @@ describe('WithAjaxCallbackComponent', () => {
   const createComponent = createComponentFactory({
     component: WithAjaxCallbackComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting(), mockProvider(AjaxService, { getResult: () => of(loadDataJson()) })],
   });
 
   beforeEach(() => {

@@ -5,6 +5,7 @@ import { Api } from 'datatables.net';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 function applyValueToInput(inputElement: HTMLInputElement, value: string, table: Api) {
   inputElement.value = value;
@@ -20,6 +21,7 @@ describe('IndividualColumnFilteringComponent', () => {
   const createComponent = createComponentFactory({
     component: IndividualColumnFilteringComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
   });
 
   beforeEach(() => {

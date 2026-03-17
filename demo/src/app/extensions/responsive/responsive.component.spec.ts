@@ -1,19 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ResponsiveComponent } from './responsive.component';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { MockComponent } from 'ng-mocks';
+import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('ResponsiveComponent', () => {
+  let spectator: Spectator<ResponsiveComponent>;
   let component: ResponsiveComponent;
-  let fixture: ComponentFixture<ResponsiveComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ResponsiveComponent],
-    }).compileComponents();
+  const createComponent = createComponentFactory({
+    component: ResponsiveComponent,
+    declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
+  });
 
-    fixture = TestBed.createComponent(ResponsiveComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {

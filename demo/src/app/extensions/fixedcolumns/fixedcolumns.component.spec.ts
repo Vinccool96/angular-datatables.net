@@ -1,19 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FixedcolumnsComponent } from './fixedcolumns.component';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { MockComponent } from 'ng-mocks';
+import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('FixedcolumnsComponent', () => {
+  let spectator: Spectator<FixedcolumnsComponent>;
   let component: FixedcolumnsComponent;
-  let fixture: ComponentFixture<FixedcolumnsComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [FixedcolumnsComponent],
-    }).compileComponents();
+  const createComponent = createComponentFactory({
+    component: FixedcolumnsComponent,
+    declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
+  });
 
-    fixture = TestBed.createComponent(FixedcolumnsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {

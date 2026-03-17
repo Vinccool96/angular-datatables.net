@@ -1,4 +1,4 @@
-import { Component, effect, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
+import { AfterViewInit, Component, effect, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { DemoNgTemplateRefEventType } from '../../shared/models/demo-ng-template
   templateUrl: './using-ng-template-ref.component.html',
   styleUrl: './using-ng-template-ref.component.css',
 })
-export class UsingNgTemplateRefComponent implements OnDestroy {
+export class UsingNgTemplateRefComponent implements AfterViewInit, OnDestroy {
   readonly pageTitle = 'Using Angular TemplateRef';
   readonly mdIntro = 'docs/advanced/using-ng-template-ref/intro.md';
   readonly mdHTML = 'docs/advanced/using-ng-template-ref/source-html.md';
@@ -21,10 +21,11 @@ export class UsingNgTemplateRefComponent implements OnDestroy {
   dtOptions: ADTSettings = {};
   readonly dtTrigger = new Subject<ADTSettings>();
 
-  readonly demoNg = viewChild<TemplateRef<unknown>>('demoNg');
+  readonly demoNg = viewChild<TemplateRef<DemoNgTemplateRefComponent>>('demoNg');
 
   readonly message = signal('');
   private readonly ready = signal(false);
+  private readonly afterViewInit = signal(false);
 
   constructor() {
     effect(() => {
@@ -57,7 +58,7 @@ export class UsingNgTemplateRefComponent implements OnDestroy {
               ref: demo,
               context: {
                 // needed for capturing events inside <ng-template>
-                captureEvents: this.onCaptureEvent.bind(self),
+                captureEvents: this.onCaptureEvent.bind(this),
               },
             },
           },
@@ -68,7 +69,7 @@ export class UsingNgTemplateRefComponent implements OnDestroy {
     });
 
     effect(() => {
-      if (this.ready()) {
+      if (this.ready() && this.afterViewInit()) {
         this.dtTrigger.next(this.dtOptions);
       }
     });
@@ -76,6 +77,10 @@ export class UsingNgTemplateRefComponent implements OnDestroy {
 
   onCaptureEvent(event: DemoNgTemplateRefEventType) {
     this.message.set(`Event '${event.cmd}' with data '${JSON.stringify(event.data)}`);
+  }
+
+  ngAfterViewInit() {
+    this.afterViewInit.set(true);
   }
 
   ngOnDestroy(): void {

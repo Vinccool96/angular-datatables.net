@@ -1,19 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
 
 import { PersonComponent } from './person.component';
 
 describe('PersonComponent', () => {
+  let spectator: SpectatorRouting<PersonComponent>;
   let component: PersonComponent;
-  let fixture: ComponentFixture<PersonComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [PersonComponent],
-    }).compileComponents();
+  const createComponent = createRoutingFactory({
+    component: PersonComponent,
+    params: { id: 154 },
+  });
 
-    fixture = TestBed.createComponent(PersonComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {

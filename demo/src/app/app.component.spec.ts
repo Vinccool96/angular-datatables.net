@@ -23,10 +23,11 @@ describe('AppComponent', () => {
   }));
 
   it(`should have angular logo on navbar`, waitForAsync(() => {
-    expect(spectator.query('img[src="assets/angular.png"]')).toBeTruthy();
+    spectator.detectChanges();
+    expect(spectator.query('img[src="./angular.png"]')).toBeTruthy();
   }));
 
   it(`should have datatables logo on navbar`, waitForAsync(() => {
-    expect(spectator.query('img[src="assets/datatables.png"]')).toBeTruthy();
+    expect(spectator.query('img[src="./datatables.png"]')).toBeTruthy();
   }));
 });

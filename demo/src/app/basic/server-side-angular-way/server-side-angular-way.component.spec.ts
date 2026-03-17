@@ -3,6 +3,8 @@ import { ServerSideAngularWayComponent } from './server-side-angular-way.compone
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideRouter } from '@angular/router';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('ServerSideAngularWayComponent', () => {
   let spectator: Spectator<ServerSideAngularWayComponent>;
@@ -11,6 +13,7 @@ describe('ServerSideAngularWayComponent', () => {
   const createComponent = createComponentFactory({
     component: ServerSideAngularWayComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting(), provideRouter([])],
   });
 
   beforeEach(() => {

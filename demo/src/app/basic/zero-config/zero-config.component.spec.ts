@@ -4,6 +4,7 @@ import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { ZeroConfigComponent } from './zero-config.component';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('ZeroConfigComponent', () => {
   let spectator: Spectator<ZeroConfigComponent>;
@@ -12,6 +13,7 @@ describe('ZeroConfigComponent', () => {
   const createComponent = createComponentFactory({
     component: ZeroConfigComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
   });
 
   beforeEach(() => {

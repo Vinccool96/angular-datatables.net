@@ -5,6 +5,7 @@ import { UsingNgPipeComponent } from './using-ng-pipe.component';
 import { Person } from '../../person/models/person';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('UsingNgPipeComponent', () => {
   let spectator: Spectator<UsingNgPipeComponent>;
@@ -13,6 +14,7 @@ describe('UsingNgPipeComponent', () => {
   const createComponent = createComponentFactory({
     component: UsingNgPipeComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
   });
 
   beforeEach(() => {

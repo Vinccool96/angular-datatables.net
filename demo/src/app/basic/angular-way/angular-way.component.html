@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (person of persons; track person.id) {
+      @for (person of persons(); track person.id) {
         <tr>
           <td>{{ person.id }}</td>
           <td>{{ person.firstName }}</td>

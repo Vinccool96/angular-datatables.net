@@ -4,6 +4,7 @@ import { NewServerSideComponent } from './new-server-side.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('NewServerSideComponent', () => {
   let spectator: Spectator<NewServerSideComponent>;
@@ -12,6 +13,7 @@ describe('NewServerSideComponent', () => {
   const createComponent = createComponentFactory({
     component: NewServerSideComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
   });
 
   beforeEach(() => {

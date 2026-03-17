@@ -1,19 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ColreorderComponent } from './colreorder.component';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { MockComponent } from 'ng-mocks';
+import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('ColreorderComponent', () => {
+  let spectator: Spectator<ColreorderComponent>;
   let component: ColreorderComponent;
-  let fixture: ComponentFixture<ColreorderComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ColreorderComponent],
-    }).compileComponents();
+  const createComponent = createComponentFactory({
+    component: ColreorderComponent,
+    declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
+  });
 
-    fixture = TestBed.createComponent(ColreorderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {

@@ -178,7 +178,10 @@
               "node_modules/materialize-css/dist/css/materialize.css",
               "demo/src/styles.css"
             ],
-            "karmaConfig": "demo/karma.conf.js"
+            "karmaConfig": "demo/karma.conf.js",
+            "codeCoverageExclude": [
+              "demo/test/**/*"
+            ]
           }
         },
         "lint": {

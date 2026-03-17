@@ -1,19 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
 import { FaqComponent } from './faq.component';
+import { provideMarkdownServiceTesting } from '../../../test/provide-markdown-service-testing';
 
 describe('FaqComponent', () => {
+  let spectator: Spectator<FaqComponent>;
   let component: FaqComponent;
-  let fixture: ComponentFixture<FaqComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [FaqComponent],
-    }).compileComponents();
+  const createComponent = createComponentFactory({
+    component: FaqComponent,
+    providers: [provideMarkdownServiceTesting()],
+  });
 
-    fixture = TestBed.createComponent(FaqComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {

@@ -3,6 +3,7 @@ import { MultipleTablesComponent } from './multiple-tables.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('MultipleTablesComponent', () => {
   let spectator: Spectator<MultipleTablesComponent>;
@@ -11,6 +12,7 @@ describe('MultipleTablesComponent', () => {
   const createComponent = createComponentFactory({
     component: MultipleTablesComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
   });
 
   beforeEach(() => {

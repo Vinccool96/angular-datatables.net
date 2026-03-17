@@ -1,9 +1,13 @@
 import { waitForAsync } from '@angular/core/testing';
 import { DataTableDirective } from 'angular-datatables.net';
 import { LoadDtOptionsWithPromiseComponent } from './load-dt-options-with-promise.component';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { LoadDtOptionsWithPromiseOptionsService } from './services/load-dt-options-with-promise-options.service';
+import { of } from 'rxjs';
+import { loadDtOptionsJson } from '../../../../test/load-json';
 
 describe('LoadDtOptionsWithPromiseComponent', () => {
   let spectator: Spectator<LoadDtOptionsWithPromiseComponent>;
@@ -12,6 +16,10 @@ describe('LoadDtOptionsWithPromiseComponent', () => {
   const createComponent = createComponentFactory({
     component: LoadDtOptionsWithPromiseComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [
+      provideMarkdownServiceTesting(),
+      mockProvider(LoadDtOptionsWithPromiseOptionsService, { obtainOptions: () => of(loadDtOptionsJson()) }),
+    ],
   });
 
   beforeEach(() => {

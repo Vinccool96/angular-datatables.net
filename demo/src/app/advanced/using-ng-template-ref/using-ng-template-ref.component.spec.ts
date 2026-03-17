@@ -4,6 +4,7 @@ import { UsingNgTemplateRefComponent } from './using-ng-template-ref.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('UsingNgTemplateRefComponent', () => {
   let spectator: Spectator<UsingNgTemplateRefComponent>;
@@ -12,6 +13,7 @@ describe('UsingNgTemplateRefComponent', () => {
   const createComponent = createComponentFactory({
     component: UsingNgTemplateRefComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
   });
 
   beforeEach(() => {
@@ -75,7 +77,7 @@ describe('UsingNgTemplateRefComponent', () => {
     spectator.detectChanges();
 
     // verify no duplication
-    const firstRow = spectator.query('.tbody') as HTMLElement;
+    const firstRow = spectator.query('tbody') as HTMLElement;
     const templatedCell = firstRow.children[0].children[3];
     expect(templatedCell.children.length).toBe(1);
   });

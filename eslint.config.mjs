@@ -69,6 +69,12 @@ export default tseslint.config(
     rules: {},
   },
   {
+    files: ['**/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/unbound-method': 'off',
+    },
+  },
+  {
     languageOptions: {
       globals: {
         ...globals.node,

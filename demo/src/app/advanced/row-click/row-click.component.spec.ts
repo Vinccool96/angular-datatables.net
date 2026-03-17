@@ -3,6 +3,7 @@ import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { RowClickComponent } from './row-click.component';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('RowClickComponent', () => {
   let spectator: Spectator<RowClickComponent>;
@@ -11,6 +12,7 @@ describe('RowClickComponent', () => {
   const createComponent = createComponentFactory({
     component: RowClickComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
   });
 
   beforeEach(() => {

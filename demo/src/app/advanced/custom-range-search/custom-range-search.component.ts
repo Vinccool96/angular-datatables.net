@@ -1,10 +1,11 @@
-import { Component, inject, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
-import DataTables from 'datatables.net';
+import DataTables, { Api } from 'datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 import { CustomRangeForm } from './models/custom-range.form';
+import { Person } from '../../person/models/person';
 
 @Component({
   selector: 'app-custom-range-search',
@@ -12,7 +13,7 @@ import { CustomRangeForm } from './models/custom-range.form';
   templateUrl: './custom-range-search.component.html',
   styleUrl: './custom-range-search.component.css',
 })
-export class CustomRangeSearchComponent implements OnInit, OnDestroy {
+export class CustomRangeSearchComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly pageTitle = 'Custom filtering - Range search';
   readonly mdIntro = 'docs/advanced/custom-range/intro.md';
   readonly mdHTML = 'docs/advanced/custom-range/source-html.md';
@@ -30,17 +31,9 @@ export class CustomRangeSearchComponent implements OnInit, OnDestroy {
 
   dtOptions: ADTSettings = {};
 
-  ngOnInit(): void {
-    // We need to call the $.fn.dataTable like this because DataTables typings do not have the "ext" property
-    DataTables.ext.search.push((_settings, data: string[], _dataIndex: number) => {
-      const id = parseFloat(data[0]) || 0; // use data for the id column
-      const min = (this.form.get('min') as FormControl<number | null>).value ?? Number.NaN;
-      const max = (this.form.get('max') as FormControl<number | null>).value ?? Number.NaN;
-      return (
-        (isNaN(min) && isNaN(max)) || (isNaN(min) && id <= max) || (min <= id && isNaN(max)) || (min <= id && id <= max)
-      );
-    });
+  private dtInstance: Api | null = null;
 
+  ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
@@ -58,6 +51,27 @@ export class CustomRangeSearchComponent implements OnInit, OnDestroy {
         },
       ],
     };
+
+    this.form.valueChanges.subscribe(() => {
+      this.dtInstance?.draw();
+    });
+  }
+
+  ngAfterViewInit() {
+    void this.datatableElement()?.dtInstance.then((instance) => {
+      this.dtInstance = instance;
+      instance.search.fixed('range', (_data, rowData: Person): boolean => {
+        const id = rowData.id; // use data for the id column
+        const min = (this.form.get('min') as FormControl<number | null>).value ?? Number.NaN;
+        const max = (this.form.get('max') as FormControl<number | null>).value ?? Number.NaN;
+        return (
+          (isNaN(min) && isNaN(max)) ||
+          (isNaN(min) && id <= max) ||
+          (min <= id && isNaN(max)) ||
+          (min <= id && id <= max)
+        );
+      });
+    });
   }
 
   ngOnDestroy(): void {
@@ -68,9 +82,7 @@ export class CustomRangeSearchComponent implements OnInit, OnDestroy {
   }
 
   filterById(): boolean {
-    void this.datatableElement()?.dtInstance.then((dtInstance) => {
-      dtInstance.draw();
-    });
+    this.dtInstance?.draw();
     return false;
   }
 }

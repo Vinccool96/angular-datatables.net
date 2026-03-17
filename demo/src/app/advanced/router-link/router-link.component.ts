@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
+import { AfterViewInit, Component, effect, inject, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
@@ -14,7 +14,7 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
   templateUrl: './router-link.component.html',
   styleUrl: './router-link.component.css',
 })
-export class RouterLinkComponent implements OnDestroy {
+export class RouterLinkComponent implements AfterViewInit, OnDestroy {
   readonly pageTitle = 'Router Link';
   readonly mdIntro = 'docs/advanced/router-link/intro.md';
   readonly mdHTML = 'docs/advanced/router-link/source-html.md';
@@ -22,13 +22,14 @@ export class RouterLinkComponent implements OnDestroy {
   readonly mdTS = 'docs/advanced/router-link/source-ts.md';
 
   dtOptions: ADTSettings = {};
-  readonly dtTrigger = new Subject<ADTSettings>();
+  readonly dtTrigger = new Subject<ADTSettings | null>();
 
   readonly demoNg = viewChild<TemplateRef<unknown>>('demoNg');
 
   private readonly router = inject(Router);
 
   private readonly ready = signal(false);
+  private readonly afterViewInit = signal(false);
 
   constructor() {
     effect(() => {
@@ -71,14 +72,18 @@ export class RouterLinkComponent implements OnDestroy {
     });
 
     effect(() => {
-      if (this.ready()) {
-        this.dtTrigger.next(this.dtOptions);
+      if (this.ready() && this.afterViewInit()) {
+        this.dtTrigger.next(null);
       }
     });
   }
 
   onCaptureEvent(event: DemoNgTemplateRefEventType) {
     void this.router.navigate([`/person/${(event.data as Person).id}`]);
+  }
+
+  ngAfterViewInit() {
+    this.afterViewInit.set(true);
   }
 
   ngOnDestroy(): void {

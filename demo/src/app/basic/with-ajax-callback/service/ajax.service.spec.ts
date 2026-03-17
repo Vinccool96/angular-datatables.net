@@ -1,13 +1,23 @@
-import { TestBed } from '@angular/core/testing';
+import { createHttpFactory, SpectatorHttp } from '@ngneat/spectator';
+import { HttpTestingController } from '@angular/common/http/testing';
 
 import { AjaxService } from './ajax.service';
 
-describe('AjaxServiceService', () => {
+describe('AjaxService', () => {
+  let spectator: SpectatorHttp<AjaxService>;
   let service: AjaxService;
+  let controller: HttpTestingController;
+
+  const createService = createHttpFactory(AjaxService);
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AjaxService);
+    spectator = createService();
+    service = spectator.service;
+    controller = spectator.controller;
+  });
+
+  afterEach(() => {
+    controller.verify();
   });
 
   it('should be created', () => {

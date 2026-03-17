@@ -4,6 +4,7 @@ import { CustomRangeSearchComponent } from './custom-range-search.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('CustomRangeSearchComponent', () => {
   let spectator: Spectator<CustomRangeSearchComponent>;
@@ -12,6 +13,7 @@ describe('CustomRangeSearchComponent', () => {
   const createComponent = createComponentFactory({
     component: CustomRangeSearchComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
   });
 
   beforeEach(() => {
@@ -34,16 +36,10 @@ describe('CustomRangeSearchComponent', () => {
     expect(dir).toBeTruthy();
     const instance = await dir.dtInstance;
 
-    const inputFieldMin = spectator.query('input[name="min"]') as HTMLInputElement;
-    const inputFieldMax = spectator.query('input[name="max"]') as HTMLInputElement;
-
     //  # Test 1
 
-    inputFieldMin.value = '1';
-    inputFieldMax.value = '5';
-
-    inputFieldMin.dispatchEvent(new Event('input'));
-    inputFieldMax.dispatchEvent(new Event('input'));
+    spectator.typeInElement('1', 'input[name="min"]');
+    spectator.typeInElement('5', 'input[name="max"]');
 
     instance.draw();
     spectator.detectChanges();
@@ -52,11 +48,8 @@ describe('CustomRangeSearchComponent', () => {
 
     //  # Test 2
 
-    inputFieldMin.value = '1';
-    inputFieldMax.value = '15';
-
-    inputFieldMin.dispatchEvent(new Event('input'));
-    inputFieldMax.dispatchEvent(new Event('input'));
+    spectator.typeInElement('1', 'input[name="min"]');
+    spectator.typeInElement('15', 'input[name="max"]');
 
     instance.draw();
     spectator.detectChanges();

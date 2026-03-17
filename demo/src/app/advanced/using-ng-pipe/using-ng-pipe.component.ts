@@ -9,6 +9,7 @@ import { CurrencyPipe, UpperCasePipe } from '@angular/common';
   imports: [DataTableDirective, BaseDemoComponent],
   templateUrl: './using-ng-pipe.component.html',
   styleUrl: './using-ng-pipe.component.css',
+  providers: [UpperCasePipe, CurrencyPipe],
 })
 export class UsingNgPipeComponent implements OnInit {
   readonly pageTitle = 'Using Angular Pipe';

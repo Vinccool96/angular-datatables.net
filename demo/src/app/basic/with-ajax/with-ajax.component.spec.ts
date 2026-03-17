@@ -3,6 +3,7 @@ import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { WithAjaxComponent } from './with-ajax.component';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 
 describe('WithAjaxComponent', () => {
   let spectator: Spectator<WithAjaxComponent>;
@@ -11,6 +12,7 @@ describe('WithAjaxComponent', () => {
   const createComponent = createComponentFactory({
     component: WithAjaxComponent,
     declarations: [MockComponent(MarkdownComponent)],
+    providers: [provideMarkdownServiceTesting()],
   });
 
   beforeEach(() => {
@@ -23,7 +25,7 @@ describe('WithAjaxComponent', () => {
   });
 
   it('should have title "Quickstart"', () => {
-    expect(component.pageTitle).toBe('Quickstart');
+    expect(component.pageTitle).toBe('With Ajax');
   });
 
   it('should have table populated via AJAX', async () => {
