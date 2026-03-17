@@ -5,104 +5,104 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
 import 'datatables.net-fixedcolumns-dt';
 
 @Component({
-  selector: 'app-fixedcolumns',
   imports: [DataTableDirective, BaseDemoComponent],
-  templateUrl: './fixedcolumns.component.html',
+  selector: 'app-fixedcolumns',
   styleUrl: './fixedcolumns.component.css',
+  templateUrl: './fixedcolumns.component.html',
 })
 export class FixedcolumnsComponent implements OnInit {
-  readonly pageTitle = 'DataTables Fixed Columns extension';
-  readonly mdIntro = 'docs/extensions/fixedcolumns/intro.md';
-  readonly mdInstall = 'docs/extensions/fixedcolumns/installation.md';
+  dtOptions: ADTSettings = {};
   readonly mdHTML = 'docs/extensions/fixedcolumns/source-html.md';
+  readonly mdInstall = 'docs/extensions/fixedcolumns/installation.md';
+  readonly mdIntro = 'docs/extensions/fixedcolumns/intro.md';
   readonly mdTS = 'docs/extensions/fixedcolumns/source-ts.md';
   readonly mdTSV1 = 'docs/extensions/fixedcolumns/source-ts-dtv1.md';
 
-  dtOptions: ADTSettings = {};
+  readonly pageTitle = 'DataTables Fixed Columns extension';
 
   ngOnInit() {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
-      // Make sure that scrollX is set to true for this to work!
-      scrollX: true,
       fixedColumns: {
         left: 3,
         right: 0,
       },
+      // Make sure that scrollX is set to true for this to work!
+      scrollX: true,
     } as ADTSettings;
   }
 }

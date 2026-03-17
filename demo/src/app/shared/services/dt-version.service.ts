@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class DtVersionService {
-  dtVersion: 'v2' | 'v1' = 'v2';
+  dtVersion: 'v1' | 'v2' = 'v2';
 
   readonly versionChanged$ = new BehaviorSubject<'v1' | 'v2'>(this.dtVersion);
 }

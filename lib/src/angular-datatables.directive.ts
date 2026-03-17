@@ -27,6 +27,13 @@ import { ADTColumns, ADTSettings, ADTTemplateRef } from './models/settings';
 })
 export class DataTableDirective implements OnDestroy, OnInit {
   /**
+   * The DataTable instance built by the jQuery library [DataTables](datatables.net).
+   *
+   * It's possible to execute the [DataTables APIs](https://datatables.net/reference/api/) with this variable.
+   */
+  dtInstance!: Promise<Api>;
+
+  /**
    * The DataTable option you pass to configure your table.
    */
   readonly dtOptions = model<ADTSettings>({});
@@ -36,19 +43,18 @@ export class DataTableDirective implements OnDestroy, OnInit {
    */
   readonly dtTrigger = input<Subject<ADTSettings> | Subject<ADTSettings | null>>();
 
-  /**
-   * The DataTable instance built by the jQuery library [DataTables](datatables.net).
-   *
-   * It's possible to execute the [DataTables APIs](https://datatables.net/reference/api/) with this variable.
-   */
-  dtInstance!: Promise<Api>;
-
   // Only used for destroying the table when destroying this directive
   private dt: Api | undefined;
 
   private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
-  private readonly vcr = inject(ViewContainerRef);
   private readonly renderer = inject(Renderer2);
+  private readonly vcr = inject(ViewContainerRef);
+
+  ngOnDestroy(): void {
+    this.dtTrigger()?.unsubscribe();
+
+    this.dt?.destroy(true);
+  }
 
   ngOnInit(): void {
     const trigger = this.dtTrigger();
@@ -62,10 +68,46 @@ export class DataTableDirective implements OnDestroy, OnInit {
     }
   }
 
-  ngOnDestroy(): void {
-    this.dtTrigger()?.unsubscribe();
+  private applyNgPipeTransform(row: Node, columns: ADTColumns[]): void {
+    // Filter columns with pipe declared
+    const colsWithPipe = columns.filter((x) => x.ngPipeInstance !== undefined && x.ngTemplateRef === undefined);
 
-    this.dt?.destroy(true);
+    for (const element of colsWithPipe) {
+      const pipe = element.ngPipeInstance as PipeTransform;
+      const pipeArguments = element.ngPipeArgs ?? [];
+      // find index of column using `data` attr
+      const index = columns.filter((c) => c.visible !== false).findIndex((event) => event.id === element.id);
+      // get <td> element which holds data using index
+      const rowFromCol = row.childNodes.item(index);
+      // Transform data with Pipe and PipeArgs
+      const rowValue = $(rowFromCol).text();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const rowValueAfter = pipe.transform(rowValue, ...pipeArguments) as string;
+      // Apply transformed string to <td>
+      $(rowFromCol).text(rowValueAfter);
+    }
+  }
+
+  private applyNgRefTemplate(row: Node, columns: ADTColumns[], data: object): void {
+    // Filter columns using `ngTemplateRef`
+    const colsWithTemplate = columns.filter((x) => x.ngTemplateRef !== undefined && x.ngPipeInstance === undefined);
+
+    for (const element of colsWithTemplate) {
+      const { context, ref } = element.ngTemplateRef as ADTTemplateRef;
+      // get <td> element which holds data using index
+      const index = columns.filter((c) => c.visible !== false).findIndex((column) => column.id === element.id);
+      const cellFromIndex = row.childNodes.item(index);
+      // reset cell before applying transform
+      $(cellFromIndex).html('');
+      // render onto DOM
+      // finalize context to be sent to user
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const _context = Object.assign({}, context, context?.userData, {
+        adtData: data,
+      });
+      const instance = this.vcr.createEmbeddedView(ref, _context);
+      this.renderer.appendChild(cellFromIndex, instance.rootNodes[0]);
+    }
   }
 
   private displayTable(dtOptions: ADTSettings | null): void {
@@ -118,48 +160,6 @@ export class DataTableDirective implements OnDestroy, OnInit {
         });
       });
     });
-  }
-
-  private applyNgPipeTransform(row: Node, columns: ADTColumns[]): void {
-    // Filter columns with pipe declared
-    const colsWithPipe = columns.filter((x) => x.ngPipeInstance !== undefined && x.ngTemplateRef === undefined);
-
-    for (const element of colsWithPipe) {
-      const pipe = element.ngPipeInstance as PipeTransform;
-      const pipeArguments = element.ngPipeArgs ?? [];
-      // find index of column using `data` attr
-      const index = columns.filter((c) => c.visible !== false).findIndex((event) => event.id === element.id);
-      // get <td> element which holds data using index
-      const rowFromCol = row.childNodes.item(index);
-      // Transform data with Pipe and PipeArgs
-      const rowValue = $(rowFromCol).text();
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      const rowValueAfter = pipe.transform(rowValue, ...pipeArguments) as string;
-      // Apply transformed string to <td>
-      $(rowFromCol).text(rowValueAfter);
-    }
-  }
-
-  private applyNgRefTemplate(row: Node, columns: ADTColumns[], data: object): void {
-    // Filter columns using `ngTemplateRef`
-    const colsWithTemplate = columns.filter((x) => x.ngTemplateRef !== undefined && x.ngPipeInstance === undefined);
-
-    for (const element of colsWithTemplate) {
-      const { ref, context } = element.ngTemplateRef as ADTTemplateRef;
-      // get <td> element which holds data using index
-      const index = columns.filter((c) => c.visible !== false).findIndex((column) => column.id === element.id);
-      const cellFromIndex = row.childNodes.item(index);
-      // reset cell before applying transform
-      $(cellFromIndex).html('');
-      // render onto DOM
-      // finalize context to be sent to user
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const _context = Object.assign({}, context, context?.userData, {
-        adtData: data,
-      });
-      const instance = this.vcr.createEmbeddedView(ref, _context);
-      this.renderer.appendChild(cellFromIndex, instance.rootNodes[0]);
-    }
   }
 
   private getColumnUniqueId(): string {

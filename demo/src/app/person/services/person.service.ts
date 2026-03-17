@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { Person } from '../models/person';
-
 import data from '../../../../public/data/data.json';
+import { Person } from '../models/person';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PersonService {
-  getPerson(id: string): Person | null {
+  getPerson(id: string): null | Person {
     const persons: Person[] = data.data;
     return persons.find((person) => person.id === Number.parseInt(id)) ?? null;
   }

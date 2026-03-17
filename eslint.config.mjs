@@ -6,6 +6,7 @@ import globals from 'globals';
 import angular from 'angular-eslint';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import perfectionist from 'eslint-plugin-perfectionist';
 import { includeIgnoreFile } from '@eslint/compat';
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
@@ -21,6 +22,7 @@ export default tseslint.config(
       ...angular.configs.tsRecommended,
       eslintPluginPrettierRecommended,
       eslintPluginUnicorn.configs.recommended,
+      perfectionist.configs['recommended-natural'],
     ],
     processor: angular.processInlineTemplates,
     rules: {

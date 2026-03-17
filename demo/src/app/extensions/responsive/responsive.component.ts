@@ -5,37 +5,37 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
 import 'datatables.net-responsive';
 
 @Component({
-  selector: 'app-responsive',
   imports: [DataTableDirective, BaseDemoComponent],
-  templateUrl: './responsive.component.html',
+  selector: 'app-responsive',
   styleUrl: './responsive.component.css',
+  templateUrl: './responsive.component.html',
 })
 export class ResponsiveComponent implements OnInit {
-  readonly pageTitle = 'DataTables Responsive extension';
-  readonly mdIntro = 'docs/extensions/responsive/intro.md';
-  readonly mdInstall = 'docs/extensions/responsive/installation.md';
+  dtOptions: ADTSettings = {};
   readonly mdHTML = 'docs/extensions/responsive/source-html.md';
+  readonly mdInstall = 'docs/extensions/responsive/installation.md';
+  readonly mdIntro = 'docs/extensions/responsive/intro.md';
   readonly mdTS = 'docs/extensions/responsive/source-ts.md';
   readonly mdTSV1 = 'docs/extensions/responsive/source-ts-dtv1.md';
 
-  dtOptions: ADTSettings = {};
+  readonly pageTitle = 'DataTables Responsive extension';
 
   ngOnInit() {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
-          data: 'lastName',
           className: 'none',
+          data: 'lastName',
+          title: 'Last name',
         },
       ],
       // Use this attribute to enable the responsive extension

@@ -5,21 +5,21 @@ import { Config } from 'datatables.net';
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
-  selector: 'app-multiple-tables',
   imports: [DataTableDirective, BaseDemoComponent],
-  templateUrl: './multiple-tables.component.html',
+  selector: 'app-multiple-tables',
   styleUrl: './multiple-tables.component.css',
+  templateUrl: './multiple-tables.component.html',
 })
 export class MultipleTablesComponent implements OnInit {
-  readonly pageTitle = 'Multiple tables in the same page';
-  readonly mdIntro = 'docs/advanced/multiple-tables/intro.md';
+  readonly datatableElements = viewChildren(DataTableDirective);
+  dtOptions: ADTSettings[] = [];
   readonly mdHTML = 'docs/advanced/multiple-tables/source-html.md';
+  readonly mdIntro = 'docs/advanced/multiple-tables/intro.md';
   readonly mdTS = 'docs/advanced/multiple-tables/source-ts.md';
+
   readonly mdTSV1 = 'docs/advanced/multiple-tables/source-ts-dtv1.md';
 
-  readonly datatableElements = viewChildren(DataTableDirective);
-
-  dtOptions: ADTSettings[] = [];
+  readonly pageTitle = 'Multiple tables in the same page';
 
   displayToConsole(): void {
     for (let index = 0; index < this.datatableElements().length; index++) {
@@ -41,16 +41,16 @@ export class MultipleTablesComponent implements OnInit {
       ajax: url,
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
     };

@@ -2,28 +2,28 @@ import { JsonPipe, Location } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { PersonService } from './services/person.service';
 import { Person } from './models/person';
+import { PersonService } from './services/person.service';
 
 @Component({
-  selector: 'app-person',
   imports: [JsonPipe],
-  templateUrl: './person.component.html',
+  selector: 'app-person',
   styleUrl: './person.component.css',
+  templateUrl: './person.component.html',
 })
 export class PersonComponent implements OnInit {
-  protected readonly person = signal<Person | null>(null);
+  protected readonly person = signal<null | Person>(null);
 
-  private readonly route = inject(ActivatedRoute);
   private readonly location = inject(Location);
   private readonly personService = inject(PersonService);
+  private readonly route = inject(ActivatedRoute);
+
+  goBack(): void {
+    this.location.back();
+  }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id') as string;
     this.person.set(this.personService.getPerson(id));
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 }

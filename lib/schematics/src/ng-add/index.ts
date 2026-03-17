@@ -1,8 +1,9 @@
-import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
-import { addAssetToAngularJson, addPackageToPackageJson } from './utils';
+import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+
 import { IADTSchematicsOptions } from './models/schematics-options';
 import { ADT_SUPPORTED_STYLES, ADTStyleOptions } from './models/style-options';
+import { addAssetToAngularJson, addPackageToPackageJson } from './utils';
 
 export default function add(_options: IADTSchematicsOptions): Rule {
   return chain([
@@ -18,14 +19,14 @@ function addPackageJsonDependencies(options: IADTSchematicsOptions) {
     const styleDeps = ADT_SUPPORTED_STYLES.find((element) => element.style === options.style);
 
     const dependencies = [
-      { version: '^3.6.0', name: 'jquery', isDev: false },
+      { isDev: false, name: 'jquery', version: '^3.6.0' },
       {
-        version: '^2.0.3',
-        name: 'datatables.net',
         fancyName: 'datatables.net (v2)',
         isDev: false,
+        name: 'datatables.net',
+        version: '^2.0.3',
       },
-      { version: '^3.5.9', name: '@types/jquery', isDev: true },
+      { isDev: true, name: '@types/jquery', version: '^3.5.9' },
     ];
 
     if (styleDeps !== undefined) {
@@ -73,14 +74,14 @@ function updateAngularJsonFile(options: IADTSchematicsOptions) {
 
     const assets = [
       {
+        fancyName: 'jQuery Core',
         path: 'node_modules/jquery/dist/jquery.min.js',
         target: 'scripts',
-        fancyName: 'jQuery Core',
       },
       {
+        fancyName: 'DataTables.net Core JS',
         path: 'node_modules/datatables.net/js/dataTables.min.js',
         target: 'scripts',
-        fancyName: 'DataTables.net Core JS',
       },
     ];
 

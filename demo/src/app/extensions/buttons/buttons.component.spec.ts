@@ -2,8 +2,8 @@ import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
-import { ButtonsComponent } from './buttons.component';
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { ButtonsComponent } from './buttons.component';
 
 describe('ButtonsComponent', () => {
   let spectator: Spectator<ButtonsComponent>;

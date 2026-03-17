@@ -1,8 +1,9 @@
-import { FixedcolumnsComponent } from './fixedcolumns.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { FixedcolumnsComponent } from './fixedcolumns.component';
 
 describe('FixedcolumnsComponent', () => {
   let spectator: Spectator<FixedcolumnsComponent>;

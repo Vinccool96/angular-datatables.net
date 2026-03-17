@@ -1,10 +1,10 @@
 import { waitForAsync } from '@angular/core/testing';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-
-import { WithOptionsComponent } from './with-options.component';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { WithOptionsComponent } from './with-options.component';
 
 describe('WithOptionsComponent', () => {
   let spectator: Spectator<WithOptionsComponent>;

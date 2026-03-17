@@ -55,6 +55,17 @@ export function hasNgModuleImport(tree: Tree, modulePath: string, className: str
   return false;
 }
 
+/** Whether the specified call expression is referring to a NgModule definition. */
+function isNgModuleCallExpression(callExpression: ts.CallExpression): boolean {
+  if (callExpression.arguments.length === 0 || !ts.isObjectLiteralExpression(callExpression.arguments[0])) {
+    return false;
+  }
+
+  const decoratorIdentifier = resolveIdentifierOfExpression(callExpression.expression);
+
+  return decoratorIdentifier?.text === 'NgModule';
+}
+
 /**
  * Resolves the last identifier that is part of the given expression. This helps resolving
  * identifiers of nested property access expressions (e.g. myNamespace.core.NgModule).
@@ -67,15 +78,4 @@ function resolveIdentifierOfExpression(expression: ts.Expression): ts.Identifier
   }
 
   return undefined;
-}
-
-/** Whether the specified call expression is referring to a NgModule definition. */
-function isNgModuleCallExpression(callExpression: ts.CallExpression): boolean {
-  if (callExpression.arguments.length === 0 || !ts.isObjectLiteralExpression(callExpression.arguments[0])) {
-    return false;
-  }
-
-  const decoratorIdentifier = resolveIdentifierOfExpression(callExpression.expression);
-
-  return decoratorIdentifier?.text === 'NgModule';
 }

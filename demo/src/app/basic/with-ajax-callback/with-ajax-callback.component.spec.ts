@@ -1,13 +1,13 @@
 import { waitForAsync } from '@angular/core/testing';
-
-import { WithAjaxCallbackComponent } from './with-ajax-callback.component';
 import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+import { of } from 'rxjs';
+
+import { loadDataJson } from '../../../../test/load-json';
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 import { AjaxService } from './service/ajax.service';
-import { of } from 'rxjs';
-import { loadDataJson } from '../../../../test/load-json';
+import { WithAjaxCallbackComponent } from './with-ajax-callback.component';
 
 describe('WithAjaxCallbackComponent', () => {
   let spectator: Spectator<WithAjaxCallbackComponent>;

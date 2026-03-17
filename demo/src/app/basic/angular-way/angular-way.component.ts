@@ -7,33 +7,25 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
 import { AngularWayDataService } from './services/angular-way-data.service';
 
 @Component({
-  selector: 'app-angular-way',
   imports: [DataTableDirective, BaseDemoComponent],
-  templateUrl: './angular-way.component.html',
+  selector: 'app-angular-way',
   styleUrl: './angular-way.component.css',
+  templateUrl: './angular-way.component.html',
 })
-export class AngularWayComponent implements OnInit, AfterViewInit, OnDestroy {
-  readonly pageTitle = 'Angular way';
-  readonly mdIntro = 'docs/basic/angular-way/intro.md';
-  readonly mdHTML = 'docs/basic/angular-way/source-html.md';
-  readonly mdTSV1 = 'docs/basic/angular-way/source-ts.md';
-
+export class AngularWayComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: ADTSettings = {};
-  readonly persons = signal<Person[]>([]);
-
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger = new Subject<ADTSettings | null>();
+  readonly mdHTML = 'docs/basic/angular-way/source-html.md';
+  readonly mdIntro = 'docs/basic/angular-way/intro.md';
+
+  readonly mdTSV1 = 'docs/basic/angular-way/source-ts.md';
+  readonly pageTitle = 'Angular way';
+
+  readonly persons = signal<Person[]>([]);
 
   private readonly dataService = inject(AngularWayDataService);
-
-  ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 2,
-      lengthMenu: [2, 10, 25],
-    };
-  }
 
   ngAfterViewInit() {
     this.dataService.obtainData().subscribe((data) => {
@@ -46,5 +38,13 @@ export class AngularWayComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    this.dtOptions = {
+      lengthMenu: [2, 10, 25],
+      pageLength: 2,
+      pagingType: 'full_numbers',
+    };
   }
 }

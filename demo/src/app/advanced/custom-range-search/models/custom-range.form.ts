@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 
 export interface CustomRangeForm {
-  min: FormControl<number | null>;
-  max: FormControl<number | null>;
+  max: FormControl<null | number>;
+  min: FormControl<null | number>;
 }

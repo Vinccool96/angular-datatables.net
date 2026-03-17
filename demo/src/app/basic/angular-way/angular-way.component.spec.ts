@@ -1,13 +1,14 @@
 import { waitForAsync } from '@angular/core/testing';
-import { DataTableDirective } from 'angular-datatables.net';
-import { AngularWayComponent } from './angular-way.component';
 import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator';
+import { DataTableDirective } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
-import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
-import { AngularWayDataService } from './services/angular-way-data.service';
 import { of } from 'rxjs';
+
 import { loadDataJson } from '../../../../test/load-json';
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { AngularWayComponent } from './angular-way.component';
+import { AngularWayDataService } from './services/angular-way-data.service';
 
 describe('AngularWayComponent', () => {
   let spectator: Spectator<AngularWayComponent>;

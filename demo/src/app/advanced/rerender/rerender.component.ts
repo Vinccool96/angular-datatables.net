@@ -5,43 +5,23 @@ import { Subject } from 'rxjs';
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
-  selector: 'app-rerender',
   imports: [BaseDemoComponent, DataTableDirective],
-  templateUrl: './rerender.component.html',
+  selector: 'app-rerender',
   styleUrl: './rerender.component.css',
+  templateUrl: './rerender.component.html',
 })
-export class RerenderComponent implements OnInit, AfterViewInit, OnDestroy {
-  readonly pageTitle = 'Rerender';
-  readonly mdIntro = 'docs/advanced/rerender/intro.md';
+export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
+  readonly datatableElement = viewChild(DataTableDirective);
+  dtOptions: ADTSettings = {};
+  readonly dtTrigger = new Subject<ADTSettings | null>();
   readonly mdHTML = 'docs/advanced/rerender/source-html.md';
+  readonly mdIntro = 'docs/advanced/rerender/intro.md';
+
   readonly mdTS = 'docs/advanced/rerender/source-ts.md';
+
   readonly mdTSV1 = 'docs/advanced/rerender/source-ts-dtv1.md';
 
-  readonly datatableElement = viewChild(DataTableDirective);
-
-  dtOptions: ADTSettings = {};
-
-  readonly dtTrigger = new Subject<ADTSettings | null>();
-
-  ngOnInit(): void {
-    this.dtOptions = {
-      ajax: 'data/data.json',
-      columns: [
-        {
-          title: 'ID',
-          data: 'id',
-        },
-        {
-          title: 'First name',
-          data: 'firstName',
-        },
-        {
-          title: 'Last name',
-          data: 'lastName',
-        },
-      ],
-    };
-  }
+  readonly pageTitle = 'Rerender';
 
   ngAfterViewInit(): void {
     this.dtTrigger.next(null);
@@ -50,6 +30,26 @@ export class RerenderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    this.dtOptions = {
+      ajax: 'data/data.json',
+      columns: [
+        {
+          data: 'id',
+          title: 'ID',
+        },
+        {
+          data: 'firstName',
+          title: 'First name',
+        },
+        {
+          data: 'lastName',
+          title: 'Last name',
+        },
+      ],
+    };
   }
 
   rerender(): void {

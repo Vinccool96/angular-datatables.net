@@ -6,8 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { WorkspaceProject } from '@schematics/angular/utility/workspace-models';
 import { SchematicsException } from '@angular-devkit/schematics';
+import { WorkspaceProject } from '@schematics/angular/utility/workspace-models';
+
 import { getProjectTargetOptions } from './project-targets';
 
 /**

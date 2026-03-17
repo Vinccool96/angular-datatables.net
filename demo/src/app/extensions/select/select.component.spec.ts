@@ -1,9 +1,9 @@
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-
-import { SelectComponent } from './select.component';
-import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
+import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { SelectComponent } from './select.component';
 
 describe('SelectComponent', () => {
   let spectator: Spectator<SelectComponent>;

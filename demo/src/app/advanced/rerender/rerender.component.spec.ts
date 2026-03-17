@@ -1,9 +1,10 @@
 import { waitForAsync } from '@angular/core/testing';
-import { RerenderComponent } from './rerender.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { RerenderComponent } from './rerender.component';
 
 describe('RerenderComponent', () => {
   let spectator: Spectator<RerenderComponent>;

@@ -1,11 +1,12 @@
 import { waitForAsync } from '@angular/core/testing';
-import { DataTableDirective } from 'angular-datatables.net';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { UsingNgPipeComponent } from './using-ng-pipe.component';
-import { Person } from '../../person/models/person';
+import { DataTableDirective } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { Person } from '../../person/models/person';
+import { UsingNgPipeComponent } from './using-ng-pipe.component';
 
 describe('UsingNgPipeComponent', () => {
   let spectator: Spectator<UsingNgPipeComponent>;

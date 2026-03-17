@@ -5,32 +5,24 @@ import { MarkdownComponent } from 'ngx-markdown';
 import { DtVersionService } from '../../services/dt-version.service';
 
 @Component({
-  selector: 'app-base-demo',
   imports: [MarkdownComponent, RouterLink],
-  templateUrl: './base-demo.component.html',
+  selector: 'app-base-demo',
   styleUrl: './base-demo.component.css',
+  templateUrl: './base-demo.component.html',
 })
 export class BaseDemoComponent {
-  readonly pageTitle = input('');
-  readonly mdIntro = input('');
+  readonly deprecated = input(false);
+  readonly mdHTML = input('');
   readonly mdInstall = input('');
   readonly mdInstallV1 = input('');
-  readonly mdHTML = input('');
+  readonly mdIntro = input('');
   readonly mdTS = input('');
   readonly mdTSV1 = input('');
-  readonly deprecated = input(false);
+  readonly pageTitle = input('');
 
   protected readonly dtVersion = signal<'v1' | 'v2'>('v2');
 
   private readonly dtVersionService = inject(DtVersionService);
-
-  private scrollCallback() {
-    if ($(this).scrollTop() === undefined) {
-      $('#toTop').fadeOut();
-    } else {
-      $('#toTop').fadeIn();
-    }
-  }
 
   initBackToTop() {
     // hide scroll button on page load
@@ -43,5 +35,13 @@ export class BaseDemoComponent {
     $('#toTop').on('click', function () {
       $('html, body').animate({ scrollTop: 0 }, 1000);
     });
+  }
+
+  private scrollCallback() {
+    if ($(this).scrollTop() === undefined) {
+      $('#toTop').fadeOut();
+    } else {
+      $('#toTop').fadeIn();
+    }
   }
 }

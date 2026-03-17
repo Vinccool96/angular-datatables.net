@@ -3,33 +3,33 @@ import { Router } from '@angular/router';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
-import { DemoNgTemplateRefComponent } from '../../shared/components/demo-ng-template-ref/demo-ng-template-ref.component';
-import { DemoNgTemplateRefEventType } from '../../shared/models/demo-ng-template-ref-event-type';
 import { Person } from '../../person/models/person';
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
+import { DemoNgTemplateRefComponent } from '../../shared/components/demo-ng-template-ref/demo-ng-template-ref.component';
+import { DemoNgTemplateRefEventType } from '../../shared/models/demo-ng-template-ref-event-type';
 
 @Component({
-  selector: 'app-router-link',
   imports: [DataTableDirective, DemoNgTemplateRefComponent, BaseDemoComponent],
-  templateUrl: './router-link.component.html',
+  selector: 'app-router-link',
   styleUrl: './router-link.component.css',
+  templateUrl: './router-link.component.html',
 })
 export class RouterLinkComponent implements AfterViewInit, OnDestroy {
-  readonly pageTitle = 'Router Link';
-  readonly mdIntro = 'docs/advanced/router-link/intro.md';
-  readonly mdHTML = 'docs/advanced/router-link/source-html.md';
-  readonly mdTSV1 = 'docs/advanced/router-link/source-ts-dtv1.md';
-  readonly mdTS = 'docs/advanced/router-link/source-ts.md';
-
+  readonly demoNg = viewChild<TemplateRef<unknown>>('demoNg');
   dtOptions: ADTSettings = {};
   readonly dtTrigger = new Subject<ADTSettings | null>();
+  readonly mdHTML = 'docs/advanced/router-link/source-html.md';
+  readonly mdIntro = 'docs/advanced/router-link/intro.md';
 
-  readonly demoNg = viewChild<TemplateRef<unknown>>('demoNg');
+  readonly mdTS = 'docs/advanced/router-link/source-ts.md';
+  readonly mdTSV1 = 'docs/advanced/router-link/source-ts-dtv1.md';
 
-  private readonly router = inject(Router);
+  readonly pageTitle = 'Router Link';
+
+  private readonly afterViewInit = signal(false);
 
   private readonly ready = signal(false);
-  private readonly afterViewInit = signal(false);
+  private readonly router = inject(Router);
 
   constructor() {
     effect(() => {
@@ -43,27 +43,27 @@ export class RouterLinkComponent implements AfterViewInit, OnDestroy {
         ajax: 'data/data.json',
         columns: [
           {
-            title: 'ID',
             data: 'id',
+            title: 'ID',
           },
           {
-            title: 'First name',
             data: 'firstName',
+            title: 'First name',
           },
           {
-            title: 'Last name',
             data: 'lastName',
+            title: 'Last name',
           },
           {
-            title: 'Action',
             defaultContent: '',
             ngTemplateRef: {
-              ref: demo,
               context: {
                 // needed for capturing events inside <ng-template>
                 captureEvents: this.onCaptureEvent.bind(this),
               },
+              ref: demo,
             },
+            title: 'Action',
           },
         ],
       };
@@ -78,15 +78,15 @@ export class RouterLinkComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  onCaptureEvent(event: DemoNgTemplateRefEventType) {
-    void this.router.navigate([`/person/${(event.data as Person).id}`]);
-  }
-
   ngAfterViewInit() {
     this.afterViewInit.set(true);
   }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+  }
+
+  onCaptureEvent(event: DemoNgTemplateRefEventType) {
+    void this.router.navigate([`/person/${(event.data as Person).id}`]);
   }
 }

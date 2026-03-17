@@ -1,10 +1,11 @@
 import { waitForAsync } from '@angular/core/testing';
-import { DataTableDirective } from 'angular-datatables.net';
-import { UsingNgTemplateRefComponent } from './using-ng-template-ref.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { DataTableDirective } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { UsingNgTemplateRefComponent } from './using-ng-template-ref.component';
 
 describe('UsingNgTemplateRefComponent', () => {
   let spectator: Spectator<UsingNgTemplateRefComponent>;

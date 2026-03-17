@@ -9,15 +9,32 @@
 import { Tree } from '@angular-devkit/schematics';
 import { JsonObject, PackageJson } from 'type-fest';
 
-function sortObjectByKeys(object: Partial<Record<string, string>>): Partial<Record<string, string>> {
-  const result: Partial<Record<string, string>> = {};
+export function addAssetToAngularJson(host: Tree, assetType: string, assetPath: string): boolean {
+  const sourceText = (host.read('angular.json') as Buffer).toString('utf8');
+  const json = JSON.parse(sourceText) as JsonObject | null;
 
-  // eslint-disable-next-line unicorn/no-array-sort
-  for (const key of Object.keys(object).sort()) {
-    result[key] = object[key];
+  if (json === null) {
+    return false;
   }
 
-  return result;
+  const projectName = Object.keys(json['projects'] as JsonObject)[0];
+  const projectObject = (json.projects as JsonObject)[projectName] as JsonObject;
+  const targets = projectObject.targets ?? projectObject.architect;
+
+  const targetLocation: string[] = (((targets as JsonObject).build as JsonObject).options as Record<string, string[]>)[
+    assetType
+  ];
+
+  // update UI that `assetPath` wasn't re-added to angular.json
+  if (targetLocation.includes(assetPath)) {
+    return false;
+  }
+
+  targetLocation.push(assetPath);
+
+  host.overwrite('angular.json', JSON.stringify(json, undefined, 2));
+
+  return true;
 }
 
 /**
@@ -67,30 +84,13 @@ export function addPackageToPackageJson(
   return false;
 }
 
-export function addAssetToAngularJson(host: Tree, assetType: string, assetPath: string): boolean {
-  const sourceText = (host.read('angular.json') as Buffer).toString('utf8');
-  const json = JSON.parse(sourceText) as JsonObject | null;
+function sortObjectByKeys(object: Partial<Record<string, string>>): Partial<Record<string, string>> {
+  const result: Partial<Record<string, string>> = {};
 
-  if (json === null) {
-    return false;
+  // eslint-disable-next-line unicorn/no-array-sort
+  for (const key of Object.keys(object).sort()) {
+    result[key] = object[key];
   }
 
-  const projectName = Object.keys(json['projects'] as JsonObject)[0];
-  const projectObject = (json.projects as JsonObject)[projectName] as JsonObject;
-  const targets = projectObject.targets ?? projectObject.architect;
-
-  const targetLocation: string[] = (((targets as JsonObject).build as JsonObject).options as Record<string, string[]>)[
-    assetType
-  ];
-
-  // update UI that `assetPath` wasn't re-added to angular.json
-  if (targetLocation.includes(assetPath)) {
-    return false;
-  }
-
-  targetLocation.push(assetPath);
-
-  host.overwrite('angular.json', JSON.stringify(json, undefined, 2));
-
-  return true;
+  return result;
 }

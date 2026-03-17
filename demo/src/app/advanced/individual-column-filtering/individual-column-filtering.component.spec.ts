@@ -1,11 +1,12 @@
 import { waitForAsync } from '@angular/core/testing';
-import { DataTableDirective } from 'angular-datatables.net';
-import { IndividualColumnFilteringComponent } from './individual-column-filtering.component';
-import { Api } from 'datatables.net';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { DataTableDirective } from 'angular-datatables.net';
+import { Api } from 'datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { IndividualColumnFilteringComponent } from './individual-column-filtering.component';
 
 function applyValueToInput(inputElement: HTMLInputElement, value: string, table: Api) {
   inputElement.value = value;

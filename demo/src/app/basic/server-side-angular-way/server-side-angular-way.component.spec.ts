@@ -1,10 +1,11 @@
 import { waitForAsync } from '@angular/core/testing';
-import { ServerSideAngularWayComponent } from './server-side-angular-way.component';
+import { provideRouter } from '@angular/router';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
-import { provideRouter } from '@angular/router';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { ServerSideAngularWayComponent } from './server-side-angular-way.component';
 
 describe('ServerSideAngularWayComponent', () => {
   let spectator: Spectator<ServerSideAngularWayComponent>;

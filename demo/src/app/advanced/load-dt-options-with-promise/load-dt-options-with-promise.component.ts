@@ -2,23 +2,23 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 import { firstValueFrom } from 'rxjs';
 
-import { LoadDtOptionsWithPromiseOptionsService } from './services/load-dt-options-with-promise-options.service';
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
+import { LoadDtOptionsWithPromiseOptionsService } from './services/load-dt-options-with-promise-options.service';
 
 @Component({
-  selector: 'app-load-dt-options-with-promise',
   imports: [BaseDemoComponent, DataTableDirective],
-  templateUrl: './load-dt-options-with-promise.component.html',
+  selector: 'app-load-dt-options-with-promise',
   styleUrl: './load-dt-options-with-promise.component.css',
+  templateUrl: './load-dt-options-with-promise.component.html',
 })
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
-  readonly pageTitle = 'Load DT Options with Promise';
-  readonly mdIntro = 'docs/advanced/load-dt-opt-with-promise/intro.md';
+  dtOptions!: Promise<ADTSettings>;
   readonly mdHTML = 'docs/advanced/load-dt-opt-with-promise/source-html.md';
+  readonly mdIntro = 'docs/advanced/load-dt-opt-with-promise/intro.md';
   readonly mdTS = 'docs/advanced/load-dt-opt-with-promise/source-ts.md';
   readonly mdTSV1 = 'docs/advanced/load-dt-opt-with-promise/source-ts-dtv1.md';
 
-  dtOptions!: Promise<ADTSettings>;
+  readonly pageTitle = 'Load DT Options with Promise';
 
   private readonly optionsService = inject(LoadDtOptionsWithPromiseOptionsService);
 

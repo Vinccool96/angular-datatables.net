@@ -4,41 +4,21 @@ import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
-  selector: 'app-individual-column-filtering',
   imports: [BaseDemoComponent, DataTableDirective],
-  templateUrl: './individual-column-filtering.component.html',
+  selector: 'app-individual-column-filtering',
   styleUrl: './individual-column-filtering.component.css',
+  templateUrl: './individual-column-filtering.component.html',
 })
-export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit {
-  readonly pageTitle = 'Individual column searching';
-  readonly mdIntro = 'docs/advanced/indi-col-filter/intro.md';
+export class IndividualColumnFilteringComponent implements AfterViewInit, OnInit {
+  readonly datatableElement = viewChild(DataTableDirective);
+  dtOptions: ADTSettings = {};
   readonly mdHTML = 'docs/advanced/indi-col-filter/source-html.md';
+  readonly mdIntro = 'docs/advanced/indi-col-filter/intro.md';
   readonly mdTS = 'docs/advanced/indi-col-filter/source-ts.md';
+
   readonly mdTSV1 = 'docs/advanced/indi-col-filter/source-ts-dtv1.md';
 
-  readonly datatableElement = viewChild(DataTableDirective);
-
-  dtOptions: ADTSettings = {};
-
-  ngOnInit(): void {
-    this.dtOptions = {
-      ajax: 'data/data.json',
-      columns: [
-        {
-          title: 'ID',
-          data: 'id',
-        },
-        {
-          title: 'First name',
-          data: 'firstName',
-        },
-        {
-          title: 'Last name',
-          data: 'lastName',
-        },
-      ],
-    };
-  }
+  readonly pageTitle = 'Individual column searching';
 
   ngAfterViewInit(): void {
     void this.datatableElement()?.dtInstance.then((dtInstance) => {
@@ -52,5 +32,25 @@ export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit
         });
       });
     });
+  }
+
+  ngOnInit(): void {
+    this.dtOptions = {
+      ajax: 'data/data.json',
+      columns: [
+        {
+          data: 'id',
+          title: 'ID',
+        },
+        {
+          data: 'firstName',
+          title: 'First name',
+        },
+        {
+          data: 'lastName',
+          title: 'Last name',
+        },
+      ],
+    };
   }
 }

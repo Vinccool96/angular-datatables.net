@@ -1,10 +1,10 @@
-import { DataTableDirective } from 'angular-datatables.net';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-
-import { ZeroConfigComponent } from './zero-config.component';
+import { DataTableDirective } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
+import { ZeroConfigComponent } from './zero-config.component';
 
 describe('ZeroConfigComponent', () => {
   let spectator: Spectator<ZeroConfigComponent>;
