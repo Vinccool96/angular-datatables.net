@@ -44,7 +44,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
   dtInstance!: Promise<Api>;
 
   // Only used for destroying the table when destroying this directive
-  private dt: Api | null = null;
+  private dt: Api | undefined;
 
   private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly vcr = inject(ViewContainerRef);
@@ -53,12 +53,12 @@ export class DataTableDirective implements OnDestroy, OnInit {
   ngOnInit(): void {
     const trigger = this.dtTrigger();
 
-    if (trigger !== undefined) {
+    if (trigger === undefined) {
+      this.displayTable(null);
+    } else {
       trigger.subscribe((options) => {
         this.displayTable(options);
       });
-    } else {
-      this.displayTable(null);
     }
   }
 
@@ -87,11 +87,11 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
         // Set a column unique
         if (resolvedDTOptions.columns !== undefined) {
-          resolvedDTOptions.columns.forEach((col) => {
+          for (const col of resolvedDTOptions.columns) {
             if ((col.id ?? '').trim() === '') {
               col.id = this.getColumnUniqueId();
             }
-          });
+          }
         }
 
         // Using setTimeout as a "hack" to be "part" of NgZone
@@ -124,31 +124,31 @@ export class DataTableDirective implements OnDestroy, OnInit {
     // Filter columns with pipe declared
     const colsWithPipe = columns.filter((x) => x.ngPipeInstance !== undefined && x.ngTemplateRef === undefined);
 
-    colsWithPipe.forEach((el) => {
-      const pipe = el.ngPipeInstance as PipeTransform;
-      const pipeArgs = el.ngPipeArgs ?? [];
+    for (const element of colsWithPipe) {
+      const pipe = element.ngPipeInstance as PipeTransform;
+      const pipeArguments = element.ngPipeArgs ?? [];
       // find index of column using `data` attr
-      const i = columns.filter((c) => c.visible !== false).findIndex((e) => e.id === el.id);
+      const index = columns.filter((c) => c.visible !== false).findIndex((event) => event.id === element.id);
       // get <td> element which holds data using index
-      const rowFromCol = row.childNodes.item(i);
+      const rowFromCol = row.childNodes.item(index);
       // Transform data with Pipe and PipeArgs
-      const rowVal = $(rowFromCol).text();
+      const rowValue = $(rowFromCol).text();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      const rowValAfter = pipe.transform(rowVal, ...pipeArgs) as string;
+      const rowValueAfter = pipe.transform(rowValue, ...pipeArguments) as string;
       // Apply transformed string to <td>
-      $(rowFromCol).text(rowValAfter);
-    });
+      $(rowFromCol).text(rowValueAfter);
+    }
   }
 
   private applyNgRefTemplate(row: Node, columns: ADTColumns[], data: object): void {
     // Filter columns using `ngTemplateRef`
     const colsWithTemplate = columns.filter((x) => x.ngTemplateRef !== undefined && x.ngPipeInstance === undefined);
 
-    colsWithTemplate.forEach((el) => {
-      const { ref, context } = el.ngTemplateRef as ADTTemplateRef;
+    for (const element of colsWithTemplate) {
+      const { ref, context } = element.ngTemplateRef as ADTTemplateRef;
       // get <td> element which holds data using index
-      const i = columns.filter((c) => c.visible !== false).findIndex((e) => e.id === el.id);
-      const cellFromIndex = row.childNodes.item(i);
+      const index = columns.filter((c) => c.visible !== false).findIndex((column) => column.id === element.id);
+      const cellFromIndex = row.childNodes.item(index);
       // reset cell before applying transform
       $(cellFromIndex).html('');
       // render onto DOM
@@ -159,14 +159,14 @@ export class DataTableDirective implements OnDestroy, OnInit {
       });
       const instance = this.vcr.createEmbeddedView(ref, _context);
       this.renderer.appendChild(cellFromIndex, instance.rootNodes[0]);
-    });
+    }
   }
 
   private getColumnUniqueId(): string {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-    for (let i = 0; i < 6; i++) {
+    for (let index = 0; index < 6; index++) {
       const randomIndex = Math.floor(Math.random() * characters.length);
       result += characters.charAt(randomIndex);
     }

@@ -93,12 +93,14 @@ describe('UsingNgPipeComponent', () => {
     expect(dir).toBeTruthy();
 
     // hide first column
-    (await dir.dtInstance).columns(0).visible(false);
+    let instance = await dir.dtInstance;
+    instance.columns(0).visible(false);
     await spectator.fixture.whenRenderingDone();
 
     spectator.detectChanges();
 
     // verify app still works
-    expect((await dir.dtInstance).column(0).visible()).toBeFalse();
+    instance = await dir.dtInstance;
+    expect(instance.column(0).visible()).toBeFalse();
   });
 });

@@ -6,9 +6,9 @@ import data from '../public/data/data.json';
 import dtOptionsJson from '../public/data/dtOptions.json';
 
 export function loadDataJson() {
-  return JSON.parse(JSON.stringify(data)) as { data: Person[] };
+  return structuredClone(data) as { data: Person[] };
 }
 
 export function loadDtOptionsJson() {
-  return JSON.parse(JSON.stringify(dtOptionsJson)) as ADTSettings;
+  return structuredClone(dtOptionsJson) as ADTSettings;
 }

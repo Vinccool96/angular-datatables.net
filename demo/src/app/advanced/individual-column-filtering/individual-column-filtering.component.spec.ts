@@ -47,10 +47,10 @@ describe('IndividualColumnFilteringComponent', () => {
 
     const instance = await dir.dtInstance;
 
-    const inputFields = Array.from(spectator.queryAll<HTMLInputElement>('input'));
-    const inputFieldID = inputFields.find((e) => e.name === 'search-id') as HTMLInputElement;
-    const inputFieldFirstName = inputFields.find((e) => e.name === 'search-first-name') as HTMLInputElement;
-    const inputFieldLastName = inputFields.find((e) => e.name === 'search-last-name') as HTMLInputElement;
+    const inputFields = [...spectator.queryAll<HTMLInputElement>('input')];
+    const inputFieldID = inputFields.find((element) => element.name === 'search-id') as HTMLInputElement;
+    const inputFieldFirstName = inputFields.find((element) => element.name === 'search-first-name') as HTMLInputElement;
+    const inputFieldLastName = inputFields.find((element) => element.name === 'search-last-name') as HTMLInputElement;
 
     // # Test 1
     applyValueToInput(inputFieldID, '113', instance);

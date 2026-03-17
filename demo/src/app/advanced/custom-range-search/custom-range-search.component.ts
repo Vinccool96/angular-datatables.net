@@ -65,9 +65,9 @@ export class CustomRangeSearchComponent implements OnInit, AfterViewInit, OnDest
         const min = (this.form.get('min') as FormControl<number | null>).value ?? Number.NaN;
         const max = (this.form.get('max') as FormControl<number | null>).value ?? Number.NaN;
         return (
-          (isNaN(min) && isNaN(max)) ||
-          (isNaN(min) && id <= max) ||
-          (min <= id && isNaN(max)) ||
+          (Number.isNaN(min) && Number.isNaN(max)) ||
+          (Number.isNaN(min) && id <= max) ||
+          (min <= id && Number.isNaN(max)) ||
           (min <= id && id <= max)
         );
       });

@@ -5,6 +5,7 @@ import tseslint from 'typescript-eslint';
 import globals from 'globals';
 import angular from 'angular-eslint';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import { includeIgnoreFile } from '@eslint/compat';
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
@@ -19,6 +20,7 @@ export default tseslint.config(
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
       eslintPluginPrettierRecommended,
+      eslintPluginUnicorn.configs.recommended,
     ],
     processor: angular.processInlineTemplates,
     rules: {
@@ -61,6 +63,16 @@ export default tseslint.config(
       'curly': 'error',
       'eqeqeq': 'error',
       'no-multi-assign': 'error',
+      'unicorn/no-null': 'off',
+      'unicorn/prevent-abbreviations': [
+        'error',
+        {
+          replacements: {
+            ref: false,
+            dir: false,
+          },
+        },
+      ],
     },
   },
   {
@@ -78,6 +90,7 @@ export default tseslint.config(
     languageOptions: {
       globals: {
         ...globals.node,
+        ...globals.builtin,
         ...globals.jasmine,
       },
       parserOptions: {

@@ -10,6 +10,6 @@ import data from '../../../../public/data/data.json';
 export class PersonService {
   getPerson(id: string): Person | null {
     const persons: Person[] = data.data;
-    return persons.find((person) => person.id === parseInt(id)) ?? null;
+    return persons.find((person) => person.id === Number.parseInt(id)) ?? null;
   }
 }

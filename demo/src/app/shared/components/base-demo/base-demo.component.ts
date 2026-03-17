@@ -25,10 +25,10 @@ export class BaseDemoComponent {
   private readonly dtVersionService = inject(DtVersionService);
 
   private scrollCallback() {
-    if ($(this).scrollTop() !== undefined) {
-      $('#toTop').fadeIn();
-    } else {
+    if ($(this).scrollTop() === undefined) {
       $('#toTop').fadeOut();
+    } else {
+      $('#toTop').fadeIn();
     }
   }
 
@@ -38,7 +38,7 @@ export class BaseDemoComponent {
     $(this.scrollCallback);
     // scroll handler
     // eslint-disable-next-line @typescript-eslint/unbound-method
-    $(window).on('scroll', this.scrollCallback);
+    $(globalThis).on('scroll', this.scrollCallback);
 
     $('#toTop').on('click', function () {
       $('html, body').animate({ scrollTop: 0 }, 1000);

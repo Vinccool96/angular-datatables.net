@@ -25,7 +25,7 @@ export class LoadDtOptionsWithPromiseComponent implements OnInit {
   ngOnInit(): void {
     this.dtOptions = firstValueFrom(this.optionsService.obtainOptions())
       .then((v) => v)
-      .catch((e: unknown) => this.handleError(e as Error));
+      .catch((error: unknown) => this.handleError(error as Error));
   }
 
   private handleError(error: Error) {

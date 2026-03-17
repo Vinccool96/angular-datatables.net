@@ -5,4 +5,4 @@
  * found in the LICENSE file at https://raw.githubusercontent.com/vinccool96/angular-datatables.net/master/LICENSE
  */
 
-export * from './public_api';
+export * from './public-api';

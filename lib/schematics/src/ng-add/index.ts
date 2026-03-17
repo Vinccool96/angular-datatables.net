@@ -4,7 +4,7 @@ import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { IADTSchematicsOptions } from './models/schematics-options';
 import { ADT_SUPPORTED_STYLES, ADTStyleOptions } from './models/style-options';
 
-export default function (_options: IADTSchematicsOptions): Rule {
+export default function add(_options: IADTSchematicsOptions): Rule {
   return chain([
     addPackageJsonDependencies(_options),
     installPackageJsonDependencies(),
@@ -15,7 +15,7 @@ export default function (_options: IADTSchematicsOptions): Rule {
 function addPackageJsonDependencies(options: IADTSchematicsOptions) {
   return (tree: Tree, context: SchematicContext) => {
     // Update package.json
-    const styleDeps = ADT_SUPPORTED_STYLES.find((e) => e.style === options.style);
+    const styleDeps = ADT_SUPPORTED_STYLES.find((element) => element.style === options.style);
 
     const dependencies = [
       { version: '^3.6.0', name: 'jquery', isDev: false },
@@ -36,10 +36,12 @@ function addPackageJsonDependencies(options: IADTSchematicsOptions) {
         );
       }
 
-      styleDeps.packageJson.forEach((e) => dependencies.push(e));
+      for (const element of styleDeps.packageJson) {
+        dependencies.push(element);
+      }
     }
 
-    dependencies.forEach((dependency) => {
+    for (const dependency of dependencies) {
       const result = addPackageToPackageJson(tree, dependency.name, dependency.version, dependency.isDev);
       if (result) {
         context.logger.log(
@@ -49,23 +51,25 @@ function addPackageJsonDependencies(options: IADTSchematicsOptions) {
       } else {
         context.logger.log('info', `ℹ️  Skipped adding "${dependency.name}" into package.json`);
       }
-    });
+    }
     return tree;
   };
 }
 
-function installPackageJsonDependencies(): Rule {
-  return (host: Tree, context: SchematicContext) => {
-    context.addTask(new NodePackageInstallTask());
-    context.logger.log('info', `🔍 Installing packages...`);
+const install = (host: Tree, context: SchematicContext) => {
+  context.addTask(new NodePackageInstallTask());
+  context.logger.log('info', `🔍 Installing packages...`);
 
-    return host;
-  };
+  return host;
+};
+
+function installPackageJsonDependencies(): Rule {
+  return install;
 }
 
 function updateAngularJsonFile(options: IADTSchematicsOptions) {
   return (tree: Tree, context: SchematicContext) => {
-    const styleDeps = ADT_SUPPORTED_STYLES.find((e) => e.style === options.style);
+    const styleDeps = ADT_SUPPORTED_STYLES.find((element) => element.style === options.style);
 
     const assets = [
       {
@@ -81,16 +85,18 @@ function updateAngularJsonFile(options: IADTSchematicsOptions) {
     ];
 
     if (styleDeps !== undefined) {
-      styleDeps.angularJson.forEach((e) => assets.push(e));
+      for (const element of styleDeps.angularJson) {
+        assets.push(element);
+      }
     }
 
-    assets.forEach((asset) => {
+    for (const asset of assets) {
       const result = addAssetToAngularJson(tree, asset.target, asset.path);
       if (result) {
         context.logger.log('info', `✅️ Added "${asset.fancyName}" into angular.json`);
       } else {
         context.logger.log('info', `ℹ️  Skipped adding "${asset.fancyName}" into angular.json`);
       }
-    });
+    }
   };
 }

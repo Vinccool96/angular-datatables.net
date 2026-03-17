@@ -35,12 +35,12 @@ describe('ZeroConfigComponent', () => {
     const dir = spectator.query(DataTableDirective);
     expect(dir).toBeTruthy();
     dir?.dtInstance
-      .then((i) => {
-        expect($.fn.dataTable.isDataTable(i)).toBeTruthy();
+      .then((api) => {
+        expect($.fn.dataTable.isDataTable(api)).toBeTruthy();
         done();
       })
-      .catch((e: unknown) => {
-        fail(e);
+      .catch((error: unknown) => {
+        fail(error);
       });
   });
 });

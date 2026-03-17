@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.events
       .pipe(
         takeUntil(this.destroy$),
-        filter((e) => e instanceof NavigationEnd),
+        filter((event) => event instanceof NavigationEnd),
       )
       .subscribe((_) => {
         // Note: setTimeout is needed to let DOM render tabs

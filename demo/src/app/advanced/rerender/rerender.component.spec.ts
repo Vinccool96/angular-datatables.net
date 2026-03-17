@@ -33,11 +33,13 @@ describe('RerenderComponent', () => {
 
     const rerenderSpy = spyOn(component, 'rerender');
 
-    const triggerBtns = Array.from(spectator.queryAll<HTMLButtonElement>('button'));
-    const triggerBtn = triggerBtns.find((e) => e.textContent?.includes('Rerender') ?? false) as HTMLButtonElement;
+    const triggerBtns = [...spectator.queryAll<HTMLButtonElement>('button')];
+    const triggerButton = triggerBtns.find(
+      (element) => element.textContent?.includes('Rerender') ?? false,
+    ) as HTMLButtonElement;
 
-    triggerBtn.click();
-    triggerBtn.dispatchEvent(new Event('click'));
+    triggerButton.click();
+    triggerButton.dispatchEvent(new Event('click'));
 
     expect(rerenderSpy).toHaveBeenCalled();
   });

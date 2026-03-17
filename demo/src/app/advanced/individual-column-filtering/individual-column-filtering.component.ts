@@ -43,12 +43,11 @@ export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit
   ngAfterViewInit(): void {
     void this.datatableElement()?.dtInstance.then((dtInstance) => {
       dtInstance.columns().every(function () {
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
-        const that = this;
+        const search = this.search.bind(this);
         $('input', this.footer()).on('keyup change', function () {
-          if (that.search() !== this['value']) {
+          if (search() !== this['value']) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            that.search(this['value']).draw();
+            search(this['value']).draw();
           }
         });
       });

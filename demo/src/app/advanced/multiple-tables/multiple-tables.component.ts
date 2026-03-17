@@ -22,12 +22,13 @@ export class MultipleTablesComponent implements OnInit {
   dtOptions: ADTSettings[] = [];
 
   displayToConsole(): void {
-    this.datatableElements().forEach((dtElement: DataTableDirective, index: number) => {
+    for (let index = 0; index < this.datatableElements().length; index++) {
+      const dtElement: DataTableDirective = this.datatableElements()[index];
       void dtElement.dtInstance.then((dtInstance) => {
         const node = dtInstance.table().node() as HTMLElement;
         console.log(`The DataTable ${index} instance ID is: ${node.id}`);
       });
-    });
+    }
   }
 
   ngOnInit(): void {
