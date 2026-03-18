@@ -30,6 +30,6 @@ describe('WithOptionsComponent', () => {
   }));
 
   it('should have pagingType as "full_numbers"', waitForAsync(() => {
-    expect(component.dtOptions().pagingType).toBe('simple');
+    expect(component.dtOptions.pagingType).toBe('simple');
   }));
 });

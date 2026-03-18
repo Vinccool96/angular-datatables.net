@@ -1,37 +1,38 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 import 'datatables.net-colreorder';
 
 @Component({
-  selector: 'app-colreorder-extension',
-  templateUrl: 'colreorder-extension.component.html',
+  imports: [DataTableDirective],
+  selector: 'app-colreorder',
+  templateUrl: './colreorder.component.html',
 })
-export class ColreorderExtensionComponent implements OnInit {
-  dtOptions: Config = {};
+export class ColreorderComponent implements OnInit {
+  protected dtOptions: ADTSettings = {};
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
-      columns: [
-        {
-          title: 'No move me!',
-          data: 'id',
-        },
-        {
-          title: 'Try to move me!',
-          data: 'firstName',
-        },
-        {
-          title: 'You cannot move me! *evil laugh*',
-          data: 'lastName',
-        },
-      ],
-      dom: 'Rt',
       // Use this attribute to enable colreorder
       colReorder: {
         columns: ':nth-child(2)',
       },
+      columns: [
+        {
+          data: 'id',
+          title: 'No move me!',
+        },
+        {
+          data: 'firstName',
+          title: 'Try to move me!',
+        },
+        {
+          data: 'lastName',
+          title: 'You cannot move me! *evil laugh*',
+        },
+      ],
+      dom: 'Rt',
     };
   }
 }

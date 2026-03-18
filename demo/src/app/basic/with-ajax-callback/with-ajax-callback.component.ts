@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
@@ -12,7 +12,7 @@ import { AjaxService } from './service/ajax.service';
 })
 export class WithAjaxCallbackComponent implements OnInit {
   public readonly pageTitle = 'AJAX with callback';
-  protected readonly dtOptions = signal<ADTSettings>({});
+  protected dtOptions: ADTSettings = {};
   protected readonly mdHTML = 'docs/basic/with-ajax-callback/source-html.md';
   protected readonly mdIntro = 'docs/basic/with-ajax-callback/intro.md';
   protected readonly mdTS = 'docs/basic/with-ajax-callback/source-ts.md';
@@ -21,8 +21,8 @@ export class WithAjaxCallbackComponent implements OnInit {
   private readonly ajax = inject(AjaxService);
 
   public ngOnInit(): void {
-    this.dtOptions.set({
-      ajax: (_, callback) => {
+    this.dtOptions = {
+      ajax: (_, callback): void => {
         this.ajax.getResult().subscribe((result) => {
           callback(result);
         });
@@ -41,6 +41,6 @@ export class WithAjaxCallbackComponent implements OnInit {
           title: 'Last name',
         },
       ],
-    });
+    };
   }
 }

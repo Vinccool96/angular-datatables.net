@@ -1,46 +1,46 @@
 ```typescript
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables.net';
-import { Config } from 'datatables.net';
+import { Component, OnInit, viewChildren } from '@angular/core';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 
 @Component({
+  imports: [DataTableDirective],
   selector: 'app-multiple-tables',
-  templateUrl: 'multiple-tables.component.html',
+  templateUrl: './multiple-tables.component.html',
 })
 export class MultipleTablesComponent implements OnInit {
-  @ViewChildren(DataTableDirective)
-  dtElements: QueryList<DataTableDirective>;
+  public readonly datatableElements = viewChildren(DataTableDirective);
+  protected dtOptions: ADTSettings[] = [];
 
-  dtOptions: Config[] = [];
-
-  displayToConsole(): void {
-    this.dtElements.forEach((dtElement: DataTableDirective, index: number) => {
-      dtElement.dtInstance.then((dtInstance: any) => {
-        console.log(`The DataTable ${index} instance ID is: ${dtInstance.table().node().id}`);
-      });
-    });
-  }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions[0] = this.buildDtOptions('data/data.json');
     this.dtOptions[1] = this.buildDtOptions('data/data1.json');
   }
 
-  private buildDtOptions(url: string): Config {
+  protected displayToConsole(): void {
+    for (let index = 0; index < this.datatableElements().length; index++) {
+      const dtElement: DataTableDirective = this.datatableElements()[index];
+      void dtElement.dtInstance.then((dtInstance) => {
+        const node = dtInstance.table().node() as HTMLElement;
+        console.log(`The DataTable ${index} instance ID is: ${node.id}`);
+      });
+    }
+  }
+
+  private buildDtOptions(url: string): ADTSettings {
     return {
       ajax: url,
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
     };

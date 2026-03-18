@@ -1,50 +1,49 @@
 ```typescript
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-
-import { DataTableDirective } from 'angular-datatables.net';
-import { Config } from 'datatables.net';
+import { AfterViewInit, Component, OnInit, viewChild } from '@angular/core';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 
 @Component({
+  imports: [DataTableDirective],
   selector: 'app-individual-column-filtering',
-  templateUrl: 'individual-column-filtering.component.html',
+  styleUrl: './individual-column-filtering.component.css',
+  templateUrl: './individual-column-filtering.component.html',
 })
-export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit {
-  @ViewChild(DataTableDirective, { static: false })
-  datatableElement: DataTableDirective;
+export class IndividualColumnFilteringComponent implements AfterViewInit, OnInit {
+  public dtOptions: ADTSettings = {};
+  private readonly datatableElement = viewChild(DataTableDirective);
 
-  dtOptions: Config = {};
-
-  ngOnInit(): void {
-    this.dtOptions = {
-      ajax: 'data/data.json',
-      columns: [
-        {
-          title: 'ID',
-          data: 'id',
-        },
-        {
-          title: 'First name',
-          data: 'firstName',
-        },
-        {
-          title: 'Last name',
-          data: 'lastName',
-        },
-      ],
-    };
-  }
-
-  ngAfterViewInit(): void {
-    this.datatableElement.dtInstance.then((dtInstance) => {
+  public ngAfterViewInit(): void {
+    void this.datatableElement()?.dtInstance.then((dtInstance) => {
       dtInstance.columns().every(function () {
-        const that = this;
+        const search = this.search.bind(this);
         $('input', this.footer()).on('keyup change', function () {
-          if (that.search() !== this['value']) {
-            that.search(this['value']).draw();
+          if (search() !== this['value']) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            search(this['value']).draw();
           }
         });
       });
     });
+  }
+
+  public ngOnInit(): void {
+    this.dtOptions = {
+      ajax: 'data/data.json',
+      columns: [
+        {
+          data: 'id',
+          title: 'ID',
+        },
+        {
+          data: 'firstName',
+          title: 'First name',
+        },
+        {
+          data: 'lastName',
+          title: 'Last name',
+        },
+      ],
+    };
   }
 }
 ```

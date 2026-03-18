@@ -22,21 +22,22 @@ Add the dependencies in the scripts and styles attributes:
       "architect": {
         "build": {
           "options": {
-            "styles": [
-              ...
-              "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.min.css",
-            ],
+            "styles": ["other styles", "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.min.css"],
             "scripts": [
-              ...
+              "other scripts",
               "node_modules/jszip/dist/jszip.js",
               "node_modules/datatables.net-buttons/js/dataTables.buttons.min.js",
               "node_modules/datatables.net-buttons/js/buttons.colVis.min.js",
-              "node_modules/datatables.net-buttons/js/buttons.flash.min.js",
               "node_modules/datatables.net-buttons/js/buttons.html5.min.js",
-              "node_modules/datatables.net-buttons/js/buttons.print.min.js",
+              "node_modules/datatables.net-buttons/js/buttons.print.min.js"
             ],
-            ...
+            "other": "options"
+          }
+        }
+      }
+    }
+  }
 }
 ```
 
-> If you want to have the excel export functionnality, then you must import the jszip.js before the buttons.html5.js file.
+> If you want to have the excel export functionality, then you must import the jszip.js before the buttons.html5.js file.

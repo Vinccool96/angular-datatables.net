@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, inject, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, viewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
-import DataTables, { Api } from 'datatables.net';
+import { Api } from 'datatables.net';
 
 import { Person } from '../../person/models/person';
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
@@ -13,7 +13,7 @@ import { CustomRangeForm } from './models/custom-range.form';
   styleUrl: './custom-range-search.component.css',
   templateUrl: './custom-range-search.component.html',
 })
-export class CustomRangeSearchComponent implements AfterViewInit, OnDestroy, OnInit {
+export class CustomRangeSearchComponent implements AfterViewInit, OnInit {
   public readonly pageTitle = 'Custom filtering - Range search';
   protected dtOptions: ADTSettings = {};
   private readonly formBuilder = inject(FormBuilder);
@@ -28,7 +28,7 @@ export class CustomRangeSearchComponent implements AfterViewInit, OnDestroy, OnI
 
   private readonly datatableElement = viewChild(DataTableDirective);
 
-  private dtInstance: Api | null = null;
+  private dtInstance: Api | undefined;
 
   public ngAfterViewInit(): void {
     void this.datatableElement()?.dtInstance.then((instance) => {
@@ -45,13 +45,6 @@ export class CustomRangeSearchComponent implements AfterViewInit, OnDestroy, OnI
         );
       });
     });
-  }
-
-  public ngOnDestroy(): void {
-    // We remove the last function in the global ext search array so we do not add the fn each time the component is drawn
-    // /!\ This is not the ideal solution as other components may add other search function in this array, so be careful when
-    // handling this global variable
-    DataTables.ext.search.pop();
   }
 
   public ngOnInit(): void {

@@ -20,14 +20,13 @@ Add the dependencies in the scripts and styles attributes:
       "architect": {
         "build": {
           "options": {
-            "styles": [
-              ...
-              "node_modules/datatables.net-select-dt/css/select.dataTables.css"
-            ],
-            "scripts": [
-              ...
-              "node_modules/datatables.net-select/js/dataTables.select.js"
-            ],
-            ...
+            "styles": ["other styles", "node_modules/datatables.net-select-dt/css/select.dataTables.css"],
+            "scripts": ["other scripts", "node_modules/datatables.net-select/js/dataTables.select.js"],
+            "other": "options"
+          }
+        }
+      }
+    }
+  }
 }
 ```

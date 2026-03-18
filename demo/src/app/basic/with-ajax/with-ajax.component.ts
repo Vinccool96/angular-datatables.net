@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
@@ -10,7 +10,7 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
   templateUrl: './with-ajax.component.html',
 })
 export class WithAjaxComponent implements OnInit {
-  public readonly dtOptions = signal<ADTSettings>({});
+  public dtOptions: ADTSettings = {};
   public readonly pageTitle = 'With Ajax';
   protected readonly mdHTML = 'docs/basic/with-ajax/source-html.md';
   protected readonly mdIntro = 'docs/basic/with-ajax/intro.md';
@@ -18,7 +18,7 @@ export class WithAjaxComponent implements OnInit {
   protected readonly mdTSV1 = 'docs/basic/with-ajax/source-ts-dtv1.md';
 
   public ngOnInit(): void {
-    this.dtOptions.set({
+    this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
@@ -34,7 +34,6 @@ export class WithAjaxComponent implements OnInit {
           title: 'Last name',
         },
       ],
-      search: false,
-    });
+    };
   }
 }

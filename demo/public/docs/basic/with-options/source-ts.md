@@ -1,16 +1,17 @@
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
-import { Config } from 'datatables.net';
 
 @Component({
+  imports: [DataTableDirective],
   selector: 'app-with-options',
-  templateUrl: 'with-options.component.html',
+  styleUrl: './with-options.component.css',
+  templateUrl: './with-options.component.html',
 })
 export class WithOptionsComponent implements OnInit {
-  readonly dtOptions: ADTSettings = {};
+  public dtOptions: ADTSettings = {};
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'simple',
     };

@@ -1,69 +1,129 @@
 ```typescript
-import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
-import { DemoNgComponent } from './demo-ng-template-ref.component';
-import { ADTSettings } from 'angular-datatables.net';
+// ./models/demo-ng-template-ref-event-type.ts
+
+export interface DemoNgTemplateRefEventType {
+  cmd: string;
+  data: unknown;
+}
+```
+
+```typescript
+// ./components/demo-ng-template-ref/demo-ng-template-ref.component.ts
+
+import { Component, input, output } from '@angular/core';
+
+import { DemoNgTemplateRefEventType } from '../../models/demo-ng-template-ref-event-type';
 
 @Component({
-  selector: 'app-router-link',
-  templateUrl: 'router-link.component.html',
+  imports: [],
+  selector: 'app-demo-ng-template-ref',
+  template: `
+    <div class="btn-group d-block text-center">
+      <button class="btn btn-sm btn-dark" (click)="onAction1()">
+        {{ actionText() }}
+      </button>
+    </div>
+  `,
 })
-export class RouterLinkComponent implements AfterViewInit, OnInit, OnDestroy {
-  dtOptions: ADTSettings = {};
-  dtTrigger = new Subject<ADTSettings>();
+export class DemoNgTemplateRefComponent {
+  public readonly actionText = input('Action 1');
+  public readonly data = input<object>({});
 
-  @ViewChild('demoNg') demoNg: TemplateRef<DemoNgComponent>;
+  public readonly emitter = output<DemoNgTemplateRefEventType>();
 
-  constructor(private router: Router) {}
+  protected onAction1(): void {
+    this.emitter.emit({
+      cmd: 'action1',
+      data: this.data(),
+    });
+  }
+}
+```
 
-  ngOnInit(): void {}
+```typescript
+// .router-link.component.ts
 
-  ngAfterViewInit() {
-    const self = this;
-    // init here as we use ViewChild ref
-    this.dtOptions = {
-      ajax: 'data/data.json',
-      columns: [
-        {
-          title: 'ID',
-          data: 'id',
-        },
-        {
-          title: 'First name',
-          data: 'firstName',
-        },
-        {
-          title: 'Last name',
-          data: 'lastName',
-        },
-        {
-          title: 'Action',
-          defaultContent: '',
-          ngTemplateRef: {
-            ref: this.demoNg,
-            context: {
-              // needed for capturing events inside <ng-template>
-              captureEvents: self.onCaptureEvent.bind(self),
-            },
+import { AfterViewInit, Component, effect, inject, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { Subject } from 'rxjs';
+
+import { Person } from '../../person/models/person';
+import { DemoNgTemplateRefComponent } from './components/demo-ng-template-ref/demo-ng-template-ref.component';
+import { DemoNgTemplateRefEventType } from './models/demo-ng-template-ref-event-type';
+
+@Component({
+  imports: [DataTableDirective, DemoNgTemplateRefComponent],
+  selector: 'app-router-link',
+  templateUrl: './router-link.component.html',
+})
+export class RouterLinkComponent implements AfterViewInit, OnDestroy {
+  protected dtOptions: ADTSettings = {};
+  protected readonly dtTrigger = new Subject<ADTSettings | null>();
+  private readonly afterViewInit = signal(false);
+
+  private readonly demoNg = viewChild<TemplateRef<unknown>>('demoNg');
+
+  private readonly ready = signal(false);
+  private readonly router = inject(Router);
+
+  public constructor() {
+    effect(() => {
+      const demo = this.demoNg();
+
+      if (demo === undefined) {
+        return;
+      }
+
+      this.dtOptions = {
+        ajax: 'data/data.json',
+        columns: [
+          {
+            data: 'id',
+            title: 'ID',
           },
-        },
-      ],
-    };
+          {
+            data: 'firstName',
+            title: 'First name',
+          },
+          {
+            data: 'lastName',
+            title: 'Last name',
+          },
+          {
+            defaultContent: '',
+            ngTemplateRef: {
+              context: {
+                // needed for capturing events inside <ng-template>
+                captureEvents: this.onCaptureEvent.bind(this),
+              },
+              ref: demo,
+            },
+            title: 'Action',
+          },
+        ],
+      };
 
-    // race condition fails unit tests if dtOptions isn't sent with dtTrigger
-    setTimeout(() => {
-      this.dtTrigger.next(this.dtOptions);
-    }, 200);
+      this.ready.set(true);
+    });
+
+    effect(() => {
+      if (this.ready() && this.afterViewInit()) {
+        this.dtTrigger.next(null);
+      }
+    });
   }
 
-  onCaptureEvent(event: IDemoNgComponentEventType) {
-    this.router.navigate(['/person/' + event.data.id]);
+  public ngAfterViewInit(): void {
+    this.afterViewInit.set(true);
   }
 
-  ngOnDestroy(): void {
-    this.dtTrigger?.unsubscribe();
+  public ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  private onCaptureEvent(event: DemoNgTemplateRefEventType): void {
+    void this.router.navigate([`/person/${(event.data as Person).id}`]);
   }
 }
 ```

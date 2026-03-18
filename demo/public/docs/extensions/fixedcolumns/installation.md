@@ -18,14 +18,14 @@ Add the dependencies in the scripts and styles attributes:
       "architect": {
         "build": {
           "options": {
-            "styles": [
-              ...
-            ],
-            "scripts": [
-              ...
-              "node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.js"
-            ],
-            ...
+            "styles": ["other styles"],
+            "scripts": ["other scripts", "node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.js"],
+            "other": "options"
+          }
+        }
+      }
+    }
+  }
 }
 ```
 

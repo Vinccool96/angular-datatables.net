@@ -1,9 +1,10 @@
 ```html
-<!-- demo-ng-template-ref.component.html -->
-<div class="btn-group d-block text-center">
-  <button class="btn btn-sm btn-dark" (click)="onAction1()">Action 1</button>
-</div>
+<blockquote>Please click on Action button</blockquote>
+<p class="text-danger">You clicked on: <strong>{{ message() }}</strong></p>
+<br />
+<table adtDatatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"></table>
 
-<!-- using-ng-template-ref.component.html -->
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"></table>
+<ng-template #demoNg let-data="adtData" let-emitter="captureEvents">
+  <app-demo-ng-template-ref [data]="data" (emitter)="emitter($event)" />
+</ng-template>
 ```

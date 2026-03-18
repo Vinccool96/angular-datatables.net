@@ -20,14 +20,13 @@ Add the dependencies in the scripts and styles attributes:
       "architect": {
         "build": {
           "options": {
-            "styles": [
-              ...
-              "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css"
-            ],
-            "scripts": [
-              ...
-              "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js"
-            ],
-            ...
+            "styles": ["other styles", "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css"],
+            "scripts": ["other scripts", "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js"],
+            "other": "options"
+          }
+        }
+      }
+    }
+  }
 }
 ```

@@ -20,14 +20,13 @@ Add the dependencies in the scripts and styles attributes:
       "architect": {
         "build": {
           "options": {
-            "styles": [
-              ...
-              "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css"
-            ],
-            "scripts": [
-              ...
-              "node_modules/datatables.net-responsive/js/dataTables.responsive.js"
-            ],
-            ...
+            "styles": ["other styles", "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css"],
+            "scripts": ["other scripts", "node_modules/datatables.net-responsive/js/dataTables.responsive.js"],
+            "other": "options"
+          }
+        }
+      }
+    }
+  }
 }
 ```

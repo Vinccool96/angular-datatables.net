@@ -1,99 +1,100 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 import 'datatables.net-fixedcolumns-dt';
 
 @Component({
-  selector: 'app-fixed-columns-extension',
-  templateUrl: 'fixed-columns-extension.component.html',
+  imports: [DataTableDirective],
+  selector: 'app-fixedcolumns',
+  templateUrl: './fixedcolumns.component.html',
 })
-export class FixedColumnsExtensionComponent implements OnInit {
-  // Unfortunately this still requires `any` due to "types" issues in fixedcolumns
-  dtOptions: any = {};
+export class FixedcolumnsComponent implements OnInit {
+  protected dtOptions: ADTSettings = {};
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
-      // Make sure that scrollX is set to true for this to work!
-      scrollX: true,
       fixedColumns: {
         left: 3,
         right: 0,
       },
-    };
+      // Make sure that scrollX is set to true for this to work!
+      scrollX: true,
+    } as ADTSettings; // Unfortunately required because there's still a type issue for fixedcolumns
   }
 }
 ```

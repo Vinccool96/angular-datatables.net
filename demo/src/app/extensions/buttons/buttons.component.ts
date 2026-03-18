@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
-import { Feature } from 'datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
@@ -59,14 +58,12 @@ export class ButtonsComponent implements OnInit {
           title: 'Last name',
         },
       ],
-      // Declare the use of the extension in the dom parameter
-      // dom: 'Bftip',
       layout: {
         bottom2Start: 'paging',
-        bottomEnd: null as unknown as Feature,
+        bottomEnd: null,
         bottomStart: 'info',
-        top1Start: 'buttons' as keyof Feature,
-        topEnd: null as unknown as Feature,
+        top1Start: 'buttons',
+        topEnd: null,
         topStart: 'search',
       },
     };
