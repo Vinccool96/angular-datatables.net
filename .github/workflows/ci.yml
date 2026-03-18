@@ -95,3 +95,22 @@ jobs:
         uses: ./.github/actions/prepare-build
       - name: Run Unit Tests
         run: npm run demo:test-ci
+
+  publish_pages:
+    name: Publish pages
+    runs-on: ubuntu-latest
+    needs: [format, lint_with_build, unit_tests]
+    if: ${{ github.ref == 'refs/heads/master' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install
+        uses: ./.github/actions/prepare-install
+        with:
+          node-version: ${{ env.PRIMARY_NODE_VERSION }}
+      - name: Build
+        uses: ./.github/actions/prepare-build
+      - name: Run Build Demo
+        run: npm run demo:build:prod
+      - name: Publish pages
+        run: npm run publish-pages
