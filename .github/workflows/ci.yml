@@ -114,3 +114,5 @@ jobs:
         run: npm run demo:build:prod
       - name: Publish pages
         run: npm run publish-pages
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
