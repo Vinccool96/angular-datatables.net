@@ -1,24 +1,51 @@
 ```typescript
-import { Component, Inject, OnInit } from '@angular/core';
+// ./services/load-dt-options-with-promise-options.service.ts
+
 import { HttpClient } from '@angular/common/http';
-import { Config } from 'datatables.net';
+import { inject, Injectable } from '@angular/core';
+import { ADTSettings } from 'angular-datatables.net';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class LoadDtOptionsWithPromiseOptionsService {
+  private readonly http = inject(HttpClient);
+
+  public obtainOptions(): Observable<ADTSettings> {
+    return this.http.get<ADTSettings>('data/dtOptions.json');
+  }
+}
+```
+
+```typescript
+// ./load-dt-options-with-promise.component.ts
+
+import { Component, inject, OnInit } from '@angular/core';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { firstValueFrom } from 'rxjs';
+
+import { LoadDtOptionsWithPromiseOptionsService } from './services/load-dt-options-with-promise-options.service';
 
 @Component({
+  imports: [DataTableDirective],
   selector: 'app-load-dt-options-with-promise',
-  templateUrl: 'load-dt-options-with-promise.component.html',
+  templateUrl: './load-dt-options-with-promise.component.html',
 })
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
-  dtOptions: Promise<Config>;
+  protected dtOptions!: Promise<ADTSettings>;
 
-  constructor(@Inject(HttpClient) private httpClient: HttpClient) {}
+  private readonly optionsService = inject(LoadDtOptionsWithPromiseOptionsService);
 
-  ngOnInit(): void {
-    this.dtOptions = this.httpClient.get<Config>('data/dtOptions.json').toPromise().catch(this.handleError);
+  public ngOnInit(): void {
+    this.dtOptions = firstValueFrom(this.optionsService.obtainOptions())
+      .then((v) => v)
+      .catch((error: unknown) => this.handleError(error as Error));
   }
 
-  private handleError(error: any): Promise<any> {
+  private handleError(error: Error): Promise<ADTSettings> {
     console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+    return Promise.reject<ADTSettings>(error);
   }
 }
 ```

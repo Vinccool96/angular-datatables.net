@@ -1,5 +1,5 @@
 ```html
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+<table adtDatatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
   <thead>
     <tr>
       <th>ID</th>
@@ -8,11 +8,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let person of persons">
+    @for (person of persons(); track person.id) {
+    <tr>
       <td>{{ person.id }}</td>
       <td>{{ person.firstName }}</td>
       <td>{{ person.lastName }}</td>
     </tr>
+    }
   </tbody>
 </table>
 ```

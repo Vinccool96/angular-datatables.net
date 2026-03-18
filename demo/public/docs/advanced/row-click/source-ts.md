@@ -1,51 +1,52 @@
 ```typescript
-import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net';
+import { Component, OnInit, signal } from '@angular/core';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+
+import { Person } from '../../person/models/person';
 
 @Component({
-  selector: 'app-row-click-event',
-  templateUrl: 'row-click-event.component.html',
+  imports: [DataTableDirective],
+  selector: 'app-row-click',
+  styleUrl: './row-click.component.css',
+  templateUrl: './row-click.component.html',
 })
-export class RowClickEventComponent implements OnInit {
-  message = '';
-  dtOptions: Config = {};
+export class RowClickComponent implements OnInit {
+  public readonly message = signal('');
+  protected dtOptions: ADTSettings = {};
 
-  constructor() {}
-
-  someClickHandler(info: any): void {
-    this.message = info.id + ' - ' + info.firstName;
-  }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
+      rowCallback: (row: Node, data: object, _index: number): Node => {
         // Unbind first in order to avoid any duplicate handler
         // (see https://github.com/l-lin/angular-datatables/issues/87)
         // Note: In newer jQuery v3 versions, `unbind` and `bind` are
         // deprecated in favor of `off` and `on`
         $('td', row).off('click');
         $('td', row).on('click', () => {
-          self.someClickHandler(data);
+          this.someClickHandler(data as Person);
         });
         return row;
       },
     };
+  }
+
+  private someClickHandler(info: Person): void {
+    this.message.set(`${info.id} - ${info.firstName}`);
   }
 }
 ```

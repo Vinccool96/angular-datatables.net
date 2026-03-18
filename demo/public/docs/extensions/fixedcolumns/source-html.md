@@ -1,3 +1,3 @@
 ```html
-<table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+<table adtDatatable [dtOptions]="dtOptions" class="row-border hover"></table>
 ```

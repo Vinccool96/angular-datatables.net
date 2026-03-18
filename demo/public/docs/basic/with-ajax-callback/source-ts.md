@@ -1,44 +1,61 @@
 ```typescript
+// ./service/ajax.service.ts
+
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net';
-import { DataTablesResponse } from '../../datatables-response.model';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { Person } from '../../../person/models/person';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AjaxService {
+  private readonly http = inject(HttpClient);
+
+  public getResult(): Observable<{ data: Person[] }> {
+    return this.http.get('data/data.json') as Observable<{ data: Person[] }>;
+  }
+}
+```
+
+```typescript
+// ./with-ajax-callback.component.ts
+
+import { Component, inject, OnInit } from '@angular/core';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+
+import { AjaxService } from './service/ajax.service';
 
 @Component({
+  imports: [DataTableDirective],
   selector: 'app-with-ajax-callback',
   templateUrl: './with-ajax-callback.component.html',
 })
 export class WithAjaxCallbackComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  protected dtOptions: ADTSettings = {};
 
-  dtOptions: Config = {};
+  private readonly ajax = inject(AjaxService);
 
-  ngOnInit(): void {
-    const that = this;
+  public ngOnInit(): void {
     this.dtOptions = {
-      ajax: (dataTablesParameters: any, callback) => {
-        that.http
-          .post<DataTablesResponse>('https://xtlncifojk.eu07.qoddiapp.com/', dataTablesParameters, {})
-          .subscribe((resp) => {
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: resp.data,
-            });
-          });
+      ajax: (_, callback): void => {
+        this.ajax.getResult().subscribe((result) => {
+          callback(result);
+        });
       },
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
     };

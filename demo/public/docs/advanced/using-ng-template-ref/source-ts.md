@@ -1,115 +1,130 @@
 ```typescript
-// demo-ng-template-ref.component.ts
+// ./models/demo-ng-template-ref-event-type.ts
 
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
-import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
+export interface DemoNgTemplateRefEventType {
+  cmd: string;
+  data: unknown;
+}
+```
+
+```typescript
+// ./components/demo-ng-template-ref/demo-ng-template-ref.component.ts
+
+import { Component, input, output } from '@angular/core';
+
+import { DemoNgTemplateRefEventType } from '../../models/demo-ng-template-ref-event-type';
 
 @Component({
+  imports: [],
   selector: 'app-demo-ng-template-ref',
-  templateUrl: './demo-ng-template-ref.component.html',
+  template: `
+    <div class="btn-group d-block text-center">
+      <button class="btn btn-sm btn-dark" (click)="onAction1()">
+        {{ actionText() }}
+      </button>
+    </div>
+  `,
 })
-export class DemoNgComponent implements OnInit {
-  constructor() {}
+export class DemoNgTemplateRefComponent {
+  public readonly actionText = input('Action 1');
+  public readonly data = input<object>({});
 
-  @Output()
-  emitter = new Subject<IDemoNgComponentEventType>();
+  public readonly emitter = output<DemoNgTemplateRefEventType>();
 
-  @Input()
-  data = {};
-
-  ngOnInit(): void {}
-
-  onAction1() {
-    this.emitter.next({
+  protected onAction1(): void {
+    this.emitter.emit({
       cmd: 'action1',
-      data: this.data,
+      data: this.data(),
     });
   }
-
-  ngOnDestroy() {
-    this.emitter.unsubscribe();
-  }
 }
+```
 
-// demo-ng-template-ref-event-type.ts
+```typescript
+// ./using-ng-template-ref.component.ts
 
-export interface IDemoNgComponentEventType {
-  cmd: string;
-  data: any;
-}
-
-// ng-template-ref.component.ts
-
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ADTSettings } from 'angular-datatables.net';
+import { AfterViewInit, Component, effect, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
-import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
-import { DemoNgComponent } from './demo-ng-template-ref.component';
+
+import { DemoNgTemplateRefComponent } from './components/demo-ng-template-ref/demo-ng-template-ref.component';
+import { DemoNgTemplateRefEventType } from './models/demo-ng-template-ref-event-type';
 
 @Component({
+  imports: [DataTableDirective, DemoNgTemplateRefComponent],
   selector: 'app-using-ng-template-ref',
   templateUrl: './using-ng-template-ref.component.html',
 })
-export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
-  constructor() {}
+export class UsingNgTemplateRefComponent implements AfterViewInit, OnDestroy {
+  public readonly message = signal('');
+  protected dtOptions: ADTSettings = {};
+  protected readonly dtTrigger = new Subject<ADTSettings>();
 
-  dtOptions: ADTSettings = {};
-  dtTrigger: Subject<ADTSettings> = new Subject<ADTSettings>();
+  protected readonly mdTS = 'docs/advanced/using-ng-template-ref/source-ts.md';
 
-  @ViewChild('demoNg') demoNg: TemplateRef<DemoNgComponent>;
-  message = '';
+  private readonly afterViewInit = signal(false);
+  private readonly demoNg = viewChild<TemplateRef<DemoNgTemplateRefComponent>>('demoNg');
+  private readonly ready = signal(false);
 
-  ngOnInit(): void {
-    // use setTimeout as a hack to ensure the `demoNg` is usable in the datatables rowCallback function
-    setTimeout(() => {
-      const self = this;
+  public constructor() {
+    effect(() => {
+      const demo = this.demoNg();
+
+      if (demo === undefined) {
+        return;
+      }
+
       this.dtOptions = {
         ajax: 'data/data.json',
         columns: [
           {
-            title: 'ID',
             data: 'id',
+            title: 'ID',
           },
           {
-            title: 'First name',
             data: 'firstName',
+            title: 'First name',
           },
           {
-            title: 'Last name',
             data: 'lastName',
+            title: 'Last name',
           },
           {
-            title: 'Actions',
             data: null,
             defaultContent: '',
             ngTemplateRef: {
-              ref: this.demoNg,
               context: {
                 // needed for capturing events inside <ng-template>
-                captureEvents: self.onCaptureEvent.bind(self),
+                captureEvents: this.onCaptureEvent.bind(this),
               },
+              ref: demo,
             },
+            title: 'Actions',
           },
         ],
       };
+
+      this.ready.set(true);
+    });
+
+    effect(() => {
+      if (this.ready() && this.afterViewInit()) {
+        this.dtTrigger.next(this.dtOptions);
+      }
     });
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      // race condition fails unit tests if dtOptions isn't sent with dtTrigger
-      this.dtTrigger.next(this.dtOptions);
-    }, 200);
+  public ngAfterViewInit(): void {
+    this.afterViewInit.set(true);
   }
 
-  onCaptureEvent(event: IDemoNgComponentEventType) {
-    this.message = `Event '${event.cmd}' with data '${JSON.stringify(event.data)}`;
-  }
-
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  private onCaptureEvent(event: DemoNgTemplateRefEventType): void {
+    this.message.set(`Event '${event.cmd}' with data '${JSON.stringify(event.data)}`);
   }
 }
 ```

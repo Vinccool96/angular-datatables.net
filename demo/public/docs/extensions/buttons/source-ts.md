@@ -1,54 +1,62 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net-dt';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+
 import 'datatables.net-buttons-dt';
 
 @Component({
-  selector: 'app-buttons-extension',
-  templateUrl: 'buttons-extension.component.html',
+  imports: [DataTableDirective],
+  selector: 'app-buttons',
+  templateUrl: './buttons.component.html',
 })
-export class ButtonsExtensionComponent implements OnInit {
-  dtOptions: Config = {};
+export class ButtonsComponent implements OnInit {
+  protected dtOptions: ADTSettings = {};
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
-      columns: [
-        {
-          title: 'ID',
-          data: 'id',
-        },
-        {
-          title: 'First name',
-          data: 'firstName',
-        },
-        {
-          title: 'Last name',
-          data: 'lastName',
-        },
-      ],
-      // Declare the use of the extension in the dom parameter
-      dom: 'Bfrtip',
       // Configure the buttons
       buttons: [
         'columnsToggle',
         'colvis',
         'copy',
         {
-          extend: 'csv',
-          text: 'CSV export',
-          fieldSeparator: ';',
           exportOptions: [1, 2, 3],
+          extend: 'csv',
+          fieldSeparator: ';',
+          text: 'CSV export',
         },
         'excel',
         {
-          text: 'Some button',
-          key: '1',
-          action: function (e, dt, node, config) {
+          action: (): void => {
             alert('Button activated');
           },
+          key: '1',
+          text: 'Some button',
         },
       ],
+      columns: [
+        {
+          data: 'id',
+          title: 'ID',
+        },
+        {
+          data: 'firstName',
+          title: 'First name',
+        },
+        {
+          data: 'lastName',
+          title: 'Last name',
+        },
+      ],
+      layout: {
+        bottom2Start: 'paging',
+        bottomEnd: null,
+        bottomStart: 'info',
+        top1Start: 'buttons',
+        topEnd: null,
+        topStart: 'search',
+      },
     };
   }
 }

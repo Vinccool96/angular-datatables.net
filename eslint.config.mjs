@@ -116,6 +116,30 @@ export default tseslint.config(
     },
   },
   {
+    files: ['**/*.ts'],
+    rules: {
+      'perfectionist/sort-interfaces': [
+        'error',
+        {
+          customGroups: [
+            {
+              elementNamePattern: '^id$',
+              groupName: 'first',
+            },
+          ],
+          groups: ['first', 'unknown'],
+          type: 'natural',
+          useConfigurationIf: {
+            declarationMatchesPattern: 'Form$',
+          },
+        },
+        {
+          type: 'natural',
+        },
+      ],
+    },
+  },
+  {
     files: ['**/*.html'],
     extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {},

@@ -1,6 +1,5 @@
 import { Component, OnInit, viewChildren } from '@angular/core';
 import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
-import { Config } from 'datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
@@ -34,7 +33,7 @@ export class MultipleTablesComponent implements OnInit {
     }
   }
 
-  private buildDtOptions(url: string): Config {
+  private buildDtOptions(url: string): ADTSettings {
     return {
       ajax: url,
       columns: [

@@ -1,5 +1,5 @@
 ```html
-<table datatable [dtOptions]="dtOptions" class="row-border hover">
+<table adtDatatable [dtOptions]="dtOptions" class="row-border hover">
   <tfoot>
     <tr>
       <th><input type="text" placeholder="Search ID" name="search-id" /></th>

@@ -1,41 +1,45 @@
 ```typescript
-import { Component, OnInit, ViewChild } from '@angular/core';
-
-import { DataTableDirective } from 'angular-datatables.net';
-import { Config } from 'datatables.net';
+import { AsyncPipe } from '@angular/common';
+import { Component, OnInit, viewChild } from '@angular/core';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 
 @Component({
+  imports: [DataTableDirective, AsyncPipe],
   selector: 'app-dt-instance',
-  templateUrl: 'dt-instance.component.html',
+  templateUrl: './dt-instance.component.html',
 })
 export class DtInstanceComponent implements OnInit {
-  @ViewChild(DataTableDirective, { static: false })
-  datatableElement: DataTableDirective;
+  protected readonly datatableElement = viewChild(DataTableDirective);
+  protected dtOptions: ADTSettings = {};
 
-  dtOptions: Config = {};
-
-  displayToConsole(datatableElement: DataTableDirective): void {
-    datatableElement.dtInstance.then((dtInstance) => console.log(dtInstance));
-  }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
     };
+  }
+
+  protected displayToConsole(datatableElement: DataTableDirective | undefined): void {
+    if (datatableElement === undefined) {
+      return;
+    }
+
+    void datatableElement.dtInstance.then((dtInstance) => {
+      console.log(dtInstance);
+    });
   }
 }
 ```

@@ -1,67 +1,83 @@
 ```typescript
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+// models/custom-range.form.ts
+import { FormControl } from '@angular/forms';
 
-import { DataTableDirective } from 'angular-datatables.net';
-import { Config } from 'datatables.net';
+export interface CustomRangeForm {
+  max: FormControl<number | null>;
+  min: FormControl<number | null>;
+}
+```
 
-// Example from https://datatables.net/examples/plug-ins/range_filtering.html
+```typescript
+// custom-range-search.component.ts
+import { AfterViewInit, Component, inject, OnInit, viewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { Api } from 'datatables.net';
+
+import { Person } from '../../person/models/person';
+import { CustomRangeForm } from './models/custom-range.form';
+
 @Component({
+  imports: [DataTableDirective, ReactiveFormsModule],
   selector: 'app-custom-range-search',
-  templateUrl: 'custom-range-search.component.html',
+  styleUrl: './custom-range-search.component.css',
+  templateUrl: './custom-range-search.component.html',
 })
-export class CustomRangeSearchComponent implements OnDestroy, OnInit {
-  @ViewChild(DataTableDirective, { static: false })
-  datatableElement: DataTableDirective;
-  min: number;
-  max: number;
+export class CustomRangeSearchComponent implements AfterViewInit, OnInit {
+  protected dtOptions: ADTSettings = {};
+  private readonly formBuilder = inject(FormBuilder);
+  protected readonly form: FormGroup<CustomRangeForm> = this.formBuilder.group<CustomRangeForm>({
+    max: this.formBuilder.control(null),
+    min: this.formBuilder.control(null),
+  });
 
-  dtOptions: Config = {};
+  private readonly datatableElement = viewChild(DataTableDirective);
+  private dtInstance: Api | undefined;
 
-  ngOnInit(): void {
-    // We need to call the $.fn.dataTable like this because DataTables typings do not have the "ext" property
-    $.fn['dataTable'].ext.search.push((settings: Config, data: any, dataIndex: number) => {
-      const id = parseFloat(data[0]) || 0; // use data for the id column
-      if (
-        (isNaN(this.min) && isNaN(this.max)) ||
-        (isNaN(this.min) && id <= this.max) ||
-        (this.min <= id && isNaN(this.max)) ||
-        (this.min <= id && id <= this.max)
-      ) {
-        return true;
-      }
-      return false;
+  public ngAfterViewInit(): void {
+    void this.datatableElement()?.dtInstance.then((instance) => {
+      this.dtInstance = instance;
+      instance.search.fixed('range', (_data, rowData: Person): boolean => {
+        const id = rowData.id; // use data for the id column
+        const min = (this.form.get('min') as FormControl<number | null>).value ?? Number.NaN;
+        const max = (this.form.get('max') as FormControl<number | null>).value ?? Number.NaN;
+        return (
+          (Number.isNaN(min) && Number.isNaN(max)) ||
+          (Number.isNaN(min) && id <= max) ||
+          (min <= id && Number.isNaN(max)) ||
+          (min <= id && id <= max)
+        );
+      });
     });
+  }
 
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
     };
-  }
 
-  ngOnDestroy(): void {
-    // We remove the last function in the global ext search array so we do not add the fn each time the component is drawn
-    // /!\ This is not the ideal solution as other components may add other search function in this array, so be careful when
-    // handling this global variable
-    $.fn['dataTable'].ext.search.pop();
-  }
-
-  filterById(): boolean {
-    this.datatableElement.dtInstance.then((dtInstance) => {
-      dtInstance.draw();
+    this.form.valueChanges.subscribe(() => {
+      this.dtInstance?.draw();
     });
+  }
+
+  protected filterById(): boolean {
+    this.dtInstance?.draw();
     return false;
   }
 }

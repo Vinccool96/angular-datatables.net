@@ -1,31 +1,32 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net-dt';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 import 'datatables.net-responsive';
 
 @Component({
-  selector: 'app-responsive-extension',
-  templateUrl: 'responsive-extension.component.html',
+  imports: [DataTableDirective],
+  selector: 'app-responsive',
+  templateUrl: './responsive.component.html',
 })
-export class ResponsiveExtensionComponent implements OnInit {
-  dtOptions: Config = {};
+export class ResponsiveComponent implements OnInit {
+  protected dtOptions: ADTSettings = {};
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
-          data: 'lastName',
           className: 'none',
+          data: 'lastName',
+          title: 'Last name',
         },
       ],
       // Use this attribute to enable the responsive extension

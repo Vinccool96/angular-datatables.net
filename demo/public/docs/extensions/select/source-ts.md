@@ -1,30 +1,32 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 import 'datatables.net-select';
 
 @Component({
-  selector: 'app-select-extension',
-  templateUrl: 'select-extension.component.html',
+  imports: [DataTableDirective],
+  selector: 'app-select',
+  styleUrl: './select.component.css',
+  templateUrl: './select.component.html',
 })
-export class SelectExtensionComponent implements OnInit {
-  dtOptions: Config = {};
+export class SelectComponent implements OnInit {
+  protected dtOptions: ADTSettings = {};
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
       // Use this attribute to enable the select extension

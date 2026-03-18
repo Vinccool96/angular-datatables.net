@@ -31,7 +31,7 @@ describe('WithAjaxComponent', () => {
 
   it('should have table populated via AJAX', async () => {
     await spectator.fixture.whenStable();
-    expect(component.dtOptions().columns).toBeDefined();
+    expect(component.dtOptions.columns).toBeDefined();
     const dir = spectator.query(DataTableDirective);
     expect(dir).toBeTruthy();
     const instance = await dir?.dtInstance;

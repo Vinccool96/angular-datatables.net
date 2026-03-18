@@ -1,29 +1,30 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net';
+import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
 
 @Component({
+  imports: [DataTableDirective],
   selector: 'app-with-ajax',
-  templateUrl: 'with-ajax.component.html',
+  templateUrl: './with-ajax.component.html',
 })
 export class WithAjaxComponent implements OnInit {
-  dtOptions: Config = {};
+  public dtOptions: ADTSettings = {};
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
           data: 'id',
+          title: 'ID',
         },
         {
-          title: 'First name',
           data: 'firstName',
+          title: 'First name',
         },
         {
-          title: 'Last name',
           data: 'lastName',
+          title: 'Last name',
         },
       ],
     };
