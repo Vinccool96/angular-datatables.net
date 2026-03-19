@@ -7,12 +7,7 @@
     "target": "ES2022",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "lib": [
-      "ES2022",
-      "dom",
-      "ESNext",
-      "ESNext.Array"
-    ],
+    "lib": ["ES2022", "dom", "ESNext", "ESNext.Array"],
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -26,9 +21,7 @@
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "paths": {
-      "@angular/*": [
-        "node_modules/@angular/*"
-      ]
+      "@angular/*": ["node_modules/@angular/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true,

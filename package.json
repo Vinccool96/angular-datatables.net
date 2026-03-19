@@ -66,7 +66,7 @@
     "materialize-css": "^0.100.2",
     "prism-themes": "^1.9.0",
     "prismjs": "^1.27.0",
-    "rxjs": "7.4.0",
+    "rxjs": "^7.4.0",
     "tether": "^2.0.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
