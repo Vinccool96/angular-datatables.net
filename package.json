@@ -19,7 +19,8 @@
     "lint:lib": "ng lint angular-datatables.net",
     "lint:lib:fix": "ng lint angular-datatables.net --fix",
     "lint:demo": "ng lint angular-datatables.net-demo",
-    "lint:demo:fix": "ng lint angular-datatables.net-demo --fix"
+    "lint:demo:fix": "ng lint angular-datatables.net-demo --fix",
+    "copy-readme": "cp README.md dist/lib"
   },
   "keywords": [
     "Angular",
