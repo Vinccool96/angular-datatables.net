@@ -4,6 +4,9 @@ on:
   release:
     types: [created]
 
+env:
+  PRIMARY_NODE_VERSION: 22
+
 jobs:
   publish:
     runs-on: ubuntu-latest
