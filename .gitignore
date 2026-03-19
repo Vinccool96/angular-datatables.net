@@ -16,8 +16,7 @@ _temp
 
 !demo/src/**/*.js
 
-# angular-datatables specific
-*.js.map
+# angular-datatables.net specific
 *.d.ts
 *.metadata.json
 index*.js
