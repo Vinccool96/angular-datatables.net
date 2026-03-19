@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  PRIMARY_NODE_VERSION: 20
+  PRIMARY_NODE_VERSION: 22
 
 jobs:
   install:
@@ -83,7 +83,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         # just run on the oldest and latest supported versions and assume the intermediate versions are good
-        node-version: [18, 20]
+        node-version: [20, 22]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -116,7 +116,11 @@ jobs:
         uses: ./.github/actions/prepare-build
       - name: Run Build Demo
         run: npm run demo:build:prod
-      - name: Publish pages
-        run: npm run publish-pages
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: 'dist/demo/browser/.'
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy
+        uses: actions/deploy-pages@v4
