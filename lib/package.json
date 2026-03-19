@@ -1,6 +1,6 @@
 {
   "name": "angular-datatables.net",
-  "version": "19.0.0",
+  "version": "20.0.0",
   "description": "Angular directive for DataTables",
   "keywords": [
     "Angular",
@@ -16,9 +16,9 @@
   "schematics": "./schematics/src/collection.json",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^19.0.1",
-    "@angular/core": "^19.0.1",
-    "@angular/platform-browser": "^19.0.1",
+    "@angular/common": "^20.0.1",
+    "@angular/core": "^20.0.1",
+    "@angular/platform-browser": "^20.0.1",
     "datatables.net": "^2.0.3",
     "datatables.net-dt": "^2.0.3",
     "jquery": "^3.6.0",
