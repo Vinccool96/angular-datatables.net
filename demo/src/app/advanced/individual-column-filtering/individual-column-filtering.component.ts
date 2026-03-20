@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit, viewChild } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
-  imports: [BaseDemoComponent, DataTableDirective],
+  imports: [BaseDemoComponent, AngularDataTable],
   selector: 'app-individual-column-filtering',
   styleUrl: './individual-column-filtering.component.css',
   templateUrl: './individual-column-filtering.component.html',
@@ -16,7 +16,7 @@ export class IndividualColumnFilteringComponent implements AfterViewInit, OnInit
   protected readonly mdIntro = 'docs/advanced/indi-col-filter/intro.md';
   protected readonly mdTS = 'docs/advanced/indi-col-filter/source-ts.md';
   protected readonly mdTSV1 = 'docs/advanced/indi-col-filter/source-ts-dtv1.md';
-  private readonly datatableElement = viewChild(DataTableDirective);
+  private readonly datatableElement = viewChild(AngularDataTable);
 
   public ngAfterViewInit(): void {
     void this.datatableElement()?.dtInstance.then((dtInstance) => {

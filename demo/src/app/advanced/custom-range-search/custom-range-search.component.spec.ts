@@ -1,6 +1,6 @@
 import { waitForAsync } from '@angular/core/testing';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -33,7 +33,7 @@ describe('CustomRangeSearchComponent', () => {
   it('should have data filtered when min, max values change', async () => {
     await spectator.fixture.whenStable();
 
-    const dir = spectator.query(DataTableDirective) as DataTableDirective;
+    const dir = spectator.query(AngularDataTable) as AngularDataTable;
     expect(dir).toBeTruthy();
     const instance = await dir.dtInstance;
 

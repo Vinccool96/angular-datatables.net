@@ -9,6 +9,6 @@
  * @description
  * Entry point from which you should import all public library APIs.
  */
-export { DataTableDirective } from './src/angular-datatables.directive';
-export { DataTablesModule } from './src/angular-datatables.module';
+export { AngularDataTable } from './src/angular-data-table.directive';
+export { DataTablesModule } from './src/data-tables.module';
 export { ADTColumns, ADTSettings, ADTTemplateRef, ADTTemplateRefContext } from './src/models/settings';

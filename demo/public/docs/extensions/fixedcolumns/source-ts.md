@@ -1,10 +1,10 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import 'datatables.net-fixedcolumns-dt';
 
 @Component({
-  imports: [DataTableDirective],
+  imports: [AngularDataTable],
   selector: 'app-fixedcolumns',
   templateUrl: './fixedcolumns.component.html',
 })

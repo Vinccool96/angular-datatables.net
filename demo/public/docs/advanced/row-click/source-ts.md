@@ -1,11 +1,11 @@
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 
 import { Person } from '../../person/models/person';
 
 @Component({
-  imports: [DataTableDirective],
+  imports: [AngularDataTable],
   selector: 'app-row-click',
   styleUrl: './row-click.component.css',
   templateUrl: './row-click.component.html',

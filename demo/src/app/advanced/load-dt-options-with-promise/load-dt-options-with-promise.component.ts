@@ -1,12 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import { firstValueFrom } from 'rxjs';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 import { LoadDtOptionsWithPromiseOptionsService } from './services/load-dt-options-with-promise-options.service';
 
 @Component({
-  imports: [BaseDemoComponent, DataTableDirective],
+  imports: [BaseDemoComponent, AngularDataTable],
   selector: 'app-load-dt-options-with-promise',
   styleUrl: './load-dt-options-with-promise.component.css',
   templateUrl: './load-dt-options-with-promise.component.html',

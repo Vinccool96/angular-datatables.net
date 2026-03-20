@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 import 'datatables.net-buttons-dt';
 
 @Component({
-  imports: [DataTableDirective, BaseDemoComponent],
+  imports: [AngularDataTable, BaseDemoComponent],
   selector: 'app-buttons',
   styleUrl: './buttons.component.css',
   templateUrl: './buttons.component.html',

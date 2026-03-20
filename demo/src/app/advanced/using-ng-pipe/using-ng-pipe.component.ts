@@ -1,11 +1,11 @@
 import { CurrencyPipe, UpperCasePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
-  imports: [DataTableDirective, BaseDemoComponent],
+  imports: [AngularDataTable, BaseDemoComponent],
   providers: [UpperCasePipe, CurrencyPipe],
   selector: 'app-using-ng-pipe',
   styleUrl: './using-ng-pipe.component.css',

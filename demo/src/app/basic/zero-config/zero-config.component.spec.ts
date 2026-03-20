@@ -1,5 +1,5 @@
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -32,7 +32,7 @@ describe('ZeroConfigComponent', () => {
   });
 
   it('should create DataTables instance', (done) => {
-    const dir = spectator.query(DataTableDirective);
+    const dir = spectator.query(AngularDataTable);
     expect(dir).toBeTruthy();
     dir?.dtInstance
       .then((api) => {

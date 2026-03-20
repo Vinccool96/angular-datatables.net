@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 import 'datatables.net-colreorder';
 
 @Component({
-  imports: [DataTableDirective, BaseDemoComponent],
+  imports: [AngularDataTable, BaseDemoComponent],
   selector: 'app-colreorder',
   styleUrl: './colreorder.component.css',
   templateUrl: './colreorder.component.html',

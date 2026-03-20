@@ -1,14 +1,14 @@
 ```typescript
 import { Component, OnInit, viewChildren } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 
 @Component({
-  imports: [DataTableDirective],
+  imports: [AngularDataTable],
   selector: 'app-multiple-tables',
   templateUrl: './multiple-tables.component.html',
 })
 export class MultipleTablesComponent implements OnInit {
-  public readonly datatableElements = viewChildren(DataTableDirective);
+  public readonly datatableElements = viewChildren(AngularDataTable);
   protected dtOptions: ADTSettings[] = [];
 
   public ngOnInit(): void {
@@ -18,7 +18,7 @@ export class MultipleTablesComponent implements OnInit {
 
   protected displayToConsole(): void {
     for (let index = 0; index < this.datatableElements().length; index++) {
-      const dtElement: DataTableDirective = this.datatableElements()[index];
+      const dtElement: AngularDataTable = this.datatableElements()[index];
       void dtElement.dtInstance.then((dtInstance) => {
         const node = dtInstance.table().node() as HTMLElement;
         console.log(`The DataTable ${index} instance ID is: ${node.id}`);

@@ -1,6 +1,6 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 
 @Component({
   selector: 'with-options',

@@ -1,7 +1,7 @@
 import { waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { createComponentFactory, mockProvider, Spectator, SpyObject } from '@ngneat/spectator';
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -36,7 +36,7 @@ describe('RouterLinkComponent', () => {
   it('should respond to button click event inside TemplateRef', async () => {
     await spectator.fixture.whenStable();
 
-    const dir = spectator.query(DataTableDirective) as DataTableDirective;
+    const dir = spectator.query(AngularDataTable) as AngularDataTable;
     expect(dir).toBeTruthy();
 
     const row = spectator.query<HTMLTableRowElement>('tbody tr:first-child') as HTMLTableRowElement;

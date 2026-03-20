@@ -1,18 +1,18 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, viewChild } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 
 @Component({
-  imports: [BaseDemoComponent, DataTableDirective, AsyncPipe],
+  imports: [BaseDemoComponent, AngularDataTable, AsyncPipe],
   selector: 'app-dt-instance',
   styleUrl: './dt-instance.component.css',
   templateUrl: './dt-instance.component.html',
 })
 export class DtInstanceComponent implements OnInit {
   public readonly pageTitle = 'Finding DataTable instance';
-  protected readonly datatableElement = viewChild(DataTableDirective);
+  protected readonly datatableElement = viewChild(AngularDataTable);
   protected dtOptions: ADTSettings = {};
   protected readonly mdHTML = 'docs/advanced/dt-instance/source-html.md';
   protected readonly mdIntro = 'docs/advanced/dt-instance/intro.md';
@@ -39,7 +39,7 @@ export class DtInstanceComponent implements OnInit {
     };
   }
 
-  protected displayToConsole(datatableElement: DataTableDirective | undefined): void {
+  protected displayToConsole(datatableElement: AngularDataTable | undefined): void {
     if (datatableElement === undefined) {
       return;
     }

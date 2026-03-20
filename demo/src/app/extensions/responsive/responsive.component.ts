@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 
 import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.component';
 import 'datatables.net-responsive';
 
 @Component({
-  imports: [DataTableDirective, BaseDemoComponent],
+  imports: [AngularDataTable, BaseDemoComponent],
   selector: 'app-responsive',
   styleUrl: './responsive.component.css',
   templateUrl: './responsive.component.html',

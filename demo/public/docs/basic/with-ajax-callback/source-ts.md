@@ -23,12 +23,12 @@ export class AjaxService {
 // ./with-ajax-callback.component.ts
 
 import { Component, inject, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 
 import { AjaxService } from './service/ajax.service';
 
 @Component({
-  imports: [DataTableDirective],
+  imports: [AngularDataTable],
   selector: 'app-with-ajax-callback',
   templateUrl: './with-ajax-callback.component.html',
 })

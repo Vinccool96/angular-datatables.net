@@ -1,6 +1,6 @@
 import { waitForAsync } from '@angular/core/testing';
 import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator';
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 import { of } from 'rxjs';
@@ -38,7 +38,7 @@ describe('AngularWayComponent', () => {
 
   it('should have table populated via AJAX', async () => {
     await spectator.fixture.whenStable();
-    const dir = spectator.query(DataTableDirective) as DataTableDirective;
+    const dir = spectator.query(AngularDataTable) as AngularDataTable;
     expect(dir).toBeTruthy();
     const instance = await dir.dtInstance;
     spectator.detectChanges();

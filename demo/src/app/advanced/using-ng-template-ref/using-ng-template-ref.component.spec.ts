@@ -1,6 +1,6 @@
 import { waitForAsync } from '@angular/core/testing';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -33,7 +33,7 @@ describe('UsingNgTemplateRefComponent', () => {
   it('should have firstName, lastName columns have text in uppercase', async () => {
     await spectator.fixture.whenStable();
 
-    const dir = spectator.query(DataTableDirective) as DataTableDirective;
+    const dir = spectator.query(AngularDataTable) as AngularDataTable;
     expect(dir).toBeTruthy();
 
     expect(component.message()).toBe('');
@@ -49,7 +49,7 @@ describe('UsingNgTemplateRefComponent', () => {
     await spectator.fixture.whenStable();
     spectator.detectChanges();
 
-    const dir = spectator.query(DataTableDirective) as DataTableDirective;
+    const dir = spectator.query(AngularDataTable) as AngularDataTable;
     expect(dir).toBeTruthy();
 
     // hide first column
@@ -68,7 +68,7 @@ describe('UsingNgTemplateRefComponent', () => {
     await spectator.fixture.whenStable();
     spectator.detectChanges();
 
-    const dir = spectator.query(DataTableDirective) as DataTableDirective;
+    const dir = spectator.query(AngularDataTable) as AngularDataTable;
     expect(dir).toBeTruthy();
 
     // trigger pagination events

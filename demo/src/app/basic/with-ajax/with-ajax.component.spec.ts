@@ -1,5 +1,5 @@
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -32,7 +32,7 @@ describe('WithAjaxComponent', () => {
   it('should have table populated via AJAX', async () => {
     await spectator.fixture.whenStable();
     expect(component.dtOptions.columns).toBeDefined();
-    const dir = spectator.query(DataTableDirective);
+    const dir = spectator.query(AngularDataTable);
     expect(dir).toBeTruthy();
     const instance = await dir?.dtInstance;
     spectator.detectChanges();

@@ -12,14 +12,14 @@ export interface CustomRangeForm {
 // custom-range-search.component.ts
 import { AfterViewInit, Component, inject, OnInit, viewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import { Api } from 'datatables.net';
 
 import { Person } from '../../person/models/person';
 import { CustomRangeForm } from './models/custom-range.form';
 
 @Component({
-  imports: [DataTableDirective, ReactiveFormsModule],
+  imports: [AngularDataTable, ReactiveFormsModule],
   selector: 'app-custom-range-search',
   styleUrl: './custom-range-search.component.css',
   templateUrl: './custom-range-search.component.html',
@@ -32,7 +32,7 @@ export class CustomRangeSearchComponent implements AfterViewInit, OnInit {
     min: this.formBuilder.control(null),
   });
 
-  private readonly datatableElement = viewChild(DataTableDirective);
+  private readonly datatableElement = viewChild(AngularDataTable);
   private dtInstance: Api | undefined;
 
   public ngAfterViewInit(): void {

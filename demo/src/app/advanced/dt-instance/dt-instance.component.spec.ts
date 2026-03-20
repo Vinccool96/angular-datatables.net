@@ -1,6 +1,6 @@
 import { waitForAsync } from '@angular/core/testing';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -33,7 +33,7 @@ describe('DtInstanceComponent', () => {
   it('should retrieve Table instance', async () => {
     await spectator.fixture.whenStable();
 
-    const dir = spectator.query(DataTableDirective);
+    const dir = spectator.query(AngularDataTable);
     expect(dir).toBeTruthy();
 
     const instance = await dir?.dtInstance;

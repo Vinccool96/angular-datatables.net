@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, inject, OnInit, viewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import { Api } from 'datatables.net';
 
 import { Person } from '../../person/models/person';
@@ -8,7 +8,7 @@ import { BaseDemoComponent } from '../../shared/components/base-demo/base-demo.c
 import { CustomRangeForm } from './models/custom-range.form';
 
 @Component({
-  imports: [BaseDemoComponent, DataTableDirective, ReactiveFormsModule],
+  imports: [BaseDemoComponent, AngularDataTable, ReactiveFormsModule],
   selector: 'app-custom-range-search',
   styleUrl: './custom-range-search.component.css',
   templateUrl: './custom-range-search.component.html',
@@ -26,7 +26,7 @@ export class CustomRangeSearchComponent implements AfterViewInit, OnInit {
   protected readonly mdTS = 'docs/advanced/custom-range/source-ts.md';
   protected readonly mdTSV1 = 'docs/advanced/custom-range/source-ts-dtv1.md';
 
-  private readonly datatableElement = viewChild(DataTableDirective);
+  private readonly datatableElement = viewChild(AngularDataTable);
 
   private dtInstance: Api | undefined;
 

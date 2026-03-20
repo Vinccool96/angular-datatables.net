@@ -1,6 +1,6 @@
 import { waitForAsync } from '@angular/core/testing';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -34,7 +34,7 @@ describe('UsingNgPipeComponent', () => {
   it('should have firstName, lastName columns have text in uppercase', async () => {
     await spectator.fixture.whenStable();
 
-    const dir = spectator.query(DataTableDirective) as DataTableDirective;
+    const dir = spectator.query(AngularDataTable) as AngularDataTable;
     expect(dir).toBeTruthy();
 
     const instance = await dir.dtInstance;
@@ -63,7 +63,7 @@ describe('UsingNgPipeComponent', () => {
   it('should have money on id column', async () => {
     await spectator.fixture.whenStable();
 
-    const dir = spectator.query(DataTableDirective) as DataTableDirective;
+    const dir = spectator.query(AngularDataTable) as AngularDataTable;
     expect(dir).toBeTruthy();
 
     const instance = await dir.dtInstance;
@@ -90,7 +90,7 @@ describe('UsingNgPipeComponent', () => {
     await spectator.fixture.whenStable();
     spectator.detectChanges();
 
-    const dir = spectator.query(DataTableDirective) as DataTableDirective;
+    const dir = spectator.query(AngularDataTable) as AngularDataTable;
     expect(dir).toBeTruthy();
 
     // hide first column

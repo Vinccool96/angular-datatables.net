@@ -21,14 +21,14 @@ export class AngularWayDataService {
 
 ```typescript
 import { AfterViewInit, Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
 import { Person } from '../../person/models/person';
 import { AngularWayDataService } from './services/angular-way-data.service';
 
 @Component({
-  imports: [DataTableDirective],
+  imports: [AngularDataTable],
   selector: 'app-angular-way',
   templateUrl: './angular-way.component.html',
 })
