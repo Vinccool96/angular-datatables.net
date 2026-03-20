@@ -6,9 +6,9 @@ import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 @Component({
   imports: [AngularDataTable, AsyncPipe],
   selector: 'app-dt-instance',
-  templateUrl: './dt-instance.component.html',
+  templateUrl: './dt-instance-example.html',
 })
-export class DtInstanceComponent implements OnInit {
+export class DtInstanceExample implements OnInit {
   protected readonly datatableElement = viewChild(AngularDataTable);
   protected dtOptions: ADTSettings = {};
 

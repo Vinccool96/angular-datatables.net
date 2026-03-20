@@ -6,9 +6,9 @@ import 'datatables.net-responsive';
 @Component({
   imports: [AngularDataTable],
   selector: 'app-responsive',
-  templateUrl: './responsive.component.html',
+  templateUrl: './responsive-example.html',
 })
-export class ResponsiveComponent implements OnInit {
+export class ResponsiveExample implements OnInit {
   protected dtOptions: ADTSettings = {};
 
   public ngOnInit(): void {

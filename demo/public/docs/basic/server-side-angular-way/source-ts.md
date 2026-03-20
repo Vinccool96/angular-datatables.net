@@ -12,10 +12,10 @@ class DataTablesResponse {
 
 @Component({
   selector: 'app-server-side-angular-way',
-  templateUrl: 'server-side-angular-way.component.html',
-  styleUrls: ['server-side-angular-way.component.css'],
+  templateUrl: 'server-side-angular-way-example.html',
+  styleUrls: ['server-side-angular-way-example.css'],
 })
-export class ServerSideAngularWayComponent implements OnInit {
+export class ServerSideAngularWayExample implements OnInit {
   dtOptions: DataTables.Settings = {};
   persons: Person[];
 

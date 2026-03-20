@@ -5,9 +5,9 @@ import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-rerender',
-  templateUrl: 'rerender.component.html',
+  templateUrl: 'rerender-example.html',
 })
-export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
+export class RerenderExample implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(AngularDataTable, { static: false })
   dtElement: AngularDataTable;
 

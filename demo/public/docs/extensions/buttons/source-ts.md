@@ -7,9 +7,9 @@ import 'datatables.net-buttons-dt';
 @Component({
   imports: [AngularDataTable],
   selector: 'app-buttons',
-  templateUrl: './buttons.component.html',
+  templateUrl: './buttons-example.html',
 })
-export class ButtonsComponent implements OnInit {
+export class ButtonsExample implements OnInit {
   protected dtOptions: ADTSettings = {};
 
   public ngOnInit(): void {

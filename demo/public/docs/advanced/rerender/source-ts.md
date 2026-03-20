@@ -6,9 +6,9 @@ import { Subject } from 'rxjs';
 @Component({
   imports: [AngularDataTable],
   selector: 'app-rerender',
-  templateUrl: './rerender.component.html',
+  templateUrl: './rerender-example.html',
 })
-export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
+export class RerenderExample implements AfterViewInit, OnDestroy, OnInit {
   protected dtOptions: ADTSettings = {};
   protected readonly dtTrigger = new Subject<ADTSettings | null>();
 

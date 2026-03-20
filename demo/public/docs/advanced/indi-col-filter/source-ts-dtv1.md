@@ -5,9 +5,9 @@ import { AngularDataTable } from 'angular-datatables.net';
 
 @Component({
   selector: 'app-individual-column-filtering',
-  templateUrl: 'individual-column-filtering.component.html',
+  templateUrl: 'individual-column-filtering-example.html',
 })
-export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit {
+export class IndividualColumnFilteringExample implements OnInit, AfterViewInit {
   @ViewChild(AngularDataTable, { static: false })
   datatableElement: AngularDataTable;
 

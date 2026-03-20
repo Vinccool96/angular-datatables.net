@@ -14,9 +14,9 @@ import { ADTSettings } from 'angular-datatables.net';
 
 @Component({
   selector: 'app-using-ng-pipe',
-  templateUrl: './using-ng-pipe.component.html'
+  templateUrl: './using-ng-pipe-example.html'
 })
-export class UsingNgPipeComponent implements OnInit {
+export class UsingNgPipeExample implements OnInit {
 
   constructor(
     private pipeInstance: UpperCasePipe, // inject the Pipe

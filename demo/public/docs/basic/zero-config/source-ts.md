@@ -5,7 +5,7 @@ import { AngularDataTable } from 'angular-datatables.net';
 @Component({
   selector: 'app-zero-config',
   imports: [AngularDataTable],
-  templateUrl: 'zero-config.component.html',
+  templateUrl: 'zero-config-example.html',
 })
-export class ZeroConfigComponent {}
+export class ZeroConfigExample {}
 ```

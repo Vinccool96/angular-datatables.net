@@ -5,10 +5,9 @@ import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 @Component({
   imports: [AngularDataTable],
   selector: 'app-with-options',
-  styleUrl: './with-options.component.css',
-  templateUrl: './with-options.component.html',
+  templateUrl: './with-options-example.html',
 })
-export class WithOptionsComponent implements OnInit {
+export class WithOptionsExample implements OnInit {
   public dtOptions: ADTSettings = {};
 
   public ngOnInit(): void {

@@ -6,10 +6,9 @@ import 'datatables.net-select';
 @Component({
   imports: [AngularDataTable],
   selector: 'app-select',
-  styleUrl: './select.component.css',
-  templateUrl: './select.component.html',
+  templateUrl: './select-example.html',
 })
-export class SelectComponent implements OnInit {
+export class SelectExample implements OnInit {
   protected dtOptions: ADTSettings = {};
 
   public ngOnInit(): void {

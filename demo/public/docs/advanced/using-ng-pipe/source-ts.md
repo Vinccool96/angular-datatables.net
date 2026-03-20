@@ -7,9 +7,9 @@ import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
   imports: [AngularDataTable],
   providers: [UpperCasePipe, CurrencyPipe],
   selector: 'app-using-ng-pipe',
-  templateUrl: './using-ng-pipe.component.html',
+  templateUrl: './using-ng-pipe-example.html',
 })
-export class UsingNgPipeComponent implements OnInit {
+export class UsingNgPipeExample implements OnInit {
   public readonly pipeCurrencyInstance = inject(CurrencyPipe);
   protected dtOptions: ADTSettings = {};
 

@@ -8,7 +8,7 @@ export interface DemoNgTemplateRefEventType {
 ```
 
 ```typescript
-// ./components/demo-ng-template-ref/demo-ng-template-ref.component.ts
+// ./components/demo-ng-template-ref/demo-ng-template-ref.ts
 
 import { Component, input, output } from '@angular/core';
 
@@ -25,7 +25,7 @@ import { DemoNgTemplateRefEventType } from '../../models/demo-ng-template-ref-ev
     </div>
   `,
 })
-export class DemoNgTemplateRefComponent {
+export class DemoNgTemplateRef {
   public readonly actionText = input('Action 1');
   public readonly data = input<object>({});
 
@@ -41,21 +41,21 @@ export class DemoNgTemplateRefComponent {
 ```
 
 ```typescript
-// ./using-ng-template-ref.component.ts
+// ./using-ng-template-ref-example.ts
 
 import { AfterViewInit, Component, effect, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
 import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
-import { DemoNgTemplateRefComponent } from './components/demo-ng-template-ref/demo-ng-template-ref.component';
+import { DemoNgTemplateRef } from './components/demo-ng-template-ref/demo-ng-template-ref';
 import { DemoNgTemplateRefEventType } from './models/demo-ng-template-ref-event-type';
 
 @Component({
-  imports: [AngularDataTable, DemoNgTemplateRefComponent],
+  imports: [AngularDataTable, DemoNgTemplateRef],
   selector: 'app-using-ng-template-ref',
-  templateUrl: './using-ng-template-ref.component.html',
+  templateUrl: './using-ng-template-ref-example.html',
 })
-export class UsingNgTemplateRefComponent implements AfterViewInit, OnDestroy {
+export class UsingNgTemplateRefExample implements AfterViewInit, OnDestroy {
   public readonly message = signal('');
   protected dtOptions: ADTSettings = {};
   protected readonly dtTrigger = new Subject<ADTSettings>();
@@ -63,7 +63,7 @@ export class UsingNgTemplateRefComponent implements AfterViewInit, OnDestroy {
   protected readonly mdTS = 'docs/advanced/using-ng-template-ref/source-ts.md';
 
   private readonly afterViewInit = signal(false);
-  private readonly demoNg = viewChild<TemplateRef<DemoNgTemplateRefComponent>>('demoNg');
+  private readonly demoNg = viewChild<TemplateRef<DemoNgTemplateRef>>('demoNg');
   private readonly ready = signal(false);
 
   public constructor() {

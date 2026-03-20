@@ -1,5 +1,5 @@
 ```typescript
-// ./services/angular-way-data.service.ts
+// ./services/angular-way-api.ts
 
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
@@ -10,7 +10,7 @@ import { Person } from '../../../person/models/person';
 @Injectable({
   providedIn: 'root',
 })
-export class AngularWayDataService {
+export class AngularWayApi {
   private http = inject(HttpClient);
 
   public obtainData(): Observable<{ data: Person[] }> {
@@ -25,21 +25,21 @@ import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
 import { Person } from '../../person/models/person';
-import { AngularWayDataService } from './services/angular-way-data.service';
+import { AngularWayApi } from './services/angular-way-api';
 
 @Component({
   imports: [AngularDataTable],
   selector: 'app-angular-way',
-  templateUrl: './angular-way.component.html',
+  templateUrl: './angular-way-example.html',
 })
-export class AngularWayComponent implements AfterViewInit, OnDestroy, OnInit {
+export class AngularWayExample implements AfterViewInit, OnDestroy, OnInit {
   protected dtOptions: ADTSettings = {};
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   protected dtTrigger = new Subject<ADTSettings | null>();
   protected readonly persons = signal<Person[]>([]);
 
-  private readonly dataService = inject(AngularWayDataService);
+  private readonly dataService = inject(AngularWayApi);
 
   public ngAfterViewInit(): void {
     this.dataService.obtainData().subscribe((data) => {

@@ -9,7 +9,7 @@ export interface CustomRangeForm {
 ```
 
 ```typescript
-// custom-range-search.component.ts
+// custom-range-search-example.ts
 import { AfterViewInit, Component, inject, OnInit, viewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
@@ -21,10 +21,10 @@ import { CustomRangeForm } from './models/custom-range.form';
 @Component({
   imports: [AngularDataTable, ReactiveFormsModule],
   selector: 'app-custom-range-search',
-  styleUrl: './custom-range-search.component.css',
-  templateUrl: './custom-range-search.component.html',
+  styleUrl: './custom-range-search-example.css',
+  templateUrl: './custom-range-search-example.html',
 })
-export class CustomRangeSearchComponent implements AfterViewInit, OnInit {
+export class CustomRangeSearchExample implements AfterViewInit, OnInit {
   protected dtOptions: ADTSettings = {};
   private readonly formBuilder = inject(FormBuilder);
   protected readonly form: FormGroup<CustomRangeForm> = this.formBuilder.group<CustomRangeForm>({

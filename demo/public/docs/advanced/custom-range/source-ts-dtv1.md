@@ -6,9 +6,9 @@ import { AngularDataTable } from 'angular-datatables.net';
 // Example from https://datatables.net/examples/plug-ins/range_filtering.html
 @Component({
   selector: 'app-custom-range-search',
-  templateUrl: 'custom-range-search.component.html',
+  templateUrl: 'custom-range-search-example.html',
 })
-export class CustomRangeSearchComponent implements OnDestroy, OnInit {
+export class CustomRangeSearchExample implements OnDestroy, OnInit {
   @ViewChild(AngularDataTable, { static: false })
   datatableElement: AngularDataTable;
   min: number;

@@ -6,9 +6,9 @@ import 'datatables.net-fixedcolumns-dt';
 @Component({
   imports: [AngularDataTable],
   selector: 'app-fixedcolumns',
-  templateUrl: './fixedcolumns.component.html',
+  templateUrl: './fixedcolumns-example.html',
 })
-export class FixedcolumnsComponent implements OnInit {
+export class FixedcolumnsExample implements OnInit {
   protected dtOptions: ADTSettings = {};
 
   public ngOnInit(): void {

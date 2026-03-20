@@ -5,9 +5,9 @@ import { AngularDataTable } from 'angular-datatables.net';
 
 @Component({
   selector: 'dt-instance',
-  templateUrl: 'dt-instance.component.html',
+  templateUrl: 'dt-instance-example.html',
 })
-export class DtInstanceComponent implements OnInit {
+export class DtInstanceExample implements OnInit {
   @ViewChild(AngularDataTable, { static: false })
   private datatableElement: AngularDataTable;
 

@@ -7,10 +7,10 @@ import { Person } from '../../person/models/person';
 @Component({
   imports: [AngularDataTable],
   selector: 'app-row-click',
-  styleUrl: './row-click.component.css',
-  templateUrl: './row-click.component.html',
+  styleUrl: './row-click-example.css',
+  templateUrl: './row-click-example.html',
 })
-export class RowClickComponent implements OnInit {
+export class RowClickExample implements OnInit {
   public readonly message = signal('');
   protected dtOptions: ADTSettings = {};
 

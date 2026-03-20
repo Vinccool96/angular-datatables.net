@@ -11,23 +11,23 @@ export const routes: Routes = [
     redirectTo: '/welcome',
   },
   {
-    loadComponent: () => import('./welcome/welcome.component').then((c) => c.WelcomeComponent),
+    loadComponent: () => import('./welcome-page/welcome-page').then((c) => c.WelcomePage),
     path: 'welcome',
   },
   {
-    loadComponent: () => import('./getting-started/getting-started.component').then((c) => c.GettingStartedComponent),
+    loadComponent: () => import('./getting-started-page/getting-started-page').then((c) => c.GettingStartedPage),
     path: 'getting-started',
   },
   {
-    loadComponent: () => import('./more-help/more-help.component').then((c) => c.MoreHelpComponent),
+    loadComponent: () => import('./more-help-page/more-help-page').then((c) => c.MoreHelpPage),
     path: 'more-help',
   },
   {
-    loadComponent: () => import('./person/person.component').then((c) => c.PersonComponent),
+    loadComponent: () => import('./person/person-id-page').then((c) => c.PersonIdPage),
     path: 'person/:id',
   },
   {
-    loadComponent: () => import('./faq/faq.component').then((c) => c.FaqComponent),
+    loadComponent: () => import('./faq-page/faq-page').then((c) => c.FaqPage),
     path: 'faq',
   },
   ...basicRoutes,

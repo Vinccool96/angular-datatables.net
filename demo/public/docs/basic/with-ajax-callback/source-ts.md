@@ -1,5 +1,5 @@
 ```typescript
-// ./service/ajax.service.ts
+// ./service/ajax-callback-api.ts
 
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
@@ -10,7 +10,7 @@ import { Person } from '../../../person/models/person';
 @Injectable({
   providedIn: 'root',
 })
-export class AjaxService {
+export class AjaxCallbackApi {
   private readonly http = inject(HttpClient);
 
   public getResult(): Observable<{ data: Person[] }> {
@@ -20,22 +20,22 @@ export class AjaxService {
 ```
 
 ```typescript
-// ./with-ajax-callback.component.ts
+// ./with-ajax-callback-example.ts
 
 import { Component, inject, OnInit } from '@angular/core';
 import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 
-import { AjaxService } from './service/ajax.service';
+import { AjaxCallbackApi } from './service/ajax-callback-api';
 
 @Component({
   imports: [AngularDataTable],
   selector: 'app-with-ajax-callback',
-  templateUrl: './with-ajax-callback.component.html',
+  templateUrl: './with-ajax-callback-example.html',
 })
-export class WithAjaxCallbackComponent implements OnInit {
+export class WithAjaxCallbackExample implements OnInit {
   protected dtOptions: ADTSettings = {};
 
-  private readonly ajax = inject(AjaxService);
+  private readonly ajax = inject(AjaxCallbackApi);
 
   public ngOnInit(): void {
     this.dtOptions = {

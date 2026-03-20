@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-router-link',
-  templateUrl: 'router-link.component.html',
+  templateUrl: 'router-link-example.html',
 })
-export class RouterLinkComponent implements AfterViewInit, OnInit {
+export class RouterLinkExample implements AfterViewInit, OnInit {
   dtOptions: DataTables.Settings = {};
 
   constructor(

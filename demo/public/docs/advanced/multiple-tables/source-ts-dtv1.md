@@ -5,9 +5,9 @@ import { AngularDataTable } from 'angular-datatables.net';
 
 @Component({
   selector: 'app-multiple-tables',
-  templateUrl: 'multiple-tables.component.html',
+  templateUrl: 'multiple-tables-example.html',
 })
-export class MultipleTablesComponent implements OnInit {
+export class MultipleTablesExample implements OnInit {
   @ViewChildren(AngularDataTable)
   dtElements: QueryList;
 

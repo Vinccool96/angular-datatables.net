@@ -8,7 +8,7 @@ export interface DemoNgTemplateRefEventType {
 ```
 
 ```typescript
-// ./components/demo-ng-template-ref/demo-ng-template-ref.component.ts
+// ./components/demo-ng-template-ref/demo-ng-template-ref.ts
 
 import { Component, input, output } from '@angular/core';
 
@@ -25,7 +25,7 @@ import { DemoNgTemplateRefEventType } from '../../models/demo-ng-template-ref-ev
     </div>
   `,
 })
-export class DemoNgTemplateRefComponent {
+export class DemoNgTemplateRef {
   public readonly actionText = input('Action 1');
   public readonly data = input<object>({});
 
@@ -41,7 +41,7 @@ export class DemoNgTemplateRefComponent {
 ```
 
 ```typescript
-// .router-link.component.ts
+// .router-link-example.ts
 
 import { AfterViewInit, Component, effect, inject, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -49,15 +49,15 @@ import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
 import { Person } from '../../person/models/person';
-import { DemoNgTemplateRefComponent } from './components/demo-ng-template-ref/demo-ng-template-ref.component';
+import { DemoNgTemplateRef } from './components/demo-ng-template-ref/demo-ng-template-ref';
 import { DemoNgTemplateRefEventType } from './models/demo-ng-template-ref-event-type';
 
 @Component({
-  imports: [AngularDataTable, DemoNgTemplateRefComponent],
+  imports: [AngularDataTable, DemoNgTemplateRef],
   selector: 'app-router-link',
-  templateUrl: './router-link.component.html',
+  templateUrl: './router-link-example.html',
 })
-export class RouterLinkComponent implements AfterViewInit, OnDestroy {
+export class RouterLinkExample implements AfterViewInit, OnDestroy {
   protected dtOptions: ADTSettings = {};
   protected readonly dtTrigger = new Subject<ADTSettings | null>();
   private readonly afterViewInit = signal(false);

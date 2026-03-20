@@ -5,9 +5,9 @@ import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 @Component({
   imports: [AngularDataTable],
   selector: 'app-multiple-tables',
-  templateUrl: './multiple-tables.component.html',
+  templateUrl: './multiple-tables-example.html',
 })
-export class MultipleTablesComponent implements OnInit {
+export class MultipleTablesExample implements OnInit {
   public readonly datatableElements = viewChildren(AngularDataTable);
   protected dtOptions: ADTSettings[] = [];
 
