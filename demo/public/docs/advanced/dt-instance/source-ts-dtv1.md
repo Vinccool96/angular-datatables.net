@@ -1,19 +1,19 @@
 ```typescript
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 
 @Component({
   selector: 'dt-instance',
-  templateUrl: 'dt-instance.component.html',
+  templateUrl: 'dt-instance-example.html',
 })
-export class DtInstanceComponent implements OnInit {
-  @ViewChild(DataTableDirective, { static: false })
-  private datatableElement: DataTableDirective;
+export class DtInstanceExample implements OnInit {
+  @ViewChild(AngularDataTable, { static: false })
+  private datatableElement: AngularDataTable;
 
   dtOptions: DataTables.Settings = {};
 
-  displayToConsole(datatableElement: DataTableDirective): void {
+  displayToConsole(datatableElement: AngularDataTable): void {
     datatableElement.dtInstance.then((dtInstance: DataTables.Api) => console.log(dtInstance));
   }
 

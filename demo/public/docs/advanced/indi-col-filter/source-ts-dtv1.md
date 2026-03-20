@@ -1,15 +1,15 @@
 ```typescript
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 
 @Component({
   selector: 'app-individual-column-filtering',
-  templateUrl: 'individual-column-filtering.component.html',
+  templateUrl: 'individual-column-filtering-example.html',
 })
-export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit {
-  @ViewChild(DataTableDirective, { static: false })
-  datatableElement: DataTableDirective;
+export class IndividualColumnFilteringExample implements OnInit, AfterViewInit {
+  @ViewChild(AngularDataTable, { static: false })
+  datatableElement: AngularDataTable;
 
   dtOptions: DataTables.Settings = {};
 

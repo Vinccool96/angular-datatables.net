@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-select-extension',
-  templateUrl: 'select-extension.component.html',
+  templateUrl: 'select-extension.html',
 })
 export class SelectExtensionComponent implements OnInit {
   // Must be declared as "any", not as "DataTables.Settings"

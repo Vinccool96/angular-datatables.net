@@ -1,5 +1,5 @@
 ```typescript
-// ./services/load-dt-options-with-promise-options.service.ts
+// ./services/load-dt-options-with-promise-options-api.ts
 
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class LoadDtOptionsWithPromiseOptionsService {
+export class LoadDtOptionsWithPromiseOptionsApi {
   private readonly http = inject(HttpClient);
 
   public obtainOptions(): Observable<ADTSettings> {
@@ -19,23 +19,23 @@ export class LoadDtOptionsWithPromiseOptionsService {
 ```
 
 ```typescript
-// ./load-dt-options-with-promise.component.ts
+// ./load-dt-options-with-promise-example.ts
 
 import { Component, inject, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import { firstValueFrom } from 'rxjs';
 
-import { LoadDtOptionsWithPromiseOptionsService } from './services/load-dt-options-with-promise-options.service';
+import { LoadDtOptionsWithPromiseOptionsApi } from './services/load-dt-options-with-promise-options-api';
 
 @Component({
-  imports: [DataTableDirective],
+  imports: [AngularDataTable],
   selector: 'app-load-dt-options-with-promise',
-  templateUrl: './load-dt-options-with-promise.component.html',
+  templateUrl: './load-dt-options-with-promise-example.html',
 })
-export class LoadDtOptionsWithPromiseComponent implements OnInit {
+export class LoadDtOptionsWithPromiseExample implements OnInit {
   protected dtOptions!: Promise<ADTSettings>;
 
-  private readonly optionsService = inject(LoadDtOptionsWithPromiseOptionsService);
+  private readonly optionsService = inject(LoadDtOptionsWithPromiseOptionsApi);
 
   public ngOnInit(): void {
     this.dtOptions = firstValueFrom(this.optionsService.obtainOptions())

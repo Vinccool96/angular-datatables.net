@@ -1,15 +1,15 @@
 ```typescript
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-rerender',
-  templateUrl: 'rerender.component.html',
+  templateUrl: 'rerender-example.html',
 })
-export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
-  @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
+export class RerenderExample implements AfterViewInit, OnDestroy, OnInit {
+  @ViewChild(AngularDataTable, { static: false })
+  dtElement: AngularDataTable;
 
   dtOptions: DataTables.Settings = {};
 

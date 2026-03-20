@@ -1,15 +1,15 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 
 import 'datatables.net-buttons-dt';
 
 @Component({
-  imports: [DataTableDirective],
+  imports: [AngularDataTable],
   selector: 'app-buttons',
-  templateUrl: './buttons.component.html',
+  templateUrl: './buttons-example.html',
 })
-export class ButtonsComponent implements OnInit {
+export class ButtonsExample implements OnInit {
   protected dtOptions: ADTSettings = {};
 
   public ngOnInit(): void {

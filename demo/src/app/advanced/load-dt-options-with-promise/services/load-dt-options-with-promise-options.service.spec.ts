@@ -1,14 +1,14 @@
 import { HttpTestingController } from '@angular/common/http/testing';
 import { createHttpFactory, SpectatorHttp } from '@ngneat/spectator';
 
-import { LoadDtOptionsWithPromiseOptionsService } from './load-dt-options-with-promise-options.service';
+import { LoadDtOptionsWithPromiseOptionsApi } from './load-dt-options-with-promise-options-api';
 
-describe('LoadDtOptionsWithPromiseOptionsService', () => {
-  let spectator: SpectatorHttp<LoadDtOptionsWithPromiseOptionsService>;
-  let service: LoadDtOptionsWithPromiseOptionsService;
+describe('LoadDtOptionsWithPromiseOptionsApi', () => {
+  let spectator: SpectatorHttp<LoadDtOptionsWithPromiseOptionsApi>;
+  let service: LoadDtOptionsWithPromiseOptionsApi;
   let controller: HttpTestingController;
 
-  const createService = createHttpFactory(LoadDtOptionsWithPromiseOptionsService);
+  const createService = createHttpFactory(LoadDtOptionsWithPromiseOptionsApi);
 
   beforeEach(() => {
     spectator = createService();

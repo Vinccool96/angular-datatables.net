@@ -1,12 +1,12 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables.net';
+import { AngularDataTable } from 'angular-datatables.net';
 
 @Component({
   selector: 'with-options',
-  templateUrl: 'with-options.component.html',
+  templateUrl: 'with-options-example.html',
 })
-export class WithOptionsComponent implements OnInit {
+export class WithOptionsExample implements OnInit {
   dtOptions: DataTables.Settings = {};
 
   ngOnInit(): void {

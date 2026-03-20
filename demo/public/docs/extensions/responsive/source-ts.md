@@ -1,14 +1,14 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import 'datatables.net-responsive';
 
 @Component({
-  imports: [DataTableDirective],
+  imports: [AngularDataTable],
   selector: 'app-responsive',
-  templateUrl: './responsive.component.html',
+  templateUrl: './responsive-example.html',
 })
-export class ResponsiveComponent implements OnInit {
+export class ResponsiveExample implements OnInit {
   protected dtOptions: ADTSettings = {};
 
   public ngOnInit(): void {

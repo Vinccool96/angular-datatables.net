@@ -1,15 +1,14 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import 'datatables.net-select';
 
 @Component({
-  imports: [DataTableDirective],
+  imports: [AngularDataTable],
   selector: 'app-select',
-  styleUrl: './select.component.css',
-  templateUrl: './select.component.html',
+  templateUrl: './select-example.html',
 })
-export class SelectComponent implements OnInit {
+export class SelectExample implements OnInit {
   protected dtOptions: ADTSettings = {};
 
   public ngOnInit(): void {

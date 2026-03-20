@@ -1,14 +1,14 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, DataTableDirective } from 'angular-datatables.net';
+import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
 import 'datatables.net-colreorder';
 
 @Component({
-  imports: [DataTableDirective],
+  imports: [AngularDataTable],
   selector: 'app-colreorder',
-  templateUrl: './colreorder.component.html',
+  templateUrl: './colreorder-example.html',
 })
-export class ColreorderComponent implements OnInit {
+export class ColreorderExample implements OnInit {
   protected dtOptions: ADTSettings = {};
 
   public ngOnInit(): void {

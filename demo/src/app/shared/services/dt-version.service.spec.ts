@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DtVersionService } from './dt-version.service';
+import { DtVersionOrchestrator } from './dt-version-orchestrator';
 
-describe('DtVersionService', () => {
-  let service: DtVersionService;
+describe('DtVersionOrchestrator', () => {
+  let service: DtVersionOrchestrator;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DtVersionService);
+    service = TestBed.inject(DtVersionOrchestrator);
   });
 
   it('should be created', () => {

@@ -81,7 +81,7 @@ Unit tests are essential for ensuring that the library remains compatible with t
 
 You can find these tests in the `demo/src` folder, easily recognizable by their filenames ending with `xxx.spec.ts`.
 
-For instance: `demo/src/app/app.component.spec.ts`
+For instance: `demo/src/app/app.spec.ts`
 
 Feel free to add more `.spec.ts` files as needed; karma is set up to locate them.
 

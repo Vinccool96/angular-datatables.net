@@ -4,10 +4,10 @@ import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-new-server-side',
-  templateUrl: './new-server-side.component.html',
-  styleUrls: ['./new-server-side.component.css'],
+  templateUrl: './new-server-side-example.html',
+  styleUrls: ['./new-server-side-example.css'],
 })
-export class NewServerSideComponent {
+export class NewServerSideExample {
   dtOptions: Config = {};
 
   ngOnInit(): void {
