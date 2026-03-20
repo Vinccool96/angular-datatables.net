@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
-    // FIXME: investigate and remove `src` suffix
-    "outDir": "../../dist/lib/schematics/src",
-    "lib": ["es2018", "dom"],
+    "baseUrl": ".",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "declaration": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
@@ -11,13 +14,22 @@
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "rootDir": "src/",
+    "rootDir": "schematics",
+    "outDir": "../dist/lib/schematics",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "declarationMap": false,
-    "target": "es5",
-    "types": ["jasmine", "node"]
-  }
+    "target": "ES2022",
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  },
+  "include": [
+    "schematics/**/*"
+  ],
+  "exclude": [
+    "schematics/*/files/**/*"
+  ]
 }

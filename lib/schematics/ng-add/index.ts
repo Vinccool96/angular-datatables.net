@@ -10,7 +10,7 @@ import { addAssetToAngularJson, addPackageToPackageJson } from './utils';
  * @param options The options
  * @returns The rules
  */
-export default function add(options: IADTSchematicsOptions): Rule {
+export function add(options: IADTSchematicsOptions): Rule {
   return chain([addPackageJsonDependencies(options), installPackageJsonDependencies(), updateAngularJsonFile(options)]);
 }
 
