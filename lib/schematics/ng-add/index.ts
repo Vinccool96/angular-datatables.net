@@ -1,9 +1,9 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
+import { addAssetToAngularJson, addPackageToPackageJson } from '../utils';
 import { IADTSchematicsOptions } from './models/schematics-options';
 import { ADT_SUPPORTED_STYLES, ADTStyleOptions } from './models/style-options';
-import { addAssetToAngularJson, addPackageToPackageJson } from './utils';
 
 /**
  * Add the settings to angular

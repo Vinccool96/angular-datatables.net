@@ -25,12 +25,12 @@ export function addAssetToAngularJson(host: Tree, assetType: string, assetPath: 
   }
 
   const projectName = Object.keys(json['projects'] as JsonObject)[0];
-  const projectObject = (json.projects as JsonObject)[projectName] as JsonObject;
-  const targets = projectObject.targets ?? projectObject.architect;
+  const projectObject = (json['projects'] as JsonObject)[projectName] as JsonObject;
+  const targets = projectObject['targets'] ?? projectObject['architect'];
 
-  const targetLocation: string[] = (((targets as JsonObject).build as JsonObject).options as Record<string, string[]>)[
-    assetType
-  ];
+  const targetLocation: string[] = (
+    ((targets as JsonObject)['build'] as JsonObject)['options'] as Record<string, string[]>
+  )[assetType];
 
   // update UI that `assetPath` wasn't re-added to angular.json
   if (targetLocation.includes(assetPath)) {

@@ -13,8 +13,15 @@
     "Steven Masala <me@smasalai.com>",
     "Surya Teja K <shanmukhateja@gmail.com>"
   ],
-  "schematics": "./schematics/src/collection.json",
   "license": "MIT",
+  "homepage": "https://github.com/vinccool96/angular-datatables.net#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinccool96/angular-datatables.net.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vinccool96/angular-datatables.net/issues"
+  },
   "peerDependencies": {
     "@angular/common": "^20.0.1",
     "@angular/core": "^20.0.1",
@@ -25,12 +32,8 @@
     "rxjs": "^7.4.0",
     "zone.js": "~0.15.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vinccool96/angular-datatables.net.git"
-  },
-  "bugs": {
-    "url": "https://github.com/vinccool96/angular-datatables.net/issues"
-  },
-  "homepage": "https://github.com/vinccool96/angular-datatables.net#readme"
+  "schematics": "./schematics/src/collection.json",
+  "ng-update": {
+    "migrations": "./schematics/migrations.json"
+  }
 }
