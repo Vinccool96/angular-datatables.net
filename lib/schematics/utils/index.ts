@@ -104,8 +104,7 @@ export function addPackageToPackageJson(
 function sortObjectByKeys(object: Partial<Record<string, string>>): Partial<Record<string, string>> {
   const result: Partial<Record<string, string>> = {};
 
-  // eslint-disable-next-line unicorn/no-array-sort
-  for (const key of Object.keys(object).sort()) {
+  for (const key of Object.keys(object).toSorted()) {
     result[key] = object[key];
   }
 

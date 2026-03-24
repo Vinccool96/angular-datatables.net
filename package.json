@@ -2,13 +2,19 @@
   "name": "angular-datatables.net-workspace",
   "version": "20.0.0",
   "description": "Angular directive for DataTables",
+  "private": true,
   "scripts": {
     "start": "ng serve angular-datatables.net-demo",
     "build:lib": "npm run clean && ng build angular-datatables.net --configuration=production && npm run lib:schematics:build",
     "clean": "rimraf -f lib/**/index.{d.ts,js,js.map,metadata.json} demo/**/*.{d.ts,js,map,metadata.json} schematics/**/*.{d.ts,js,map}",
-    "demo:test": "ng test",
-    "demo:test-ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
+    "demo:test": "ng test angular-datatables.net-demo",
+    "demo:test-ci": "ng test angular-datatables.net-demo --no-watch --no-progress --browsers=ChromeHeadless",
+    "lib:test": "ng test angular-datatables.net",
+    "lib:test-ci": "ng test angular-datatables.net --no-watch --no-progress --browsers=ChromeHeadless",
     "lib:schematics:build": "rimraf dist/lib/schematics && tsc -p lib/tsconfig.schematics.json && copyfiles lib/schematics/{{collection,migrations}.json,**/schema.json} dist",
+    "lib:schematics:test": "npm run lib:schematics:test:build && npm run lib:schematics:test:run",
+    "lib:schematics:test:build": "rimraf dist/test/lib/schematics && tsc -p lib/tsconfig.schematics.spec.json && copyfiles lib/schematics/{{collection,migrations}.json,**/schema.json} dist/test",
+    "lib:schematics:test:run": "jasmine dist/test/lib/schematics/**/*.spec.js",
     "demo:build:prod": "npm run clean && ng build angular-datatables.net-demo --configuration production --base-href=/angular-datatables.net/",
     "version": "npm run build:lib && git add -A",
     "postversion": "git push && git push --tags",
@@ -32,10 +38,15 @@
     "Steven Masala <me@smasalai.com>",
     "Surya Teja K <shanmukhateja@gmail.com>"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinccool96/angular-datatables.net.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vinccool96/angular-datatables.net/issues"
+  },
+  "homepage": "https://github.com/vinccool96/angular-datatables.net#readme",
   "schematics": "./lib/schematics/src/collection.json",
-  "main": "index.js",
-  "module": "index.js",
-  "typings": "index.d.ts",
   "license": "MIT",
   "dependencies": {
     "@angular/animations": "^20.3.18",
@@ -93,6 +104,7 @@
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-unicorn": "^63.0.0",
     "globals": "^17.0.0",
+    "jasmine": "^6.1.0",
     "jasmine-core": "~5.1.0",
     "jasmine-spec-reporter": "~7.0.0",
     "jquery": "^3.6.0",
@@ -111,13 +123,5 @@
     "type-fest": "^5.4.4",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.53.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vinccool96/angular-datatables.net.git"
-  },
-  "bugs": {
-    "url": "https://github.com/vinccool96/angular-datatables.net/issues"
-  },
-  "homepage": "https://github.com/vinccool96/angular-datatables.net#readme"
+  }
 }

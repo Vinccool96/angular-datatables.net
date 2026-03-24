@@ -95,7 +95,15 @@ function runDirectiveRenamingMigration(
  * @returns The array passed as a parameter
  */
 function sortFilePaths(names: string[]): string[] {
-  names.sort((a, _) => (a.endsWith('.ts') ? -1 : 0));
+  names.sort((a, _) => {
+    if (a.endsWith('.ts')) {
+      return -2;
+    } else if (a.endsWith('.html')) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
   return names;
 }
 
