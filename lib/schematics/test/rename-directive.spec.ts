@@ -1,7 +1,8 @@
-import { normalize, virtualFs } from '@angular-devkit/core';
+import { getSystemPath, logging, normalize, virtualFs } from '@angular-devkit/core';
 import { TempScopedNodeJsSyncHost } from '@angular-devkit/core/node/testing';
-import { HostTree, Tree } from '@angular-devkit/schematics';
+import { HostTree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
+import { rmSync } from 'node:fs';
 import path from 'node:path';
 
 describe('rename-directive migration', () => {
@@ -10,6 +11,10 @@ describe('rename-directive migration', () => {
   let tree: UnitTestTree;
   // eslint-disable-next-line unicorn/prefer-module
   const collectionPath = path.join(path.dirname(__filename), '../migrations.json');
+  let temporaryDirPath: string;
+  let previousWorkingDir: string;
+  let errorOutput: string[] = [];
+  let warnOutput: string[] = [];
 
   /**
    * Write the content to the path
@@ -20,10 +25,30 @@ describe('rename-directive migration', () => {
     host.sync.write(normalize(filePath), virtualFs.stringToFileBuffer(contents));
   }
 
+  /**
+   * Runs the migration and returns the tree after it has been run.
+   * @param path The path of the migration.
+   * @param format If the files should be formated or not.
+   * @returns The resulting tree
+   */
+  async function runMigration(path?: string, format = true): Promise<UnitTestTree> {
+    return await runner.runSchematic('rename-directive', { format: format, path: path }, tree);
+  }
+
   beforeEach(() => {
     runner = new SchematicTestRunner('schematics', collectionPath);
     host = new TempScopedNodeJsSyncHost();
     tree = new UnitTestTree(new HostTree(host));
+
+    errorOutput = [];
+    warnOutput = [];
+    runner.logger.subscribe((entry: logging.LogEntry) => {
+      if (entry.level === 'error') {
+        errorOutput.push(entry.message);
+      } else if (entry.level === 'warn') {
+        warnOutput.push(entry.message);
+      }
+    });
 
     writeFile('/tsconfig.json', '{}');
     writeFile(
@@ -33,9 +58,41 @@ describe('rename-directive migration', () => {
         version: 1,
       }),
     );
+
+    previousWorkingDir = process.cwd();
+    temporaryDirPath = getSystemPath(host.root);
+
+    // Switch into the temporary directory path. This allows us to run
+    // the schematic against our custom unit test tree.
+    process.chdir(temporaryDirPath);
   });
 
-  it(`should change wizardModule to mageModule`, async () => {
-    const newTree = await runner.runSchematic('rename-directive', {}, tree);
+  afterEach(() => {
+    process.chdir(previousWorkingDir);
+    rmSync(temporaryDirPath, { recursive: true });
+  });
+
+  it(`should migrate the inline template name`, async () => {
+    writeFile(
+      '/comp.ts',
+      `
+        import { Component } from '@angular/core';
+        import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
+
+        @Component({
+          imports: [DatatableDirective],
+          template: \`<table datatable [dtOptions]="dtOptions"></table>\`,
+        })
+        class Comp {
+          protected dtOptions: ADTSettings = { pagingType: 'simple' };
+        }
+      `,
+    );
+
+    await runMigration();
+
+    const content = tree.readContent('/comp.ts');
+
+    expect(content).toContain('template: `<table adtDatatable [dtOptions]="dtOptions"></table>`');
   });
 });

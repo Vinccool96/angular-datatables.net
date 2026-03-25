@@ -1,12 +1,17 @@
 import { Rule, SchematicsException, Tree } from '@angular-devkit/schematics';
 import { join } from '@angular/compiler-cli';
+import path from 'node:path';
 import ts from 'typescript';
 
 import { canMigrateFile, createMigrationProgram } from '../utils/compiler-host';
 import { getProjectTsConfigPaths } from '../utils/project-tsconfig-paths';
-import { MigrationError } from './types';
+import { MigrationError } from '../utils/types';
+import { migrateTemplate } from './migration';
+import { AnalyzedFile } from './types';
+import { analyze } from './util';
 
 interface Options {
+  format?: boolean;
   path?: string;
 }
 
@@ -86,7 +91,55 @@ function runDirectiveRenamingMigration(
   basePath: string,
   schematicOptions?: Options,
 ): string[] {
-  return [];
+  const analysis = new Map<string, AnalyzedFile>();
+  const migrateErrors = new Map<string, MigrationError[]>();
+
+  for (const sourceFile of sourceFiles) {
+    analyze(sourceFile, analysis);
+  }
+
+  const paths = sortFilePaths([...analysis.keys()]);
+
+  for (const filePath of paths) {
+    const file = analysis.get(filePath) as AnalyzedFile;
+    const ranges = file.getSortedRanges();
+    const relativePath = path.relative(basePath, filePath);
+    const content = tree.readText(relativePath);
+    const update = tree.beginUpdate(relativePath);
+
+    for (const { end, node, start, type } of ranges) {
+      const template = content.slice(start, end);
+      const length = (end ?? content.length) - start;
+
+      const { errors, migrated } = migrateTemplate(
+        template,
+        type,
+        node,
+        file,
+        schematicOptions?.format ?? true,
+        analysis,
+      );
+
+      if (migrated !== undefined) {
+        update.remove(start, length);
+        update.insertLeft(start, migrated);
+      }
+
+      if (errors.length > 0) {
+        migrateErrors.set(filePath, errors);
+      }
+    }
+
+    tree.commitUpdate(update);
+  }
+
+  const errorList: string[] = [];
+
+  for (const [template, errors] of migrateErrors) {
+    errorList.push(generateErrorMessage(template, errors));
+  }
+
+  return errorList;
 }
 
 /**
@@ -95,15 +148,7 @@ function runDirectiveRenamingMigration(
  * @returns The array passed as a parameter
  */
 function sortFilePaths(names: string[]): string[] {
-  names.sort((a, _) => {
-    if (a.endsWith('.ts')) {
-      return -2;
-    } else if (a.endsWith('.html')) {
-      return -1;
-    } else {
-      return 0;
-    }
-  });
+  names.sort((a, _) => (a.endsWith('.html') ? -1 : 0));
   return names;
 }
 
@@ -116,6 +161,6 @@ function sortFilePaths(names: string[]): string[] {
 function generateErrorMessage(path: string, errors: MigrationError[]): string {
   let errorMessage = `Template "${path}" encountered ${errors.length} errors during migration:\n`;
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  errorMessage += errors.map((e) => ` - ${e.type}: ${e.error}\n`).toString();
+  errorMessage += errors.map((error) => ` - ${error.type}: ${error.error}\n`).toString();
   return errorMessage;
 }
