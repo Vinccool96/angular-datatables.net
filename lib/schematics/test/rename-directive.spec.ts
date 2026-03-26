@@ -72,10 +72,12 @@ describe('rename-directive migration', () => {
     rmSync(temporaryDirPath, { recursive: true });
   });
 
-  it(`should migrate the inline template name`, async () => {
-    writeFile(
-      '/comp.ts',
-      `
+  describe('inline template', () => {
+
+    beforeEach(() => {
+      writeFile(
+        '/comp.ts',
+        `
         import { Component } from '@angular/core';
         import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
 
@@ -87,12 +89,31 @@ describe('rename-directive migration', () => {
           protected dtOptions: ADTSettings = { pagingType: 'simple' };
         }
       `,
-    );
+      );
+    });
 
-    await runMigration();
+    it(`should migrate the inline template name`, async () => {
+      await runMigration();
 
-    const content = tree.readContent('/comp.ts');
+      const content = tree.readContent('/comp.ts');
 
-    expect(content).toContain('template: `<table adtDatatable [dtOptions]="dtOptions"></table>`');
+      expect(content).toContain('template: `<table adtDatatable [dtOptions]="dtOptions"></table>`');
+    });
+
+    it('should rename the component import', async () => {
+      await runMigration();
+
+      const content = tree.readContent('/comp.ts');
+
+      expect(content).toContain('imports: [AngularDataTable],');
+    });
+
+    it('should rename the file import', async () => {
+      await runMigration();
+
+      const content = tree.readContent('/comp.ts');
+
+      expect(content).toContain("import { ADTSettings, AngularDataTable } from 'angular-datatables.net';");
+    });
   });
 });

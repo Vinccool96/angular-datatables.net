@@ -5,16 +5,24 @@ import { parseTemplate } from '../utils/parse-html';
 import { MigrationError } from '../utils/types';
 import {
   AnalyzedFile,
-  datatableDirective,
   ElementCollector,
   ElementToMigrate,
   endMarker,
+  newDatatableDirective,
+  oldDatatableDirective,
   Result,
   startMarker,
 } from './types';
-import { calculateNesting, getOriginals, hasLineBreaks, reduceNestingOffset, validateMigratedTemplate } from './util';
+import {
+  calculateNesting,
+  editImports,
+  getOriginals,
+  hasLineBreaks,
+  reduceNestingOffset,
+  validateMigratedTemplate,
+} from './util';
 
-const datatables = [datatableDirective];
+const datatables = [oldDatatableDirective];
 
 interface MigrationResult {
   changed: boolean;
@@ -28,8 +36,6 @@ interface MigrationResult {
  * @param templateType The type of template.
  * @param node The current node.
  * @param file The file containing the node.
- * @param format If it should be formatted.
- * @param analyzedFiles Map in which to store the results, if any.
  * @returns The migration result
  */
 export function migrateTemplate(
@@ -37,8 +43,6 @@ export function migrateTemplate(
   templateType: string,
   node: ts.Node,
   file: AnalyzedFile,
-  format = true,
-  analyzedFiles: Map<string, AnalyzedFile> | null,
 ): { errors: MigrationError[]; migrated: string | undefined } {
   let errors: MigrationError[] = [];
   let migrated = template;
@@ -61,6 +65,8 @@ export function migrateTemplate(
     }
 
     errors = [...directiveResult.errors];
+  } else {
+    migrated = editImports(template, node);
   }
 
   return { errors: errors, migrated: migrated };
@@ -96,7 +102,7 @@ function migrateDirective(template: string): MigrationResult {
     try {
       migrateResult = migrateAngularDatatableDirective(element, result, offset);
     } catch (error: unknown) {
-      errors.push({ error: error, type: datatableDirective });
+      errors.push({ error: error, type: oldDatatableDirective });
     }
 
     result = migrateResult.template;
@@ -124,12 +130,13 @@ export function migrateAngularDatatableDirective(
   offset: number,
 ): Result {
   const originals = getOriginals(elementToMigrate, template, offset);
-  const startBlock = `${startMarker}adtDatatable`;
+  const startBlock = `${startMarker}${newDatatableDirective}`;
   const endBlock = endMarker;
 
-  const updatedTmpl =
-    template.slice(0, elementToMigrate.start(offset)) + 'adtDatatable' + template.slice(elementToMigrate.end(offset));
-  const updatedTemplate = template;
+  const updatedTemplate =
+    template.slice(0, elementToMigrate.attributeStart(offset)) +
+    newDatatableDirective +
+    template.slice(elementToMigrate.attributeEnd(offset));
 
   const pre = originals.start.length - startBlock.length;
   const post = originals.end.length - endBlock.length;

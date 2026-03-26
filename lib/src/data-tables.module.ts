@@ -8,7 +8,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { AngularDataTable } from './angular-data-table.directive';
+import { AngularDataTable } from './angular-data-table';
 
 @NgModule({
   exports: [AngularDataTable],

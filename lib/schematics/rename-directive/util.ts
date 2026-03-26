@@ -4,7 +4,14 @@ import ts from 'typescript';
 
 import { parseTemplate } from '../utils/parse-html';
 import { MigrationError } from '../utils/types';
-import { AnalyzedFile, ElementCollector, ElementToMigrate, i18nCollector, importRemoval } from './types';
+import {
+  AnalyzedFile,
+  ElementCollector,
+  ElementToMigrate,
+  i18nCollector,
+  newImportIdentifier,
+  oldImportIdentifier,
+} from './types';
 
 /**
  * Analyzes a source file to find file that need to be migrated and the text ranges within them.
@@ -128,6 +135,23 @@ export function calculateNesting(visitor: ElementCollector, hasLineBreaks: boole
       nestedQueue.push(currentElement.element.sourceSpan.end.offset);
     }
   }
+}
+
+/**
+ * Edits the imports of the file
+ * @param template The template
+ * @param node The node to remove
+ * @returns The new import
+ */
+export function editImports(template: string, node: ts.Node): string {
+  if (template.startsWith('imports') && ts.isPropertyAssignment(node)) {
+    const updatedImport = updateClassImports(node);
+    return updatedImport ?? template;
+  } else if (ts.isImportDeclaration(node)) {
+    return updateImportDeclaration(node);
+  }
+
+  return template;
 }
 
 /**
@@ -287,7 +311,7 @@ function analyzeImportDecorators(
     return;
   }
 
-  const elements = clause.namedBindings.elements.filter((element) => importRemoval === element.getText());
+  const elements = clause.namedBindings.elements.filter((element) => oldImportIdentifier === element.getText());
 
   if (elements.length === 0) {
     return;
@@ -368,4 +392,85 @@ function isChildOf(parent: Element, element: Element): boolean {
     parent.sourceSpan.start.offset < element.sourceSpan.start.offset &&
     parent.sourceSpan.end.offset > element.sourceSpan.end.offset
   );
+}
+
+/**
+ * Edits the assignment
+ * @param propertyAssignment The property to edit
+ * @returns The new imports if everything worked well
+ */
+function updateClassImports(propertyAssignment: ts.PropertyAssignment): string | null {
+  const printer = ts.createPrinter();
+  const importList = propertyAssignment.initializer;
+
+  // Can't change non-array literals.
+  if (!ts.isArrayLiteralExpression(importList)) {
+    return null;
+  }
+
+  const elements = importList.elements.map((element) => {
+    if (!ts.isIdentifier(element) || element.text !== oldImportIdentifier) {
+      return element;
+    }
+
+    return ts.factory.createIdentifier(newImportIdentifier);
+  });
+
+  const updatedElements = ts.factory.updateArrayLiteralExpression(importList, elements);
+  const updatedAssignment = ts.factory.updatePropertyAssignment(
+    propertyAssignment,
+    propertyAssignment.name,
+    updatedElements,
+  );
+  return printer.printNode(ts.EmitHint.Unspecified, updatedAssignment, updatedAssignment.getSourceFile());
+}
+
+/**
+ * Updates the import declaration to contain the right directive.
+ * @param declaration The declaration to update.
+ * @returns The new import.
+ */
+function updateImportDeclaration(declaration: ts.ImportDeclaration): string {
+  const clause = declaration.getChildAt(1) as ts.ImportClause;
+  const updatedClause = updateImportClause(clause);
+  const printer = ts.createPrinter({
+    removeComments: true,
+  });
+  const updated = ts.factory.updateImportDeclaration(
+    declaration,
+    declaration.modifiers,
+    updatedClause,
+    declaration.moduleSpecifier,
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    undefined,
+  );
+  return printer.printNode(ts.EmitHint.Unspecified, updated, clause.getSourceFile());
+}
+
+/**
+ * Creates a new import clause with the right directive.
+ * @param clause The import clause.
+ * @returns The new import clause.
+ */
+function updateImportClause(clause: ts.ImportClause): ts.ImportClause {
+  if (clause.namedBindings !== undefined && ts.isNamedImports(clause.namedBindings)) {
+    const elements = clause.namedBindings.elements.map((element): ts.ImportSpecifier => {
+      if (element.getText() !== oldImportIdentifier) {
+        return element;
+      }
+
+      return ts.factory.createImportSpecifier(
+        element.isTypeOnly,
+        element.propertyName,
+        ts.factory.createIdentifier(newImportIdentifier),
+      );
+    });
+    clause = ts.factory.updateImportClause(
+      clause,
+      clause.phaseModifier,
+      clause.name,
+      ts.factory.createNamedImports(elements),
+    );
+  }
+  return clause;
 }

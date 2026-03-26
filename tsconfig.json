@@ -53,13 +53,13 @@
       "path": "lib/tsconfig.schematics.spec.json"
     },
     {
-      "path": "demo/tsconfig.json",
+      "path": "demo/tsconfig.json"
     },
     {
-      "path": "demo/tsconfig.app.json",
+      "path": "demo/tsconfig.app.json"
     },
     {
-      "path": "demo/tsconfig.spec.json",
-    },
+      "path": "demo/tsconfig.spec.json"
+    }
   ]
 }

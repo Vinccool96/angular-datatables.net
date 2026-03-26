@@ -1,12 +1,14 @@
 import { Attribute, Element, RecursiveVisitor } from '@angular/compiler';
 import ts from 'typescript';
 
-export const datatableDirective = 'datatable';
+export const newDatatableDirective = 'adtDatatable';
+export const oldDatatableDirective = 'datatable';
 
 export const startMarker = '◬';
 export const endMarker = '✢';
 
-export const importRemoval = 'DatatableDirective';
+export const oldImportIdentifier = 'DatatableDirective';
+export const newImportIdentifier = 'AngularDataTable';
 
 export interface Offsets {
   post: number;
@@ -33,9 +35,7 @@ interface Range {
  * Represents a file that was analyzed by the migration.
  */
 export class AnalyzedFile {
-  public canRemoveImports = false;
   public importRanges: Range[] = [];
-  public removeCommonModule = false;
   public sourceFile: ts.SourceFile;
   public templateRanges: Range[] = [];
   private ranges: Range[] = [];
@@ -93,14 +93,22 @@ export class AnalyzedFile {
  * Represents an element with a migratable attribute
  */
 export class ElementToMigrate {
-  public attr: Attribute;
+  public attribute: Attribute;
   public element: Element;
   public hasLineBreaks = false;
   public nestCount = 0;
 
   public constructor(element: Element, attribute: Attribute) {
     this.element = element;
-    this.attr = attribute;
+    this.attribute = attribute;
+  }
+
+  public attributeEnd(offset: number): number {
+    return this.attribute.sourceSpan.end.offset - offset;
+  }
+
+  public attributeStart(offset: number): number {
+    return this.attribute.sourceSpan.start.offset - offset;
   }
 
   public end(offset: number): number {

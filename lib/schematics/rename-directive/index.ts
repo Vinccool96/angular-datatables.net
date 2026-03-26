@@ -116,8 +116,7 @@ function runDirectiveRenamingMigration(
         type,
         node,
         file,
-        schematicOptions?.format ?? true,
-        analysis,
+
       );
 
       if (migrated !== undefined) {

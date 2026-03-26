@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": [
-      "ESNext",
-      "dom"
-    ],
+    "lib": ["ESNext", "dom"],
     "declaration": true,
     "module": "CommonJS",
     "moduleResolution": "node",
@@ -23,12 +20,7 @@
     "esModuleInterop": true,
     "target": "es6",
     "rewriteRelativeImportExtensions": true,
-    "types": [
-      "node",
-      "jasmine"
-    ]
+    "types": ["node", "jasmine"]
   },
-  "include": [
-    "schematics/**/*"
-  ]
+  "include": ["schematics/**/*"]
 }
