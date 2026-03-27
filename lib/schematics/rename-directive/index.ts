@@ -11,7 +11,6 @@ import { AnalyzedFile } from './types';
 import { analyze } from './util';
 
 interface Options {
-  format?: boolean;
   path?: string;
 }
 
@@ -60,7 +59,7 @@ export function rename(options: Options): Rule {
               : true) && canMigrateFile(basePath, sourceFile, program),
         );
 
-      const migrateErrors = runDirectiveRenamingMigration(tree, sourceFiles, basePath, options);
+      const migrateErrors = runDirectiveRenamingMigration(tree, sourceFiles, basePath);
       errors = [...errors, ...migrateErrors];
       sourceFilesCount += sourceFiles.length;
     }
@@ -82,15 +81,9 @@ export function rename(options: Options): Rule {
  * @param tree The file tree
  * @param sourceFiles The source file to migrate
  * @param basePath The base path
- * @param schematicOptions The options of the migration
  * @returns The files that were migrated
  */
-function runDirectiveRenamingMigration(
-  tree: Tree,
-  sourceFiles: ts.SourceFile[],
-  basePath: string,
-  schematicOptions?: Options,
-): string[] {
+function runDirectiveRenamingMigration(tree: Tree, sourceFiles: ts.SourceFile[], basePath: string): string[] {
   const analysis = new Map<string, AnalyzedFile>();
   const migrateErrors = new Map<string, MigrationError[]>();
 
@@ -111,13 +104,7 @@ function runDirectiveRenamingMigration(
       const template = content.slice(start, end);
       const length = (end ?? content.length) - start;
 
-      const { errors, migrated } = migrateTemplate(
-        template,
-        type,
-        node,
-        file,
-
-      );
+      const { errors, migrated } = migrateTemplate(template, type, node, file);
 
       if (migrated !== undefined) {
         update.remove(start, length);

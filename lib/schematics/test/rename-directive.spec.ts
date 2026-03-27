@@ -72,9 +72,8 @@ describe('rename-directive migration', () => {
     rmSync(temporaryDirPath, { recursive: true });
   });
 
-  describe('inline template', () => {
-
-    beforeEach(() => {
+  describe('datatable in template', () => {
+    it(`should migrate the inline template name`, async () => {
       writeFile(
         '/comp.ts',
         `
@@ -90,9 +89,7 @@ describe('rename-directive migration', () => {
         }
       `,
       );
-    });
 
-    it(`should migrate the inline template name`, async () => {
       await runMigration();
 
       const content = tree.readContent('/comp.ts');
@@ -100,7 +97,58 @@ describe('rename-directive migration', () => {
       expect(content).toContain('template: `<table adtDatatable [dtOptions]="dtOptions"></table>`');
     });
 
+    it('should migrate multiple inline templates in the same file', async () => {
+      writeFile(
+        '/comp.ts',
+        `
+        import { Component } from '@angular/core';
+        import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
+
+        @Component({
+          imports: [DatatableDirective],
+          template: \`<table datatable [dtOptions]="dtOptionsOfFirst"></table>\`,
+        })
+        class FirstComp {
+          protected dtOptionsOfFirst: ADTSettings = { pagingType: 'simple' };
+        }
+
+        @Component({
+          imports: [DatatableDirective],
+          template: \`<table datatable [dtOptions]="dtOptionsOfSecond"></table>\`,
+        })
+        class SecondComp {
+          protected dtOptionsOfSecond: ADTSettings = { pagingType: 'simple' };
+        }
+      `,
+      );
+
+      await runMigration();
+
+      const content = tree.readContent('/comp.ts');
+
+      expect(content).toContain('template: `<table adtDatatable [dtOptions]="dtOptionsOfFirst"></table>`');
+      expect(content).toContain('template: `<table adtDatatable [dtOptions]="dtOptionsOfSecond"></table>`');
+    });
+  });
+
+  describe('imports', () => {
     it('should rename the component import', async () => {
+      writeFile(
+        '/comp.ts',
+        `
+        import { Component } from '@angular/core';
+        import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
+
+        @Component({
+          imports: [DatatableDirective],
+          template: \`<table datatable [dtOptions]="dtOptions"></table>\`,
+        })
+        class Comp {
+          protected dtOptions: ADTSettings = { pagingType: 'simple' };
+        }
+      `,
+      );
+
       await runMigration();
 
       const content = tree.readContent('/comp.ts');
@@ -109,6 +157,22 @@ describe('rename-directive migration', () => {
     });
 
     it('should rename the file import', async () => {
+      writeFile(
+        '/comp.ts',
+        `
+        import { Component } from '@angular/core';
+        import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
+
+        @Component({
+          imports: [DatatableDirective],
+          template: \`<table datatable [dtOptions]="dtOptions"></table>\`,
+        })
+        class Comp {
+          protected dtOptions: ADTSettings = { pagingType: 'simple' };
+        }
+      `,
+      );
+
       await runMigration();
 
       const content = tree.readContent('/comp.ts');
