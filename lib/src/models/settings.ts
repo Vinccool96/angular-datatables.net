@@ -2,14 +2,22 @@ import { PipeTransform, TemplateRef } from '@angular/core';
 import { Config, ConfigColumns } from 'datatables.net';
 
 export interface ADTColumns extends ConfigColumns {
-  /** Define the column's unique identifier */
+  /**
+   * Define the column's unique identifier
+   */
   id?: string;
-  /** Define the arguments for the transform method of the pipe, to change its behavior */
+  /**
+   * Define the arguments for the transform method of the pipe, to change its behavior
+   */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ngPipeArgs?: any[];
-  /** Set instance of Angular pipe to transform the data of particular column */
+  /**
+   * Set instance of Angular pipe to transform the data of particular column
+   */
   ngPipeInstance?: PipeTransform;
-  /** Set `TemplateRef` to transform the data of this column */
+  /**
+   * Set `TemplateRef` to transform the data of this column
+   */
   ngTemplateRef?: ADTTemplateRef;
 }
 
@@ -18,9 +26,13 @@ export interface ADTSettings extends Config {
 }
 
 export interface ADTTemplateRef {
-  /** */
+  /**
+   *
+   */
   context?: ADTTemplateRefContext;
-  /** `TemplateRef` to work with */
+  /**
+   * `TemplateRef` to work with
+   */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref: TemplateRef<any>;
 }

@@ -72,7 +72,7 @@ export function createProgramOptions(
   const parsed = parseTsconfigFile(tsconfigPath, path.dirname(tsconfigPath));
   const options = optionOverrides === undefined ? parsed.options : { ...parsed.options, ...optionOverrides };
   const host = createMigrationCompilerHost(tree, options, basePath, fakeFileRead);
-  return { host, options, rootNames: [...parsed.fileNames, ...(additionalFiles ?? [])] };
+  return { host: host, options: options, rootNames: [...parsed.fileNames, ...(additionalFiles ?? [])] };
 }
 
 /**

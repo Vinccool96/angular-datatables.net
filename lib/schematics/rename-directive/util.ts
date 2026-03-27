@@ -152,7 +152,6 @@ export function editPropertyDeclaration(template: string, property: ts.Node): st
 
   let newType: ts.TypeNode;
 
-  const t = ts;
   if (ts.isArrayTypeNode(oldType)) {
     if (
       !ts.isTypeReferenceNode(oldType.elementType) ||

@@ -1,4 +1,4 @@
-import { getSystemPath, logging, normalize, virtualFs } from '@angular-devkit/core';
+import { getSystemPath, normalize, virtualFs } from '@angular-devkit/core';
 import { TempScopedNodeJsSyncHost } from '@angular-devkit/core/node/testing';
 import { HostTree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
@@ -13,8 +13,6 @@ describe('rename-directive migration', () => {
   const collectionPath = path.join(path.dirname(__filename), '../migrations.json');
   let temporaryDirPath: string;
   let previousWorkingDir: string;
-  let errorOutput: string[] = [];
-  let warnOutput: string[] = [];
 
   /**
    * Write the content to the path
@@ -39,16 +37,6 @@ describe('rename-directive migration', () => {
     runner = new SchematicTestRunner('schematics', collectionPath);
     host = new TempScopedNodeJsSyncHost();
     tree = new UnitTestTree(new HostTree(host));
-
-    errorOutput = [];
-    warnOutput = [];
-    runner.logger.subscribe((entry: logging.LogEntry) => {
-      if (entry.level === 'error') {
-        errorOutput.push(entry.message);
-      } else if (entry.level === 'warn') {
-        warnOutput.push(entry.message);
-      }
-    });
 
     writeFile('/tsconfig.json', '{}');
     writeFile(

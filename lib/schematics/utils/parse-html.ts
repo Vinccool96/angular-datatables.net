@@ -40,7 +40,7 @@ export function parseTemplate(template: string): ParseResult {
     // Don't migrate invalid templates.
     if (parsed.errors.length > 0) {
       const errors = parsed.errors.map((error) => ({ error: error, type: 'parse' }));
-      return { errors, tree: undefined };
+      return { errors: errors, tree: undefined };
     }
   } catch (error: unknown) {
     return { errors: [{ error: error, type: 'parse' }], tree: undefined };

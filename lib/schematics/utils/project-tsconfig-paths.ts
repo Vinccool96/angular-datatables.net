@@ -80,17 +80,17 @@ function* allTargetOptions(
  */
 function createHost(tree: Tree): workspaces.WorkspaceHost {
   return {
-    isDirectory(path: string): Promise<boolean> {
+    isDirectory: function (path: string): Promise<boolean> {
       // Approximate a directory check.
       // We don't need to consider empty directories and hence this is a good enough approach.
       // This is also per documentation, see:
       // https://angular.dev/tools/cli/schematics-for-libraries#get-the-project-configuration
       return Promise.resolve(!tree.exists(path) && tree.getDir(path).subfiles.length > 0);
     },
-    isFile(path: string): Promise<boolean> {
+    isFile: function (path: string): Promise<boolean> {
       return Promise.resolve(tree.exists(path));
     },
-    readFile(path: string): Promise<string> {
+    readFile: function (path: string): Promise<string> {
       const data = tree.read(path) as unknown as virtualFs.FileBuffer | undefined;
       if (data === undefined) {
         throw new Error('File not found.');
@@ -98,7 +98,7 @@ function createHost(tree: Tree): workspaces.WorkspaceHost {
 
       return Promise.resolve(virtualFs.fileBufferToString(data));
     },
-    writeFile(path: string, data: string): Promise<void> {
+    writeFile: function (path: string, data: string): Promise<void> {
       tree.overwrite(path, data);
       return Promise.resolve();
     },
