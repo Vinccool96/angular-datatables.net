@@ -17,6 +17,7 @@ import {
   calculateNesting,
   editCallExpression,
   editImports,
+  editPropertyDeclaration,
   getOriginals,
   hasLineBreaks,
   reduceNestingOffset,
@@ -48,28 +49,42 @@ export function migrateTemplate(
   let errors: MigrationError[] = [];
   let migrated = template;
 
-  if (templateType === 'template' || templateType === 'templateUrl') {
-    const directiveResult = migrateDirective(template);
+  switch (templateType) {
+    case 'callExpression': {
+      migrated = editCallExpression(template, node);
 
-    if (directiveResult.errors.length > 0) {
-      return { errors: directiveResult.errors, migrated: template };
+      break;
     }
+    case 'propertyDeclaration': {
+      migrated = editPropertyDeclaration(template, node);
 
-    migrated = directiveResult.migrated;
-    const changed = directiveResult.changed;
+      break;
+    }
+    case 'template':
+    case 'templateUrl': {
+      const directiveResult = migrateDirective(template);
 
-    if (changed) {
-      const errors = validateMigratedTemplate(migrated, file.sourceFile.fileName);
-      if (errors.length > 0) {
-        return { errors: errors, migrated: template };
+      if (directiveResult.errors.length > 0) {
+        return { errors: directiveResult.errors, migrated: template };
       }
-    }
 
-    errors = [...directiveResult.errors];
-  } else if (templateType === 'callExpression') {
-    migrated = editCallExpression(template, node);
-  } else {
-    migrated = editImports(template, node);
+      migrated = directiveResult.migrated;
+      const changed = directiveResult.changed;
+
+      if (changed) {
+        const errors = validateMigratedTemplate(migrated, file.sourceFile.fileName);
+        if (errors.length > 0) {
+          return { errors: errors, migrated: template };
+        }
+      }
+
+      errors = [...directiveResult.errors];
+
+      break;
+    }
+    default: {
+      migrated = editImports(template, node);
+    }
   }
 
   return { errors: errors, migrated: migrated };

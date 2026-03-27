@@ -104,6 +104,110 @@ export function editImports(template: string, node: ts.Node): string {
 }
 
 /**
+ * Edits the property declaration
+ * @param template The template
+ * @param property The property to edit
+ * @returns The new property
+ */
+export function editPropertyDeclaration(template: string, property: ts.Node): string {
+  const printer = ts.createPrinter();
+
+  if (
+    !ts.isPropertyDeclaration(property) ||
+    !property.getText().includes(oldImportIdentifier) ||
+    property.type === undefined ||
+    !property.type.getText().includes(oldImportIdentifier) ||
+    property.modifiers === undefined ||
+    property.modifiers.length === 0 ||
+    !property.modifiers.some((modifier) => modifier.getText().includes(oldImportIdentifier))
+  ) {
+    return template;
+  }
+
+  const modifiers = property.modifiers.map((modifier) => {
+    if (!ts.isDecorator(modifier) || !modifier.getText().includes(oldImportIdentifier)) {
+      return modifier;
+    }
+
+    const oldExpression = modifier.expression;
+
+    if (!ts.isCallExpression(oldExpression)) {
+      return modifier;
+    }
+
+    const expressionArguments = oldExpression.arguments.map((argument) => {
+      if (!ts.isIdentifier(argument) || argument.getText() !== oldImportIdentifier) {
+        return argument;
+      }
+
+      return ts.factory.createIdentifier(newImportIdentifier);
+    });
+
+    return ts.factory.createDecorator(
+      ts.factory.createCallExpression(oldExpression.expression, oldExpression.typeArguments, expressionArguments),
+    );
+  });
+
+  const oldType = property.type;
+
+  let newType: ts.TypeNode;
+
+  const t = ts;
+  if (ts.isArrayTypeNode(oldType)) {
+    if (
+      !ts.isTypeReferenceNode(oldType.elementType) ||
+      !ts.isIdentifier(oldType.elementType.typeName) ||
+      oldType.elementType.typeName.getText() !== oldImportIdentifier
+    ) {
+      return template;
+    }
+
+    newType = ts.factory.createArrayTypeNode(
+      ts.factory.createTypeReferenceNode(ts.factory.createIdentifier(newImportIdentifier)),
+    );
+  } else if (ts.isTypeReferenceNode(oldType) && ts.isIdentifier(oldType.typeName)) {
+    if (
+      oldType.typeName.getText() === 'Array' &&
+      oldType.typeArguments !== undefined &&
+      oldType.typeArguments.length === 1
+    ) {
+      newType = ts.factory.createTypeReferenceNode(oldType.typeName, [
+        ts.factory.createTypeReferenceNode(ts.factory.createIdentifier(newImportIdentifier)),
+      ]);
+    } else if (oldType.typeName.getText() === oldImportIdentifier) {
+      newType = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier(newImportIdentifier));
+    } else {
+      return template;
+    }
+  } else if (ts.isUnionTypeNode(oldType)) {
+    newType = ts.factory.createUnionTypeNode(
+      oldType.types.map((element): ts.TypeNode => {
+        if (
+          !ts.isTypeReferenceNode(element) ||
+          !ts.isIdentifier(element.typeName) ||
+          element.getText() !== oldImportIdentifier
+        ) {
+          return element;
+        }
+
+        return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier(newImportIdentifier));
+      }),
+    );
+  } else {
+    return template;
+  }
+
+  const updated = ts.factory.createPropertyDeclaration(
+    modifiers,
+    property.name,
+    property.questionToken ?? property.exclamationToken,
+    newType,
+    property.initializer,
+  );
+  return printer.printNode(ts.EmitHint.Unspecified, updated, property.getSourceFile());
+}
+
+/**
  * Retrieves the original block of text in the template for length comparison during migration processing.
  * @param elementToMigrate The element.
  * @param template The current template.
@@ -275,6 +379,20 @@ function analyzePropertyDeclaration(
     });
     return;
   }
+
+  if (
+    node.modifiers === undefined ||
+    !node.modifiers.some((modifier) => ts.isDecorator(modifier) && modifier.getText().includes(oldImportIdentifier))
+  ) {
+    return;
+  }
+
+  AnalyzedFile.addRange(sourceFile.fileName, sourceFile, analyzedFiles, {
+    end: node.getEnd(),
+    node: node,
+    start: node.getStart(),
+    type: 'propertyDeclaration',
+  });
 }
 
 /**

@@ -36,6 +36,7 @@ interface Range {
 export class AnalyzedFile {
   public callExpressionRanges: Range[] = [];
   public importRanges: Range[] = [];
+  public propertyDeclarationRanges: Range[] = [];
   public sourceFile: ts.SourceFile;
   public templateRanges: Range[] = [];
   private ranges: Range[] = [];
@@ -62,7 +63,11 @@ export class AnalyzedFile {
       .filter((x) => x.type === 'callExpression')
       // eslint-disable-next-line unicorn/no-array-sort
       .sort((aStart, bStart) => bStart.start - aStart.start);
-    const aroundTheClass = [...this.callExpressionRanges]
+    this.propertyDeclarationRanges = [...this.ranges]
+      .filter((x) => x.type === 'propertyDeclaration')
+      // eslint-disable-next-line unicorn/no-array-sort
+      .sort((aStart, bStart) => bStart.start - aStart.start);
+    const aroundTheClass = [...this.callExpressionRanges, ...this.propertyDeclarationRanges]
       // eslint-disable-next-line unicorn/no-array-sort
       .sort((aStart, bStart) => bStart.start - aStart.start);
     return [...aroundTheClass, ...this.templateRanges, ...this.importRanges];
