@@ -129,6 +129,95 @@ describe('rename-directive migration', () => {
       expect(content).toContain('template: `<table adtDatatable [dtOptions]="dtOptionsOfFirst"></table>`');
       expect(content).toContain('template: `<table adtDatatable [dtOptions]="dtOptionsOfSecond"></table>`');
     });
+
+    it('should migrate an external template', async () => {
+      writeFile(
+        '/comp.ts',
+        `
+        import { Component } from '@angular/core';
+        import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
+
+        @Component({
+          imports: [DatatableDirective],
+          templateUrl: './comp.html',
+        })
+        class Comp {
+          protected dtOptions: ADTSettings = { pagingType: 'simple' };
+        }
+      `,
+      );
+      writeFile('/comp.html', '<table datatable [dtOptions]="dtOptions"></table>');
+
+      await runMigration();
+      const content = tree.readContent('/comp.html');
+
+      expect(content).toBe('<table adtDatatable [dtOptions]="dtOptions"></table>');
+    });
+
+    it('should migrate a template referenced by multiple components', async () => {
+      writeFile(
+        '/comp.ts',
+        `
+        import { Component } from '@angular/core';
+        import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
+
+        @Component({
+          imports: [DatatableDirective],
+          templateUrl: './comp.html',
+        })
+        class Comp {
+          protected dtOptions: ADTSettings = { pagingType: 'simple' };
+        }
+      `,
+      );
+      writeFile(
+        '/other-comp.ts',
+        `
+        import { Component } from '@angular/core';
+        import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
+
+        @Component({
+          imports: [DatatableDirective],
+          templateUrl: './comp.html',
+        })
+        class OtherComp {
+          protected dtOptions: ADTSettings = { pagingType: 'simple' };
+        }
+      `,
+      );
+      writeFile('/comp.html', '<table datatable [dtOptions]="dtOptions"></table>');
+
+      await runMigration();
+      const content = tree.readContent('/comp.html');
+
+      expect(content).toBe('<table adtDatatable [dtOptions]="dtOptions"></table>');
+    });
+
+    it('should migrate a nested class', async () => {
+      writeFile(
+        '/comp.ts',
+        `
+        import { Component } from '@angular/core';
+        import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
+
+        function foo() {
+          @Component({
+            imports: [DatatableDirective],
+            template: \`<table datatable [dtOptions]="dtOptions"></table>\`,
+          })
+          class Comp {
+            protected dtOptions: ADTSettings = { pagingType: 'simple' };
+          }
+        }
+      `,
+      );
+
+      await runMigration();
+
+      const content = tree.readContent('/comp.ts');
+
+      expect(content).toContain('template: `<table adtDatatable [dtOptions]="dtOptions"></table>`');
+    });
   });
 
   describe('imports', () => {
