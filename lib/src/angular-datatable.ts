@@ -25,7 +25,7 @@ import { ADTColumns, ADTSettings, ADTTemplateRef } from './models/settings';
 @Directive({
   selector: '[adtDatatable]',
 })
-export class AngularDataTable implements OnDestroy, OnInit {
+export class AngularDatatable implements OnDestroy, OnInit {
   /**
    * The DataTable instance built by the jQuery library [DataTables](datatables.net).
    *

@@ -8,7 +8,7 @@ export const startMarker = '◬';
 export const endMarker = '✢';
 
 export const oldImportIdentifier = 'DatatableDirective';
-export const newImportIdentifier = 'AngularDataTable';
+export const newImportIdentifier = 'AngularDatatable';
 
 export interface Offsets {
   post: number;

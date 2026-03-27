@@ -1,20 +1,20 @@
 ```typescript
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 
-import { AngularDataTable } from 'angular-datatables.net';
+import { AngularDatatable } from 'angular-datatables.net';
 
 @Component({
   selector: 'app-multiple-tables',
   templateUrl: 'multiple-tables-example.html',
 })
 export class MultipleTablesExample implements OnInit {
-  @ViewChildren(AngularDataTable)
+  @ViewChildren(AngularDatatable)
   dtElements: QueryList;
 
   dtOptions: DataTables.Settings[] = [];
 
   displayToConsole(): void {
-    this.dtElements.forEach((dtElement: AngularDataTable, index: number) => {
+    this.dtElements.forEach((dtElement: AngularDatatable, index: number) => {
       dtElement.dtInstance.then((dtInstance: any) => {
         console.log(`The DataTable ${index} instance ID is: ${dtInstance.table().node().id}`);
       });

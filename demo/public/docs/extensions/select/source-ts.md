@@ -1,10 +1,10 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 import 'datatables.net-select';
 
 @Component({
-  imports: [AngularDataTable],
+  imports: [AngularDatatable],
   selector: 'app-select',
   templateUrl: './select-example.html',
 })

@@ -1,16 +1,16 @@
 ```typescript
 import { AfterViewInit, Component, OnInit, viewChild } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 @Component({
-  imports: [AngularDataTable],
+  imports: [AngularDatatable],
   selector: 'app-individual-column-filtering',
   styleUrl: './individual-column-filtering-example.css',
   templateUrl: './individual-column-filtering-example.html',
 })
 export class IndividualColumnFilteringExample implements AfterViewInit, OnInit {
   public dtOptions: ADTSettings = {};
-  private readonly datatableElement = viewChild(AngularDataTable);
+  private readonly datatableElement = viewChild(AngularDatatable);
 
   public ngAfterViewInit(): void {
     void this.datatableElement()?.dtInstance.then((dtInstance) => {

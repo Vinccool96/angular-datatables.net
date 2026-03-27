@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 import { BaseDemo } from '../../shared/components/base-demo/base-demo';
 import { AjaxCallbackApi } from './service/ajax-callback-api';
 
 @Component({
-  imports: [BaseDemo, AngularDataTable],
+  imports: [BaseDemo, AngularDatatable],
   selector: 'app-with-ajax-callback',
   styleUrl: './with-ajax-callback-example.css',
   templateUrl: './with-ajax-callback-example.html',

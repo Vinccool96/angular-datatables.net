@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 import { BaseDemo } from '../../shared/components/base-demo/base-demo';
 
 import 'datatables.net-select';
 
 @Component({
-  imports: [AngularDataTable, BaseDemo],
+  imports: [AngularDatatable, BaseDemo],
   selector: 'app-select',
   styleUrl: './select-example.css',
   templateUrl: './select-example.html',

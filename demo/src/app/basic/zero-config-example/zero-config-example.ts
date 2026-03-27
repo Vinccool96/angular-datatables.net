@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AngularDataTable } from 'angular-datatables.net';
+import { AngularDatatable } from 'angular-datatables.net';
 
 import { BaseDemo } from '../../shared/components/base-demo/base-demo';
 
 @Component({
-  imports: [BaseDemo, AngularDataTable],
+  imports: [BaseDemo, AngularDatatable],
   selector: 'app-zero-config',
   styleUrl: './zero-config-example.css',
   templateUrl: './zero-config-example.html',

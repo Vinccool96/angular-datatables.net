@@ -1,7 +1,7 @@
 ```typescript
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
-import { AngularDataTable } from 'angular-datatables.net';
+import { AngularDatatable } from 'angular-datatables.net';
 
 // Example from https://datatables.net/examples/plug-ins/range_filtering.html
 @Component({
@@ -9,8 +9,8 @@ import { AngularDataTable } from 'angular-datatables.net';
   templateUrl: 'custom-range-search-example.html',
 })
 export class CustomRangeSearchExample implements OnDestroy, OnInit {
-  @ViewChild(AngularDataTable, { static: false })
-  datatableElement: AngularDataTable;
+  @ViewChild(AngularDatatable, { static: false })
+  datatableElement: AngularDatatable;
   min: number;
   max: number;
 

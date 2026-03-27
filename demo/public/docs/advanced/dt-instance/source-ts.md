@@ -1,15 +1,15 @@
 ```typescript
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, viewChild } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 @Component({
-  imports: [AngularDataTable, AsyncPipe],
+  imports: [AngularDatatable, AsyncPipe],
   selector: 'app-dt-instance',
   templateUrl: './dt-instance-example.html',
 })
 export class DtInstanceExample implements OnInit {
-  protected readonly datatableElement = viewChild(AngularDataTable);
+  protected readonly datatableElement = viewChild(AngularDatatable);
   protected dtOptions: ADTSettings = {};
 
   public ngOnInit(): void {
@@ -32,7 +32,7 @@ export class DtInstanceExample implements OnInit {
     };
   }
 
-  protected displayToConsole(datatableElement: AngularDataTable | undefined): void {
+  protected displayToConsole(datatableElement: AngularDatatable | undefined): void {
     if (datatableElement === undefined) {
       return;
     }

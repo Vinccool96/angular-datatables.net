@@ -242,7 +242,7 @@ describe('rename-directive migration', () => {
 
       const content = tree.readContent('/comp.ts');
 
-      expect(content).toContain('imports: [AngularDataTable],');
+      expect(content).toContain('imports: [AngularDatatable],');
     });
 
     it('should rename the file import', async () => {
@@ -266,7 +266,7 @@ describe('rename-directive migration', () => {
 
       const content = tree.readContent('/comp.ts');
 
-      expect(content).toContain("import { ADTSettings, AngularDataTable } from 'angular-datatables.net';");
+      expect(content).toContain("import { ADTSettings, AngularDatatable } from 'angular-datatables.net';");
     });
   });
 });

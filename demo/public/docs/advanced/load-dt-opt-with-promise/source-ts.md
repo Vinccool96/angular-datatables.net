@@ -22,13 +22,13 @@ export class LoadDtOptionsWithPromiseOptionsApi {
 // ./load-dt-options-with-promise-example.ts
 
 import { Component, inject, OnInit } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 import { firstValueFrom } from 'rxjs';
 
 import { LoadDtOptionsWithPromiseOptionsApi } from './services/load-dt-options-with-promise-options-api';
 
 @Component({
-  imports: [AngularDataTable],
+  imports: [AngularDatatable],
   selector: 'app-load-dt-options-with-promise',
   templateUrl: './load-dt-options-with-promise-example.html',
 })
