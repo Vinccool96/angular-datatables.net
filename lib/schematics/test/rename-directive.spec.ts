@@ -87,7 +87,7 @@ describe('rename-directive migration', () => {
         class Comp {
           protected dtOptions: ADTSettings = { pagingType: 'simple' };
         }
-      `,
+        `,
       );
 
       await runMigration();
@@ -119,7 +119,7 @@ describe('rename-directive migration', () => {
         class SecondComp {
           protected dtOptionsOfSecond: ADTSettings = { pagingType: 'simple' };
         }
-      `,
+        `,
       );
 
       await runMigration();
@@ -144,7 +144,7 @@ describe('rename-directive migration', () => {
         class Comp {
           protected dtOptions: ADTSettings = { pagingType: 'simple' };
         }
-      `,
+        `,
       );
       writeFile('/comp.html', '<table datatable [dtOptions]="dtOptions"></table>');
 
@@ -168,7 +168,7 @@ describe('rename-directive migration', () => {
         class Comp {
           protected dtOptions: ADTSettings = { pagingType: 'simple' };
         }
-      `,
+        `,
       );
       writeFile(
         '/other-comp.ts',
@@ -183,7 +183,7 @@ describe('rename-directive migration', () => {
         class OtherComp {
           protected dtOptions: ADTSettings = { pagingType: 'simple' };
         }
-      `,
+        `,
       );
       writeFile('/comp.html', '<table datatable [dtOptions]="dtOptions"></table>');
 
@@ -209,7 +209,7 @@ describe('rename-directive migration', () => {
             protected dtOptions: ADTSettings = { pagingType: 'simple' };
           }
         }
-      `,
+        `,
       );
 
       await runMigration();
@@ -235,7 +235,7 @@ describe('rename-directive migration', () => {
         class Comp {
           protected dtOptions: ADTSettings = { pagingType: 'simple' };
         }
-      `,
+        `,
       );
 
       await runMigration();
@@ -267,6 +267,86 @@ describe('rename-directive migration', () => {
       const content = tree.readContent('/comp.ts');
 
       expect(content).toContain("import { ADTSettings, AngularDatatable } from 'angular-datatables.net';");
+    });
+  });
+
+  describe('viewChild', () => {
+    it('should migrate viewChild', async () => {
+      writeFile(
+        '/comp.ts',
+        `
+        import { Component, viewChild } from '@angular/core';
+        import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
+
+        @Component({
+          imports: [DatatableDirective],
+          template: \`<table datatable [dtOptions]="dtOptions"></table>\`,
+        })
+        class Comp {
+          protected dtOptions: ADTSettings = { pagingType: 'simple' };
+
+          private readonly dtInstance = viewChild(DatatableDirective);
+        }
+        `,
+      );
+
+      await runMigration();
+
+      const content = tree.readContent('/comp.ts');
+
+      expect(content).toContain('private readonly dtInstance = viewChild(AngularDatatable);');
+    });
+
+    it('should migrate viewChild.required', async () => {
+      writeFile(
+        '/comp.ts',
+        `
+        import { Component, viewChild } from '@angular/core';
+        import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
+
+        @Component({
+          imports: [DatatableDirective],
+          template: \`<table datatable [dtOptions]="dtOptions"></table>\`,
+        })
+        class Comp {
+          protected dtOptions: ADTSettings = { pagingType: 'simple' };
+
+          private readonly dtInstance = viewChild.required(DatatableDirective);
+        }
+        `,
+      );
+
+      await runMigration();
+
+      const content = tree.readContent('/comp.ts');
+
+      expect(content).toContain('private readonly dtInstance = viewChild.required(AngularDatatable);');
+    });
+
+    it('should migrate viewChildren', async () => {
+      writeFile(
+        '/comp.ts',
+        `
+        import { Component, viewChildren } from '@angular/core';
+        import { ADTSettings, DatatableDirective } from 'angular-datatables.net';
+
+        @Component({
+          imports: [DatatableDirective],
+          template: \`<table datatable [dtOptions]="dtOptions"></table>\`,
+        })
+        class Comp {
+          protected dtOptions: ADTSettings = { pagingType: 'simple' };
+
+          private readonly dtInstance = viewChildren(DatatableDirective);
+        }
+        `,
+      );
+
+      await runMigration();
+
+      const content = tree.readContent('/comp.ts');
+
+      expect(content).toContain('private readonly dtInstance = viewChildren(AngularDatatable);');
     });
   });
 });

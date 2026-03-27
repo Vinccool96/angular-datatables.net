@@ -15,6 +15,7 @@ import {
 } from './types';
 import {
   calculateNesting,
+  editCallExpression,
   editImports,
   getOriginals,
   hasLineBreaks,
@@ -65,6 +66,8 @@ export function migrateTemplate(
     }
 
     errors = [...directiveResult.errors];
+  } else if (templateType === 'callExpression') {
+    migrated = editCallExpression(template, node);
   } else {
     migrated = editImports(template, node);
   }

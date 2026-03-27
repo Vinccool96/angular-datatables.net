@@ -22,91 +22,12 @@ export function analyze(sourceFile: ts.SourceFile, analyzedFiles: Map<string, An
   forEachClass(sourceFile, (node) => {
     if (ts.isClassDeclaration(node)) {
       analyzeDecorators(node, sourceFile, analyzedFiles);
-    } else {
+    } else if (ts.isImportDeclaration(node)) {
       analyzeImportDecorators(node, sourceFile, analyzedFiles);
+    } else if (ts.isPropertyDeclaration(node)) {
+      analyzePropertyDeclaration(node, sourceFile, analyzedFiles);
     }
   });
-}
-
-/**
- * Analyzes the decorators to see if they should be removed
- * @param node The node to analyze.
- * @param sourceFile The file containing the node.
- * @param analyzedFiles Map in which to store the results.
- */
-function analyzeDecorators(
-  node: ts.ClassDeclaration,
-  sourceFile: ts.SourceFile,
-  analyzedFiles: Map<string, AnalyzedFile>,
-): void {
-  const decorator = ts.getDecorators(node)?.find((dec) => {
-    return (
-      ts.isCallExpression(dec.expression) &&
-      ts.isIdentifier(dec.expression.expression) &&
-      dec.expression.expression.text === 'Component'
-    );
-  }) as (ts.Decorator & { expression: ts.CallExpression }) | undefined;
-
-  const metadata =
-    decorator !== undefined &&
-    decorator.expression.arguments.length > 0 &&
-    ts.isObjectLiteralExpression(decorator.expression.arguments[0])
-      ? decorator.expression.arguments[0]
-      : null;
-
-  if (metadata === null) {
-    return;
-  }
-
-  for (const property of metadata.properties) {
-    // All the properties we care about should have static
-    // names and be initialized to a static string.
-    if (
-      !ts.isPropertyAssignment(property) ||
-      (!ts.isIdentifier(property.name) && !ts.isStringLiteralLike(property.name))
-    ) {
-      continue;
-    }
-
-    switch (property.name.text) {
-      case 'imports': {
-        AnalyzedFile.addRange(sourceFile.fileName, sourceFile, analyzedFiles, {
-          end: property.initializer.getEnd(),
-          node: property,
-          remove: true,
-          start: property.name.getStart(),
-          type: 'importDecorator',
-        });
-        break;
-      }
-
-      case 'template': {
-        // +1/-1 to exclude the opening/closing characters from the range.
-        AnalyzedFile.addRange(sourceFile.fileName, sourceFile, analyzedFiles, {
-          end: property.initializer.getEnd() - 1,
-          node: property,
-          remove: true,
-          start: property.initializer.getStart() + 1,
-          type: 'template',
-        });
-        break;
-      }
-
-      case 'templateUrl': {
-        // Leave the end as undefined which means that the range is until the end of the file.
-        if (ts.isStringLiteralLike(property.initializer)) {
-          const filePath = path.join(path.dirname(sourceFile.fileName), property.initializer.text);
-          AnalyzedFile.addRange(filePath, sourceFile, analyzedFiles, {
-            node: property,
-            remove: true,
-            start: 0,
-            type: 'templateUrl',
-          });
-        }
-        break;
-      }
-    }
-  }
 }
 
 /**
@@ -135,6 +56,34 @@ export function calculateNesting(visitor: ElementCollector, hasLineBreaks: boole
       nestedQueue.push(currentElement.element.sourceSpan.end.offset);
     }
   }
+}
+
+/**
+ * Edits the call expression of the file
+ * @param template The template
+ * @param callExpression The original call expression
+ * @returns The new call expression
+ */
+export function editCallExpression(template: string, callExpression: ts.Node): string {
+  if (!ts.isCallExpression(callExpression) || !callExpression.getText().includes(oldImportIdentifier)) {
+    return template;
+  }
+
+  const printer = ts.createPrinter();
+
+  const expression = callExpression.expression;
+
+  const expressionArguments = callExpression.arguments.map((argument) => {
+    if (!ts.isIdentifier(argument) || argument.getText() !== oldImportIdentifier) {
+      return argument;
+    }
+
+    return ts.factory.createIdentifier(newImportIdentifier);
+  });
+
+  const updated = ts.factory.createCallExpression(expression, callExpression.typeArguments, expressionArguments);
+
+  return printer.printNode(ts.EmitHint.Unspecified, updated, callExpression.getSourceFile());
 }
 
 /**
@@ -291,6 +240,122 @@ export function validateMigratedTemplate(migrated: string, fileName: string): Mi
 }
 
 /**
+ * Analyzes the property assignments to see if they should be modified.
+ * @param node The node to analyze.
+ * @param sourceFile The file containing the node.
+ * @param analyzedFiles Map in which to store the results.
+ */
+function analyzePropertyDeclaration(
+  node: ts.PropertyDeclaration,
+  sourceFile: ts.SourceFile,
+  analyzedFiles: Map<string, AnalyzedFile>,
+): void {
+  if (!node.getText().includes(oldImportIdentifier)) {
+    return;
+  }
+
+  if (node.initializer !== undefined) {
+    const initializer = node.initializer;
+
+    if (!ts.isCallExpression(initializer) || !initializer.getText().includes(oldImportIdentifier)) {
+      return;
+    }
+
+    const called = initializer.arguments[0];
+
+    if (!ts.isIdentifier(called) || called.getText() !== oldImportIdentifier) {
+      return;
+    }
+
+    AnalyzedFile.addRange(sourceFile.fileName, sourceFile, analyzedFiles, {
+      end: initializer.getEnd(),
+      node: initializer,
+      start: initializer.getStart(),
+      type: 'callExpression',
+    });
+    return;
+  }
+}
+
+/**
+ * Analyzes the decorators to see if they should be modified
+ * @param node The node to analyze.
+ * @param sourceFile The file containing the node.
+ * @param analyzedFiles Map in which to store the results.
+ */
+function analyzeDecorators(
+  node: ts.ClassDeclaration,
+  sourceFile: ts.SourceFile,
+  analyzedFiles: Map<string, AnalyzedFile>,
+): void {
+  const decorator = ts.getDecorators(node)?.find((dec) => {
+    return (
+      ts.isCallExpression(dec.expression) &&
+      ts.isIdentifier(dec.expression.expression) &&
+      dec.expression.expression.text === 'Component'
+    );
+  }) as (ts.Decorator & { expression: ts.CallExpression }) | undefined;
+
+  const metadata =
+    decorator !== undefined &&
+    decorator.expression.arguments.length > 0 &&
+    ts.isObjectLiteralExpression(decorator.expression.arguments[0])
+      ? decorator.expression.arguments[0]
+      : null;
+
+  if (metadata === null) {
+    return;
+  }
+
+  for (const property of metadata.properties) {
+    // All the properties we care about should have static
+    // names and be initialized to a static string.
+    if (
+      !ts.isPropertyAssignment(property) ||
+      (!ts.isIdentifier(property.name) && !ts.isStringLiteralLike(property.name))
+    ) {
+      continue;
+    }
+
+    switch (property.name.text) {
+      case 'imports': {
+        AnalyzedFile.addRange(sourceFile.fileName, sourceFile, analyzedFiles, {
+          end: property.initializer.getEnd(),
+          node: property,
+          start: property.name.getStart(),
+          type: 'importDecorator',
+        });
+        break;
+      }
+
+      case 'template': {
+        // +1/-1 to exclude the opening/closing characters from the range.
+        AnalyzedFile.addRange(sourceFile.fileName, sourceFile, analyzedFiles, {
+          end: property.initializer.getEnd() - 1,
+          node: property,
+          start: property.initializer.getStart() + 1,
+          type: 'template',
+        });
+        break;
+      }
+
+      case 'templateUrl': {
+        // Leave the end as undefined which means that the range is until the end of the file.
+        if (ts.isStringLiteralLike(property.initializer)) {
+          const filePath = path.join(path.dirname(sourceFile.fileName), property.initializer.text);
+          AnalyzedFile.addRange(filePath, sourceFile, analyzedFiles, {
+            node: property,
+            start: 0,
+            type: 'templateUrl',
+          });
+        }
+        break;
+      }
+    }
+  }
+}
+
+/**
  * Analyzes the import decorator to see if it should be changed
  * @param node The node to analyze.
  * @param sourceFile The file containing the node.
@@ -320,7 +385,6 @@ function analyzeImportDecorators(
   AnalyzedFile.addRange(sourceFile.fileName, sourceFile, analyzedFiles, {
     end: node.getEnd(),
     node: node,
-    remove: true,
     start: node.getStart(),
     type: 'importDeclaration',
   });
@@ -333,12 +397,13 @@ function analyzeImportDecorators(
  */
 function forEachClass(
   sourceFile: ts.SourceFile,
-  callback: (node: ts.ClassDeclaration | ts.ImportDeclaration) => void,
+  callback: (node: ts.ClassDeclaration | ts.ImportDeclaration | ts.PropertyDeclaration) => void,
 ): void {
   sourceFile.forEachChild(function walk(node) {
-    if (ts.isClassDeclaration(node) || ts.isImportDeclaration(node)) {
+    if (ts.isClassDeclaration(node) || ts.isImportDeclaration(node) || ts.isPropertyDeclaration(node)) {
       callback(node);
     }
+
     node.forEachChild(walk);
   });
 }

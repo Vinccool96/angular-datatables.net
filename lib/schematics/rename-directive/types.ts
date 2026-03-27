@@ -26,7 +26,6 @@ export interface Result {
 interface Range {
   end?: number;
   node: ts.Node;
-  remove: boolean;
   start: number;
   type: string;
 }
@@ -35,6 +34,7 @@ interface Range {
  * Represents a file that was analyzed by the migration.
  */
 export class AnalyzedFile {
+  public callExpressionRanges: Range[] = [];
   public importRanges: Range[] = [];
   public sourceFile: ts.SourceFile;
   public templateRanges: Range[] = [];
@@ -58,7 +58,14 @@ export class AnalyzedFile {
       .filter((x) => x.type === 'importDecorator' || x.type === 'importDeclaration')
       // eslint-disable-next-line unicorn/no-array-sort
       .sort((aStart, bStart) => bStart.start - aStart.start);
-    return [...this.templateRanges, ...this.importRanges];
+    this.callExpressionRanges = [...this.ranges]
+      .filter((x) => x.type === 'callExpression')
+      // eslint-disable-next-line unicorn/no-array-sort
+      .sort((aStart, bStart) => bStart.start - aStart.start);
+    const aroundTheClass = [...this.callExpressionRanges]
+      // eslint-disable-next-line unicorn/no-array-sort
+      .sort((aStart, bStart) => bStart.start - aStart.start);
+    return [...aroundTheClass, ...this.templateRanges, ...this.importRanges];
   }
 
   /**
