@@ -1,11 +1,11 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 import 'datatables.net-buttons-dt';
 
 @Component({
-  imports: [AngularDataTable],
+  imports: [AngularDatatable],
   selector: 'app-buttons',
   templateUrl: './buttons-example.html',
 })

@@ -1,10 +1,10 @@
 ```typescript
 import { CurrencyPipe, UpperCasePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 @Component({
-  imports: [AngularDataTable],
+  imports: [AngularDatatable],
   providers: [UpperCasePipe, CurrencyPipe],
   selector: 'app-using-ng-pipe',
   templateUrl: './using-ng-pipe-example.html',

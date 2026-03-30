@@ -1,0 +1,9 @@
+{
+  "schematics": {
+    "rename-directive": {
+      "description": "Changes the name of the imported directive",
+      "factory": "./rename-directive/index.js#rename",
+      "version": "20.0.0"
+    }
+  }
+}

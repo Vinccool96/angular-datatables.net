@@ -45,7 +45,7 @@ export class DemoNgTemplateRef {
 
 import { AfterViewInit, Component, effect, inject, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
 import { Person } from '../../person/models/person';
@@ -53,7 +53,7 @@ import { DemoNgTemplateRef } from './components/demo-ng-template-ref/demo-ng-tem
 import { DemoNgTemplateRefEventType } from './models/demo-ng-template-ref-event-type';
 
 @Component({
-  imports: [AngularDataTable, DemoNgTemplateRef],
+  imports: [AngularDatatable, DemoNgTemplateRef],
   selector: 'app-router-link',
   templateUrl: './router-link-example.html',
 })

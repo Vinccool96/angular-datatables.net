@@ -1,9 +1,9 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 @Component({
-  imports: [AngularDataTable],
+  imports: [AngularDatatable],
   selector: 'app-with-options',
   templateUrl: './with-options-example.html',
 })

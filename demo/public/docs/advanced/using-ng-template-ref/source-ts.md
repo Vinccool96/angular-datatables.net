@@ -44,14 +44,14 @@ export class DemoNgTemplateRef {
 // ./using-ng-template-ref-example.ts
 
 import { AfterViewInit, Component, effect, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
 import { DemoNgTemplateRef } from './components/demo-ng-template-ref/demo-ng-template-ref';
 import { DemoNgTemplateRefEventType } from './models/demo-ng-template-ref-event-type';
 
 @Component({
-  imports: [AngularDataTable, DemoNgTemplateRef],
+  imports: [AngularDatatable, DemoNgTemplateRef],
   selector: 'app-using-ng-template-ref',
   templateUrl: './using-ng-template-ref-example.html',
 })

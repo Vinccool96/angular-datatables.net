@@ -35,6 +35,12 @@ export default tseslint.config(
     },
     processor: angular.processInlineTemplates,
     rules: {
+      /*
+       *****************************************************************************************************************
+       * typescript-eslint
+       *****************************************************************************************************************
+       */
+
       '@typescript-eslint/explicit-function-return-type': ['error', { allowHigherOrderFunctions: false }],
       '@typescript-eslint/explicit-member-accessibility': 'error',
       '@typescript-eslint/no-extraneous-class': 'off',
@@ -73,9 +79,32 @@ export default tseslint.config(
           ignoreStatic: true,
         },
       ],
+
+      /*
+       *****************************************************************************************************************
+       * eslint
+       *****************************************************************************************************************
+       */
+
       'curly': 'error',
       'eqeqeq': 'error',
       'no-multi-assign': 'error',
+      'object-shorthand': ['error', 'never'],
+
+      /*
+       *****************************************************************************************************************
+       * @jsdoc
+       *****************************************************************************************************************
+       */
+
+      'jsdoc/multiline-blocks': ['error', { noSingleLineBlocks: true }],
+
+      /*
+       *****************************************************************************************************************
+       * perfectionist
+       *****************************************************************************************************************
+       */
+
       'perfectionist/sort-classes': [
         'error',
         {
@@ -103,13 +132,22 @@ export default tseslint.config(
           type: 'natural',
         },
       ],
+
+      /*
+       *****************************************************************************************************************
+       * unicorn
+       *****************************************************************************************************************
+       */
+
       'unicorn/no-null': 'off',
       'unicorn/prevent-abbreviations': [
         'error',
         {
           replacements: {
-            ref: false,
             dir: false,
+            ref: false,
+            tmpl: { template: true },
+            util: false,
           },
         },
       ],

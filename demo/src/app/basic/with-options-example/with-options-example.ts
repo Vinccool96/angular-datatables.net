@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 import { BaseDemo } from '../../shared/components/base-demo/base-demo';
 
 @Component({
-  imports: [BaseDemo, AngularDataTable],
+  imports: [BaseDemo, AngularDatatable],
   selector: 'app-with-options',
   styleUrl: './with-options-example.css',
   templateUrl: './with-options-example.html',

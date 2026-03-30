@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, effect, inject, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
 import { Person } from '../../person/models/person';
@@ -9,7 +9,7 @@ import { DemoNgTemplateRef } from '../../shared/components/demo-ng-template-ref/
 import { DemoNgTemplateRefEventType } from '../../shared/models/demo-ng-template-ref-event-type';
 
 @Component({
-  imports: [AngularDataTable, DemoNgTemplateRef, BaseDemo],
+  imports: [AngularDatatable, DemoNgTemplateRef, BaseDemo],
   selector: 'app-router-link',
   styleUrl: './router-link-example.css',
   templateUrl: './router-link-example.html',

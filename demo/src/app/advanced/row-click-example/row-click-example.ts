@@ -1,11 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 import { Person } from '../../person/models/person';
 import { BaseDemo } from '../../shared/components/base-demo/base-demo';
 
 @Component({
-  imports: [BaseDemo, AngularDataTable],
+  imports: [BaseDemo, AngularDatatable],
   selector: 'app-row-click',
   styleUrl: './row-click-example.css',
   templateUrl: './row-click-example.html',

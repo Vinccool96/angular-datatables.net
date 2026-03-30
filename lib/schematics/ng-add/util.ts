@@ -25,12 +25,21 @@ export function addAssetToAngularJson(host: Tree, assetType: string, assetPath: 
   }
 
   const projectName = Object.keys(json['projects'] as JsonObject)[0];
-  const projectObject = (json.projects as JsonObject)[projectName] as JsonObject;
-  const targets = projectObject.targets ?? projectObject.architect;
+  const projectObject = (json['projects'] as JsonObject)[projectName] as JsonObject;
+  const targets = (projectObject['targets'] ?? projectObject['architect']) as JsonObject;
+  const targetsBuild = targets['build'] as Partial<JsonObject>;
 
-  const targetLocation: string[] = (((targets as JsonObject).build as JsonObject).options as Record<string, string[]>)[
-    assetType
-  ];
+  if (targetsBuild['options'] === undefined) {
+    targetsBuild['options'] = {};
+  }
+
+  const options = targetsBuild['options'] as Partial<Record<string, string[]>>;
+
+  if (options[assetType] === undefined) {
+    options[assetType] = [];
+  }
+
+  const targetLocation: string[] = options[assetType];
 
   // update UI that `assetPath` wasn't re-added to angular.json
   if (targetLocation.includes(assetPath)) {
@@ -104,8 +113,7 @@ export function addPackageToPackageJson(
 function sortObjectByKeys(object: Partial<Record<string, string>>): Partial<Record<string, string>> {
   const result: Partial<Record<string, string>> = {};
 
-  // eslint-disable-next-line unicorn/no-array-sort
-  for (const key of Object.keys(object).sort()) {
+  for (const key of Object.keys(object).toSorted()) {
     result[key] = object[key];
   }
 

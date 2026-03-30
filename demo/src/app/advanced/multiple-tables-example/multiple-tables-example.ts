@@ -1,16 +1,16 @@
 import { Component, OnInit, viewChildren } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 import { BaseDemo } from '../../shared/components/base-demo/base-demo';
 
 @Component({
-  imports: [AngularDataTable, BaseDemo],
+  imports: [AngularDatatable, BaseDemo],
   selector: 'app-multiple-tables',
   styleUrl: './multiple-tables-example.css',
   templateUrl: './multiple-tables-example.html',
 })
 export class MultipleTablesExample implements OnInit {
-  public readonly datatableElements = viewChildren(AngularDataTable);
+  public readonly datatableElements = viewChildren(AngularDatatable);
   public readonly pageTitle = 'Multiple tables in the same page';
   protected dtOptions: ADTSettings[] = [];
   protected readonly mdHTML = 'docs/advanced/multiple-tables/source-html.md';
@@ -25,7 +25,7 @@ export class MultipleTablesExample implements OnInit {
 
   protected displayToConsole(): void {
     for (let index = 0; index < this.datatableElements().length; index++) {
-      const dtElement: AngularDataTable = this.datatableElements()[index];
+      const dtElement: AngularDatatable = this.datatableElements()[index];
       void dtElement.dtInstance.then((dtInstance) => {
         const node = dtInstance.table().node() as HTMLElement;
         console.log(`The DataTable ${index} instance ID is: ${node.id}`);

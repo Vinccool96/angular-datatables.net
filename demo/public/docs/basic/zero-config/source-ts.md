@@ -1,10 +1,10 @@
 ```typescript
 import { Component } from '@angular/core';
-import { AngularDataTable } from 'angular-datatables.net';
+import { AngularDatatable } from 'angular-datatables.net';
 
 @Component({
   selector: 'app-zero-config',
-  imports: [AngularDataTable],
+  imports: [AngularDatatable],
   templateUrl: 'zero-config-example.html',
 })
 export class ZeroConfigExample {}

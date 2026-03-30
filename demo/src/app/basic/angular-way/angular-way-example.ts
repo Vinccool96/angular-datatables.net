@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
 import { Person } from '../../person/models/person';
@@ -7,7 +7,7 @@ import { BaseDemo } from '../../shared/components/base-demo/base-demo';
 import { AngularWayApi } from './services/angular-way-api';
 
 @Component({
-  imports: [AngularDataTable, BaseDemo],
+  imports: [AngularDatatable, BaseDemo],
   selector: 'app-angular-way',
   styleUrl: './angular-way-example.css',
   templateUrl: './angular-way-example.html',

@@ -23,12 +23,12 @@ export class AjaxCallbackApi {
 // ./with-ajax-callback-example.ts
 
 import { Component, inject, OnInit } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 import { AjaxCallbackApi } from './service/ajax-callback-api';
 
 @Component({
-  imports: [AngularDataTable],
+  imports: [AngularDatatable],
   selector: 'app-with-ajax-callback',
   templateUrl: './with-ajax-callback-example.html',
 })

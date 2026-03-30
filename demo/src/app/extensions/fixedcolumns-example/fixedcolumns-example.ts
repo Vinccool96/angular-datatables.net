@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 
 import { BaseDemo } from '../../shared/components/base-demo/base-demo';
 import 'datatables.net-fixedcolumns-dt';
 
 @Component({
-  imports: [AngularDataTable, BaseDemo],
+  imports: [AngularDatatable, BaseDemo],
   selector: 'app-fixedcolumns',
   styleUrl: './fixedcolumns-example.css',
   templateUrl: './fixedcolumns-example.html',

@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, viewChild } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
 import { BaseDemo } from '../../shared/components/base-demo/base-demo';
 
 @Component({
-  imports: [BaseDemo, AngularDataTable],
+  imports: [BaseDemo, AngularDatatable],
   selector: 'app-rerender',
   styleUrl: './rerender-example.css',
   templateUrl: './rerender-example.html',
@@ -19,7 +19,7 @@ export class RerenderExample implements AfterViewInit, OnDestroy, OnInit {
   protected readonly mdTS = 'docs/advanced/rerender/source-ts.md';
   protected readonly mdTSV1 = 'docs/advanced/rerender/source-ts-dtv1.md';
 
-  private readonly datatableElement = viewChild(AngularDataTable);
+  private readonly datatableElement = viewChild(AngularDatatable);
 
   public ngAfterViewInit(): void {
     this.dtTrigger.next(null);

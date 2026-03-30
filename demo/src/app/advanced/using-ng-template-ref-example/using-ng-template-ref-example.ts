@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, effect, OnDestroy, signal, TemplateRef, viewChild } from '@angular/core';
-import { ADTSettings, AngularDataTable } from 'angular-datatables.net';
+import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
 import { Subject } from 'rxjs';
 
 import { BaseDemo } from '../../shared/components/base-demo/base-demo';
@@ -7,7 +7,7 @@ import { DemoNgTemplateRef } from '../../shared/components/demo-ng-template-ref/
 import { DemoNgTemplateRefEventType } from '../../shared/models/demo-ng-template-ref-event-type';
 
 @Component({
-  imports: [AngularDataTable, BaseDemo, DemoNgTemplateRef],
+  imports: [AngularDatatable, BaseDemo, DemoNgTemplateRef],
   selector: 'app-using-ng-template-ref',
   styleUrl: './using-ng-template-ref-example.css',
   templateUrl: './using-ng-template-ref-example.html',
