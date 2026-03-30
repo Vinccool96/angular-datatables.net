@@ -1,26 +1,8 @@
 {
+  "extends": "./tsconfig.schematics.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "lib": ["ESNext", "dom"],
-    "declaration": true,
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "noEmitOnError": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noUnusedParameters": false,
-    "noUnusedLocals": false,
-    "rootDir": "schematics",
-    "outDir": "../dist/test/lib/schematics",
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strictNullChecks": true,
-    "esModuleInterop": true,
-    "target": "es6",
-    "rewriteRelativeImportExtensions": true,
     "types": ["node", "jasmine"]
   },
-  "include": ["schematics/**/*"]
+  "include": ["schematics/**/*"],
+  "exclude": []
 }

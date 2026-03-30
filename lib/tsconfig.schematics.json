@@ -5,6 +5,7 @@
     "declaration": true,
     "module": "CommonJS",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,

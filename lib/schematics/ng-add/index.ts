@@ -1,9 +1,10 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import { PackageJson } from 'type-fest';
 
-import { addAssetToAngularJson, addPackageToPackageJson } from '../utils';
 import { IADTSchematicsOptions } from './models/schematics-options';
 import { ADT_SUPPORTED_STYLES, ADTStyleOptions } from './models/style-options';
+import { addAssetToAngularJson, addPackageToPackageJson } from './util';
 
 /**
  * Add the settings to angular
@@ -21,10 +22,13 @@ export function add(options: IADTSchematicsOptions): Rule {
  */
 function addPackageJsonDependencies(options: IADTSchematicsOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports,unicorn/prefer-module
+    const packageJSON = require('../../package.json') as PackageJson;
     // Update package.json
     const styleDeps = ADT_SUPPORTED_STYLES.find((element) => element.style === options.style);
 
     const dependencies = [
+      { isDev: false, name: 'angular-datatables.net', version: packageJSON.version as string },
       { isDev: false, name: 'jquery', version: '^3.6.0' },
       {
         fancyName: 'datatables.net (v2)',
