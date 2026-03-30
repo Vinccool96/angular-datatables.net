@@ -158,18 +158,3 @@ export class ElementCollector extends RecursiveVisitor {
     super.visitElement(element, null);
   }
 }
-
-/**
- * Finds all elements that represent i18n blocks.
- */
-export class i18nCollector extends RecursiveVisitor {
-  public readonly elements: Element[] = [];
-
-  public override visitElement(element: Element): void {
-    if (element.attrs.some((a) => a.name === 'i18n')) {
-      this.elements.push(element);
-    }
-
-    super.visitElement(element, null);
-  }
-}

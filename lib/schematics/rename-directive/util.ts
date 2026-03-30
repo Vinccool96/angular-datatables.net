@@ -1,17 +1,10 @@
-import { Element, Node, ParseTreeResult, visitAll } from '@angular/compiler';
+import { Node } from '@angular/compiler';
 import path from 'node:path';
 import ts from 'typescript';
 
 import { parseTemplate } from '../utils/parse-html';
 import { MigrationError } from '../utils/types';
-import {
-  AnalyzedFile,
-  ElementCollector,
-  ElementToMigrate,
-  i18nCollector,
-  newImportIdentifier,
-  oldImportIdentifier,
-} from './types';
+import { AnalyzedFile, ElementCollector, ElementToMigrate, newImportIdentifier, oldImportIdentifier } from './types';
 
 /**
  * Analyzes a source file to find file that need to be migrated and the text ranges within them.
@@ -286,33 +279,6 @@ export function reduceNestingOffset(
 }
 
 /**
- * Verifies if the i18n structure is valid.
- * @param parsed The parsed tree.
- * @param fileName The name of the file.
- * @returns The error caused by the validation, if any.
- */
-export function validateI18nStructure(parsed: ParseTreeResult, fileName: string): Error | null {
-  const visitor = new i18nCollector();
-  visitAll(visitor, parsed.rootNodes);
-  const parents = visitor.elements.filter((element) => element.children.length > 0);
-  for (const p of parents) {
-    for (const element of visitor.elements) {
-      if (element === p) {
-        continue;
-      }
-      if (isChildOf(p, element)) {
-        return new Error(
-          `i18n Nesting error: The migration would result in invalid i18n nesting for ` +
-            `${fileName}. Element with i18n attribute "${p.name}" would result having a child of ` +
-            `element with i18n attribute "${element.name}". Please fix and re-run the migration.`,
-        );
-      }
-    }
-  }
-  return null;
-}
-
-/**
  * Returns the errors when parsing the template.
  * @param migrated The new template
  * @param fileName The name of the file
@@ -332,13 +298,6 @@ export function validateMigratedTemplate(migrated: string, fileName: string): Mi
     });
   }
 
-  if (parsed.tree !== undefined) {
-    const i18nError = validateI18nStructure(parsed.tree, fileName);
-
-    if (i18nError !== null) {
-      errors.push({ error: i18nError, type: 'i18n' });
-    }
-  }
   return errors;
 }
 
@@ -561,19 +520,6 @@ function getOriginalChildren(children: Node[], template: string, offset: number)
   return children.map((child) => {
     return template.slice(child.sourceSpan.start.offset - offset, child.sourceSpan.end.offset - offset);
   });
-}
-
-/**
- * Verifies if the element is a child of the parent.
- * @param parent The desired parent.
- * @param element The element to verify.
- * @returns If the element is a child
- */
-function isChildOf(parent: Element, element: Element): boolean {
-  return (
-    parent.sourceSpan.start.offset < element.sourceSpan.start.offset &&
-    parent.sourceSpan.end.offset > element.sourceSpan.end.offset
-  );
 }
 
 /**
