@@ -57,7 +57,7 @@ jobs:
         run: npm run format:check
 
   lint_with_build:
-    name: Verify Format
+    name: Verify Linting
     runs-on: ubuntu-latest
     needs: [build]
     strategy:
@@ -97,7 +97,7 @@ jobs:
         run: npm run demo:test-ci
 
   unit_tests_schematics:
-    name: Run Unit Tests
+    name: Run Unit Tests for schematics
     needs: [build, unit_tests]
     runs-on: ${{ matrix.os }}
     strategy:
