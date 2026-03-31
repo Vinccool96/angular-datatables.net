@@ -26,9 +26,8 @@ jobs:
         uses: ./.github/actions/prepare-build
       - name: Copy README to package
         run: npm run copy-readme
-      - name: Remove NODE_AUTH_TOKEN
-        run: unset NODE_AUTH_TOKEN
       - name: Publish to NPM packages
         run: cd dist/lib && npm publish --access public --provenance
         env:
           NPM_CONFIG_PROVENANCE: 'true'
+          NODE_AUTH_TOKEN: ''
