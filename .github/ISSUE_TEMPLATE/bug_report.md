@@ -51,7 +51,7 @@ A clear and concise description of what you expected to happen.
 - Angular CLI version:
 - jQuery version:
 - DataTables version:
-- angular-datatables version:
+- angular-datatables.net version:
 
 ## :memo: Additional context
 
