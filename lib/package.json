@@ -35,5 +35,10 @@
   "schematics": "./schematics/src/collection.json",
   "ng-update": {
     "migrations": "./schematics/migrations.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
   }
 }
