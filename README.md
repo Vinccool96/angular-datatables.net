@@ -1,6 +1,6 @@
 # Angular DataTables.net
 
-![build](https://github.com/vinccool96/angular-datatables.net/workflows/build/badge.svg)
+![build](https://github.com/Vinccool96/angular-datatables.net/workflows/build/badge.svg)
 [![npm](https://img.shields.io/npm/v/angular-datatables.net.svg)][npm-link]
 [![npm](https://img.shields.io/npm/dm/angular-datatables.net.svg)][npm-link]
 

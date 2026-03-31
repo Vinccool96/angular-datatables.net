@@ -14,13 +14,13 @@
     "Surya Teja K <shanmukhateja@gmail.com>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/vinccool96/angular-datatables.net#readme",
+  "homepage": "https://github.com/Vinccool96/angular-datatables.net#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vinccool96/angular-datatables.net.git"
+    "url": "https://github.com/Vinccool96/angular-datatables.net.git"
   },
   "bugs": {
-    "url": "https://github.com/vinccool96/angular-datatables.net/issues"
+    "url": "https://github.com/Vinccool96/angular-datatables.net/issues"
   },
   "peerDependencies": {
     "@angular/common": "^20.0.1",
