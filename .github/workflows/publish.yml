@@ -27,4 +27,6 @@ jobs:
       - name: Copy README to package
         run: npm run copy-readme
       - name: Publish to NPM packages
-        run: cd dist/lib && npm publish --ignore-scripts --access public
+        run: cd dist/lib && npm publish --access public --provenance
+        env:
+          NPM_CONFIG_PROVENANCE: 'true'
