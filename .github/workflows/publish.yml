@@ -27,8 +27,7 @@ jobs:
       - name: Copy README to package
         run: npm run copy-readme
       - name: Publish to NPM packages
-        run: |
-          unset NODE_AUTH_TOKEN
-          cd dist/lib && npm publish --access public --provenance
+        run: cd dist/lib && npm publish --provenance --access public
         env:
           NPM_CONFIG_PROVENANCE: 'true'
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}k
