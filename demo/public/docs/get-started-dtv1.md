@@ -7,7 +7,7 @@
 ng add angular-datatables.net
 ```
 
-> You can find latest releases on GitHub [here](https://github.com/vinccool96/angular-datatables.net/releases).
+> You can find latest releases on GitHub [here](https://github.com/Vinccool96/angular-datatables.net/releases).
 
 ##### Manual Installation
 

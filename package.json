@@ -40,12 +40,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/vinccool96/angular-datatables.net.git"
+    "url": "https://github.com/Vinccool96/angular-datatables.net.git"
   },
   "bugs": {
-    "url": "https://github.com/vinccool96/angular-datatables.net/issues"
+    "url": "https://github.com/Vinccool96/angular-datatables.net/issues"
   },
-  "homepage": "https://github.com/vinccool96/angular-datatables.net#readme",
+  "homepage": "https://github.com/Vinccool96/angular-datatables.net#readme",
   "schematics": "./lib/schematics/src/collection.json",
   "license": "MIT",
   "dependencies": {

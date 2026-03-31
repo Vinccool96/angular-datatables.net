@@ -28,7 +28,7 @@ Share the link to the repo below along with step-by-step instructions to reprodu
 
 Issues that don't have enough info and can't be reproduced WILL be closed.
 
-You can read more about issue submission guidelines here: https://github.com/vinccool96/angular-datatables.net/blob/master/.github/CONTRIBUTING.md#got-a-question-or-problem
+You can read more about issue submission guidelines here: https://github.com/Vinccool96/angular-datatables.net/blob/master/.github/CONTRIBUTING.md#got-a-question-or-problem
 
 -->
 
