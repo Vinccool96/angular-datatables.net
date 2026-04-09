@@ -1,6 +1,5 @@
-import { waitForAsync } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -22,11 +21,11 @@ describe('ServerSideAngularWayComponent', () => {
     component = spectator.component;
   });
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-  }));
+  });
 
-  it('should have title "Server side the Angular way"', waitForAsync(() => {
+  it('should have title "Server side the Angular way"', () => {
     expect(component.pageTitle).toBe('Server side the Angular way');
-  }));
+  });
 });

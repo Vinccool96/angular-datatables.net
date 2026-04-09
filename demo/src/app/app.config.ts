@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideMarkdown({
       sanitize: {
         provide: SANITIZE,
-        useValue: SecurityContext.NONE
+        useValue: SecurityContext.NONE,
       },
     }),
   ],

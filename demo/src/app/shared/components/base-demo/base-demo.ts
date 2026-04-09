@@ -1,5 +1,6 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import $ from 'jquery';
 import { MarkdownComponent } from 'ngx-markdown';
 
 import { DtVersionOrchestrator } from '../../services/dt-version-orchestrator';

@@ -1,5 +1,4 @@
-import { waitForAsync } from '@angular/core/testing';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -21,15 +20,15 @@ describe('WithOptionsExample', () => {
     component = spectator.component;
   });
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-  }));
+  });
 
-  it('should have title "With Options"', waitForAsync(() => {
+  it('should have title "With Options"', () => {
     expect(component.pageTitle).toBe('With Options');
-  }));
+  });
 
-  it('should have pagingType as "full_numbers"', waitForAsync(() => {
+  it('should have pagingType as "full_numbers"', () => {
     expect(component.dtOptions.pagingType).toBe('simple');
-  }));
+  });
 });

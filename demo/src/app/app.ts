@@ -2,6 +2,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import DataTable from 'datatables.net';
+import $ from 'jquery';
 import { filter, Subject, takeUntil } from 'rxjs';
 
 import { DtVersionOrchestrator } from './shared/services/dt-version-orchestrator';

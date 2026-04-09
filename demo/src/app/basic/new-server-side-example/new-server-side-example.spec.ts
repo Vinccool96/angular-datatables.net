@@ -1,5 +1,4 @@
-import { waitForAsync } from '@angular/core/testing';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -25,7 +24,7 @@ describe('NewServerSideComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have title "Server-side processing"', waitForAsync(() => {
+  it('should have title "Server-side processing"', () => {
     expect(component.pageTitle).toBe('Server-side processing');
-  }));
+  });
 });

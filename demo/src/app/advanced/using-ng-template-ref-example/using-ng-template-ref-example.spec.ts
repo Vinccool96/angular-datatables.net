@@ -1,5 +1,4 @@
-import { waitForAsync } from '@angular/core/testing';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { AngularDatatable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -22,13 +21,13 @@ describe('UsingNgTemplateRefExample', () => {
     component = spectator.component;
   });
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-  }));
+  });
 
-  it('should have title "Using Angular TemplateRef"', waitForAsync(() => {
+  it('should have title "Using Angular TemplateRef"', () => {
     expect(component.pageTitle).toBe('Using Angular TemplateRef');
-  }));
+  });
 
   it('should have firstName, lastName columns have text in uppercase', async () => {
     await spectator.fixture.whenStable();
@@ -61,7 +60,7 @@ describe('UsingNgTemplateRefExample', () => {
 
     // verify app still works
     instance = await dir.dtInstance;
-    expect(instance.column(0).visible()).toBeFalse();
+    expect(instance.column(0).visible()).toBe(false);
   });
 
   it('should not have duplicate contents in ngTemplateRef column when navigating pages', async () => {

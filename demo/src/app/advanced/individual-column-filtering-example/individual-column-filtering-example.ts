@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, viewChild } from '@angular/core';
 import { ADTSettings, AngularDatatable } from 'angular-datatables.net';
+import $ from 'jquery';
 
 import { BaseDemo } from '../../shared/components/base-demo/base-demo';
 

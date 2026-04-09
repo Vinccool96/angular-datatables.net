@@ -1,5 +1,4 @@
-import { waitForAsync } from '@angular/core/testing';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { AngularDatatable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -22,13 +21,13 @@ describe('DtInstanceExample', () => {
     component = spectator.component;
   });
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-  }));
+  });
 
-  it('should have title "Finding DataTable instance"', waitForAsync(() => {
+  it('should have title "Finding DataTable instance"', () => {
     expect(component.pageTitle).toBe('Finding DataTable instance');
-  }));
+  });
 
   it('should retrieve Table instance', async () => {
     await spectator.fixture.whenStable();

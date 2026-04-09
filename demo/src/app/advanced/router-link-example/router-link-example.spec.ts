@@ -1,6 +1,5 @@
-import { waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { createComponentFactory, mockProvider, Spectator, SpyObject } from '@ngneat/spectator';
+import { createComponentFactory, mockProvider, Spectator, SpyObject } from '@ngneat/spectator/vitest';
 import { AngularDatatable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -25,13 +24,13 @@ describe('RouterLinkExample', () => {
     router = spectator.inject(Router);
   });
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-  }));
+  });
 
-  it('should have title "Router Link"', waitForAsync(() => {
+  it('should have title "Router Link"', () => {
     expect(component.pageTitle).toBe('Router Link');
-  }));
+  });
 
   it('should respond to button click event inside TemplateRef', async () => {
     await spectator.fixture.whenStable();

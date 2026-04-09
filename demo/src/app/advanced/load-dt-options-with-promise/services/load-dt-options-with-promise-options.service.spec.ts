@@ -1,5 +1,5 @@
 import { HttpTestingController } from '@angular/common/http/testing';
-import { createHttpFactory, SpectatorHttp } from '@ngneat/spectator';
+import { createHttpFactory, SpectatorHttp } from '@ngneat/spectator/vitest';
 
 import { LoadDtOptionsWithPromiseOptionsApi } from './load-dt-options-with-promise-options-api';
 

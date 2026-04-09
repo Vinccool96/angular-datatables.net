@@ -1,5 +1,4 @@
-import { waitForAsync } from '@angular/core/testing';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { AngularDatatable } from 'angular-datatables.net';
 import { Api } from 'datatables.net';
 import { MockComponent } from 'ng-mocks';
@@ -36,13 +35,13 @@ describe('IndividualColumnFilteringExample', () => {
     component = spectator.component;
   });
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-  }));
+  });
 
-  it('should have title "Individual column searching"', waitForAsync(() => {
+  it('should have title "Individual column searching"', () => {
     expect(component.pageTitle).toBe('Individual column searching');
-  }));
+  });
 
   it('should filter contents acc. to column', async () => {
     component.dtOptions.paging = false;
