@@ -46,12 +46,10 @@ describe('IndividualColumnFilteringExample', () => {
   it('should filter contents acc. to column', async () => {
     component.dtOptions.paging = false;
 
-    await spectator.fixture.whenStable();
-
     const dir = spectator.query(AngularDatatable) as AngularDatatable;
     expect(dir).toBeTruthy();
 
-    const instance = await dir.dtInstance;
+    let instance = await dir.dtInstance;
 
     const inputFields = [...spectator.queryAll<HTMLInputElement>('input')];
     const inputFieldID = inputFields.find((element) => element.name === 'search-id') as HTMLInputElement;
@@ -60,6 +58,7 @@ describe('IndividualColumnFilteringExample', () => {
 
     // # Test 1
     applyValueToInput(inputFieldID, '113', instance);
+    instance = await dir.dtInstance;
     expect(instance.rows({ page: 'current' }).count()).toBe(1);
 
     // # Test 2

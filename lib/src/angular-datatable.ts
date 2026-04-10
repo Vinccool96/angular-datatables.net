@@ -17,8 +17,7 @@ import {
   Renderer2,
   ViewContainerRef,
 } from '@angular/core';
-import DataTables, { Api } from 'datatables.net';
-import $ from 'jquery';
+import { Api } from 'datatables.net';
 import { Subject } from 'rxjs';
 
 import { ADTColumns, ADTSettings, ADTTemplateRef } from './models/settings';
@@ -157,8 +156,7 @@ export class AngularDatatable implements OnDestroy, OnInit {
           };
           // merge user's config with ours
           options = Object.assign({}, resolvedDTOptions, options);
-          const selector = $(this.el.nativeElement);
-          this.dt = new DataTables(selector, options);
+          this.dt = $(this.el.nativeElement).DataTable(options);
           resolve(this.dt);
         });
       });

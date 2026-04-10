@@ -1,7 +1,6 @@
 import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { AngularDatatable } from 'angular-datatables.net';
 import { Api } from 'datatables.net';
-import $ from 'jquery';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
