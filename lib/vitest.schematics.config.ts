@@ -1,17 +1,13 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  base: './dist/lib/schematics',
   resolve: {
     // List of extensions to try for imports that omit extensions
     extensions: ['.mjs', '.js', '/index.js', '.mts', '.ts', '.jsx', '.tsx'],
   },
   test: {
+    dir: './dist/lib/schematics',
     globals: true,
-    include: ['dist/lib/schematics/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
-    server: {
-      deps: {
-        inline: ['@angular', '@angular-devkit/schematics', '@angular-devkit/schematics/tasks'],
-      },
-    },
   },
 });
