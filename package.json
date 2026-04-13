@@ -15,7 +15,7 @@
     "lib:schematics:build": "rimraf dist/lib/schematics && tsc -p lib/tsconfig.schematics.json && copyfiles lib/schematics/{{collection,migrations}.json,**/schema.json} dist",
     "lib:schematics:test": "npm run lib:schematics:test:build && npm run lib:schematics:test:run",
     "lib:schematics:test:build": "rimraf dist/lib/schematics && tsc -p lib/tsconfig.schematics.spec.json && copyfiles lib/schematics/{{collection,migrations}.json,**/schema.json} dist",
-    "lib:schematics:test:run": "jasmine dist/lib/schematics/**/*.spec.js",
+    "lib:schematics:test:run": "vitest --config ./lib/vitest.schematics.config.ts --no-watch",
     "demo:build:prod": "npm run clean && ng build angular-datatables.net-demo --configuration production --base-href=/angular-datatables.net/",
     "demo:build:dev": "npm run clean && ng build angular-datatables.net-demo --configuration development",
     "version": "npm run build:lib && git add -A",
