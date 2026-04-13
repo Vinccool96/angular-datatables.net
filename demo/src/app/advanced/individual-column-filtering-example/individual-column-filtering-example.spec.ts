@@ -58,6 +58,7 @@ describe('IndividualColumnFilteringExample', () => {
 
     // # Test 1
     applyValueToInput(inputFieldID, '113', instance);
+    await spectator.fixture.whenStable();
     instance = await dir.dtInstance;
     expect(instance.rows({ page: 'current' }).count()).toBe(1);
 

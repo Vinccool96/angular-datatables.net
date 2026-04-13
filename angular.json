@@ -141,8 +141,9 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "buildTarget": "angular-datatables.net-demo:build:production",
-            "tsConfig": "demo/tsconfig.spec.json"
+            "browsers": ["chromeHeadless"],
+            "tsConfig": "demo/tsconfig.spec.json",
+            "runnerConfig": "demo/vitest.config.ts"
           }
         },
         "lint": {
