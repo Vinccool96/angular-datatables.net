@@ -1,5 +1,4 @@
-import { waitForAsync } from '@angular/core/testing';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -21,13 +20,13 @@ describe('RowClickExample', () => {
     component = spectator.component;
   });
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-  }));
+  });
 
-  it('should have title "Row click event"', waitForAsync(() => {
+  it('should have title "Row click event"', () => {
     expect(component.pageTitle).toBe('Row click event');
-  }));
+  });
 
   it('should display row data on table cell click', async () => {
     await spectator.fixture.whenStable();

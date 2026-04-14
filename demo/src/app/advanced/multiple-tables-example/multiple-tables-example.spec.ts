@@ -1,5 +1,4 @@
-import { waitForAsync } from '@angular/core/testing';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -21,13 +20,13 @@ describe('MultipleTablesExample', () => {
     component = spectator.component;
   });
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-  }));
+  });
 
-  it('should have title "Multiple tables in the same page"', waitForAsync(() => {
+  it('should have title "Multiple tables in the same page"', () => {
     expect(component.pageTitle).toBe('Multiple tables in the same page');
-  }));
+  });
 
   it('should have two table instances in dtElements', async () => {
     await spectator.fixture.whenStable();

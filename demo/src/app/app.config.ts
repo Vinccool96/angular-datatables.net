@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, provideZoneChangeDetection, SecurityContext } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideMarkdown } from 'ngx-markdown';
+import { provideMarkdown, SANITIZE } from 'ngx-markdown';
 
 import { routes } from './app.routes';
 
@@ -11,7 +11,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideMarkdown({
-      sanitize: SecurityContext.NONE,
+      sanitize: {
+        provide: SANITIZE,
+        useValue: SecurityContext.NONE,
+      },
     }),
   ],
 };

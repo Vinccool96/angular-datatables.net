@@ -1,5 +1,6 @@
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { AngularDatatable } from 'angular-datatables.net';
+import { Api } from 'datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -21,26 +22,18 @@ describe('ZeroConfigExample', () => {
     component = spectator.component;
   });
 
-  it('should create the app', (done) => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-    done();
   });
 
-  it('should have title "Zero configuration"', (done) => {
+  it('should have title "Zero configuration"', () => {
     expect(component.pageTitle).toBe('Zero configuration');
-    done();
   });
 
-  it('should create DataTables instance', (done) => {
+  it('should create DataTables instance', async () => {
     const dir = spectator.query(AngularDatatable);
     expect(dir).toBeTruthy();
-    dir?.dtInstance
-      .then((api) => {
-        expect($.fn.dataTable.isDataTable(api)).toBeTruthy();
-        done();
-      })
-      .catch((error: unknown) => {
-        fail(error);
-      });
+    const api = (await dir?.dtInstance) as Api;
+    expect($.fn.dataTable.isDataTable(api)).toBeTruthy();
   });
 });

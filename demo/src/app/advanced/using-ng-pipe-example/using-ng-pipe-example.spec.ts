@@ -1,5 +1,4 @@
-import { waitForAsync } from '@angular/core/testing';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { AngularDatatable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -23,13 +22,13 @@ describe('UsingNgPipeExample', () => {
     component = spectator.component;
   });
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-  }));
+  });
 
-  it('should have title "Using Angular Pipe"', waitForAsync(() => {
+  it('should have title "Using Angular Pipe"', () => {
     expect(component.pageTitle).toBe('Using Angular Pipe');
-  }));
+  });
 
   it('should have firstName, lastName columns have text in uppercase', async () => {
     await spectator.fixture.whenStable();
@@ -102,6 +101,6 @@ describe('UsingNgPipeExample', () => {
 
     // verify app still works
     instance = await dir.dtInstance;
-    expect(instance.column(0).visible()).toBeFalse();
+    expect(instance.column(0).visible()).toBe(false);
   });
 });

@@ -23,9 +23,9 @@
     "url": "https://github.com/Vinccool96/angular-datatables.net/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^20.0.1",
-    "@angular/core": "^20.0.1",
-    "@angular/platform-browser": "^20.0.1",
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
     "datatables.net": "^2.0.3",
     "datatables.net-dt": "^2.0.3",
     "jquery": "^3.6.0",

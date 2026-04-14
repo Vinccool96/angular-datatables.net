@@ -1,5 +1,4 @@
-import { waitForAsync } from '@angular/core/testing';
-import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator/vitest';
 import { AngularDatatable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -28,13 +27,13 @@ describe('LoadDtOptionsWithPromiseExample', () => {
     component = spectator.component;
   });
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-  }));
+  });
 
-  it('should have title "Load DT Options with Promise"', waitForAsync(() => {
+  it('should have title "Load DT Options with Promise"', () => {
     expect(component.pageTitle).toBe('Load DT Options with Promise');
-  }));
+  });
 
   it('should render table from dtOptions as a Promise', async () => {
     await spectator.fixture.whenStable();

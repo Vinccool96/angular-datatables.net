@@ -1,5 +1,4 @@
-import { waitForAsync } from '@angular/core/testing';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -21,18 +20,18 @@ describe('RerenderExample', () => {
     component = spectator.component;
   });
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
-  }));
+  });
 
-  it('should have title "Rerender"', waitForAsync(() => {
+  it('should have title "Rerender"', () => {
     expect(component.pageTitle).toBe('Rerender');
-  }));
+  });
 
   it('should recreate table when Rerender is clicked', async () => {
     await spectator.fixture.whenStable();
 
-    const rerenderSpy = spyOn(component, 'rerender');
+    const rerenderSpy = vi.spyOn(component, 'rerender');
 
     const triggerBtns = [...spectator.queryAll<HTMLButtonElement>('button')];
     const triggerButton = triggerBtns.find((element) => element.textContent.includes('Rerender')) as HTMLButtonElement;

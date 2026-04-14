@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/lib/schematics/spec",
     "baseUrl": ".",
-    "types": ["node", "jasmine"]
+    "types": ["node", "vitest/globals"]
   },
   "include": ["src/**/*.spec.ts", "src/**/*.ts"]
 }

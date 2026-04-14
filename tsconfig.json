@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "target": "ES2022",
+    "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
     "lib": ["dom", "ESNext", "ESNext.Array"],
@@ -27,7 +27,8 @@
     "esModuleInterop": true,
     "useDefineForClassFields": false,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "types": ["node", "jquery", "vitest/globals", "materialize-css"]
   },
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true,
