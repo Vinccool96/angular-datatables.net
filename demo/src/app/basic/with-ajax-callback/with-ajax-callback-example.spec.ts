@@ -32,7 +32,5 @@ describe('WithAjaxCallbackComponent', () => {
 
   it('should have title "AJAX with callback"', () => {
     expect(component.pageTitle).toBe('AJAX with callback');
-    const element = spectator.fixture.nativeElement as HTMLElement;
-    console.log(spectator.fixture.nativeElement);
   });
 });

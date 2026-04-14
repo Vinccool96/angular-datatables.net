@@ -47,7 +47,7 @@ export function migrateTemplate(
   file: AnalyzedFile,
 ): { errors: MigrationError[]; migrated: string | undefined } {
   let errors: MigrationError[] = [];
-  let migrated = template;
+  let migrated: string;
 
   switch (templateType) {
     case 'callExpression': {
