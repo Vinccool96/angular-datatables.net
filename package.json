@@ -97,6 +97,7 @@
     "@types/materialize-css": "^1.0.15",
     "@types/node": "^25.5.2",
     "@vitest/browser-webdriverio": "^4.1.4",
+    "@vitest/eslint-plugin": "^1.6.16",
     "angular-eslint": "^21.3.1",
     "copyfiles": "^2.4.1",
     "cross-env": "^10.1.0",
