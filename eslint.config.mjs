@@ -1,14 +1,15 @@
 // @ts-check
-import { fileURLToPath } from 'node:url';
 import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import globals from 'globals';
+import { includeIgnoreFile } from '@eslint/compat';
+import vitest from '@vitest/eslint-plugin';
 import angular from 'angular-eslint';
+import jsdocPlugin from 'eslint-plugin-jsdoc';
+import perfectionist from 'eslint-plugin-perfectionist';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
-import perfectionist from 'eslint-plugin-perfectionist';
-import jsdocPlugin from 'eslint-plugin-jsdoc';
-import { includeIgnoreFile } from '@eslint/compat';
+import { fileURLToPath } from 'node:url';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
 
@@ -183,9 +184,23 @@ export default tseslint.config(
     rules: {},
   },
   {
-    files: ['**/*.spec.ts'],
+    files: ['**/*.spec.ts', '**/test/*.ts'],
+    plugins: {
+      vitest,
+    },
     rules: {
+      ...vitest.configs.recommended.rules,
       '@typescript-eslint/unbound-method': 'off',
+    },
+    settings: {
+      vitest: {
+        typecheck: true,
+      },
+    },
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
     },
   },
   {
