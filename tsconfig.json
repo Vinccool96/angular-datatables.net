@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "rootDir": ".",
     "outDir": "./dist/out-tsc",
     "target": "ESNext",
     "module": "ESNext",
@@ -20,9 +20,6 @@
     "emitDecoratorMetadata": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
-    "paths": {
-      "@angular/*": ["node_modules/@angular/*"]
-    },
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "useDefineForClassFields": false,
