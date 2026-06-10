@@ -1,11 +1,12 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { RouterLink } from '@angular/router';
 import { MarkdownComponent } from 'ngx-markdown';
 
 import { DtVersionOrchestrator } from '../../services/dt-version-orchestrator';
 
 @Component({
-  imports: [MarkdownComponent, RouterLink],
+  imports: [MarkdownComponent, RouterLink, MatTabGroup, MatTab],
   selector: 'app-base-demo',
   styleUrl: './base-demo.css',
   templateUrl: './base-demo.html',

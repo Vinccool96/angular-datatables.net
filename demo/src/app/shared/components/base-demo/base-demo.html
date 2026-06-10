@@ -39,49 +39,25 @@
   </p>
 
   <!-- Tabs -->
-  <div class="row">
-    <div class="col s12">
-      <ul class="tabs tabs-fixed-width grey darken-1 z-depth-1">
-        <li class="tab col">
-          <a href="#previewTab">Preview</a>
-        </li>
-
-        @if (dtVersion() === 'v2' ? mdInstall().length > 0 : mdInstallV1().length > 0) {
-          <li class="tab col">
-            <a href="#installTab">Installation</a>
-          </li>
-        }
-
-        <li class="tab col">
-          <a href="#htmlTab">HTML</a>
-        </li>
-        <li class="tab col">
-          <a href="#typescriptTab">TS</a>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Preview -->
-    <div id="previewTab" class="col s12">
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Preview">
       <ng-content />
-    </div>
+    </mat-tab>
 
-    <!-- Installation -->
-    @if (mdInstall().length > 0 || mdInstallV1().length > 0) {
-      <div id="installTab" class="col s12">
-        <markdown [src]="dtVersion() === 'v2' && mdInstall().length > 0 ? mdInstall() : mdInstallV1()"></markdown>
-      </div>
+    @if (dtVersion() === 'v2' ? mdInstall().length > 0 : mdInstallV1().length > 0) {
+      <mat-tab label="Installation">
+        <markdown [src]="dtVersion() === 'v2' && mdInstall().length > 0 ? mdInstall() : mdInstallV1()" />
+      </mat-tab>
     }
 
-    <!-- HTML -->
-    <div id="htmlTab" class="col s12">
-      <markdown [src]="mdHTML()"></markdown>
-    </div>
+    <mat-tab label="HTML">
+      <markdown [src]="mdHTML()" />
+    </mat-tab>
 
-    <div id="typescriptTab" class="col s12">
-      <markdown [src]="dtVersion() === 'v2' && mdTS().length > 0 ? mdTS() : mdTSV1()"></markdown>
-    </div>
-  </div>
+    <mat-tab label="TS">
+      <markdown [src]="dtVersion() === 'v2' && mdTS().length > 0 ? mdTS() : mdTSV1()" />
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <!-- Back to Top -->
