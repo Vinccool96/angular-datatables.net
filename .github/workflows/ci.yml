@@ -83,7 +83,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         # just run on the oldest and latest supported versions and assume the intermediate versions are good
-        node-version: [20, 22, 24]
+        node-version: [22, 24]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
