@@ -23,14 +23,14 @@
     "url": "https://github.com/Vinccool96/angular-datatables.net/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^21.0.0",
-    "@angular/core": "^21.0.0",
-    "@angular/platform-browser": "^21.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/platform-browser": "^22.0.0",
     "datatables.net": "^2.0.3",
     "datatables.net-dt": "^2.0.3",
     "jquery": "^3.6.0",
-    "rxjs": "^7.4.0",
-    "zone.js": "~0.15.0"
+    "rxjs": "^7.8.2",
+    "zone.js": "~0.16.1"
   },
   "schematics": "./schematics/src/collection.json",
   "ng-update": {
