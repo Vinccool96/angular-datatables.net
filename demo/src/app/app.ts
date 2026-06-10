@@ -42,9 +42,6 @@ export class App implements OnDestroy, OnInit {
       )
       .subscribe((_) => {
         // Note: setTimeout is needed to let DOM render tabs
-        setTimeout(() => {
-          $('ul.tabs').tabs();
-        }, 600);
       });
 
     $('.dt-version-button').dropdown({

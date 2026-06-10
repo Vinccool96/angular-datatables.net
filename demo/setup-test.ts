@@ -1,5 +1,6 @@
 import 'jquery/dist/jquery.js';
 import 'tether/dist/js/tether.js';
+import 'hammerjs/hammer.js';
 import 'materialize-css/dist/js/materialize.js';
 import 'jszip/dist/jszip.js';
 import 'datatables.net/js/dataTables.min.js';
