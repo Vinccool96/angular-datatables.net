@@ -25,7 +25,7 @@
     "useDefineForClassFields": false,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "types": ["node", "jquery", "vitest/globals", "materialize-css"]
+    "types": ["node", "jquery", "vitest/globals"]
   },
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true,
