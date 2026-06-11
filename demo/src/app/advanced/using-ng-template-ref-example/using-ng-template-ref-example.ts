@@ -24,13 +24,15 @@ export class UsingNgTemplateRefExample implements AfterViewInit, OnDestroy {
 
   private readonly afterViewInit = signal(false);
   private readonly demoNg = viewChild<TemplateRef<DemoNgTemplateRef>>('demoNg');
+  private readonly demoTitle = viewChild<TemplateRef<HTMLElement>>('demoTitle');
   private readonly ready = signal(false);
 
   public constructor() {
     effect(() => {
       const demo = this.demoNg();
+      const demoTitle = this.demoTitle();
 
-      if (demo === undefined) {
+      if (demo === undefined || demoTitle === undefined) {
         return;
       }
 
@@ -60,6 +62,9 @@ export class UsingNgTemplateRefExample implements AfterViewInit, OnDestroy {
               ref: demo,
             },
             title: 'Actions',
+            titleNgTemplateRef: {
+              ref: demoTitle,
+            },
           },
         ],
       };

@@ -31,16 +31,19 @@ export class UsingNgPipeExample implements OnInit {
           ngPipeArgs: ['USD', 'symbol'],
           ngPipeInstance: this.pipeCurrencyInstance,
           title: 'Id (Money)',
+          titleNgPipeInstance: this.pipeInstance,
         },
         {
           data: 'firstName',
           ngPipeInstance: this.pipeInstance,
           title: 'First name',
+          titleNgPipeInstance: this.pipeInstance,
         },
         {
           data: 'lastName',
           ngPipeInstance: this.pipeInstance,
           title: 'Last name',
+          titleNgPipeInstance: this.pipeInstance,
         },
       ],
     };
