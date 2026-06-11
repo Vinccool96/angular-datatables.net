@@ -2,7 +2,6 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/lib/schematics/spec",
-    "baseUrl": ".",
     "types": ["node", "vitest/globals"]
   },
   "include": ["src/**/*.spec.ts", "src/**/*.ts"]

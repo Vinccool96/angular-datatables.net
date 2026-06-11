@@ -1,212 +1,117 @@
-<header>
-  <div class="container">
-    <a data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only">
-      <i class="material-icons">menu</i>
-    </a>
-  </div>
-
-  <ul id="nav-mobile" class="side-nav fixed">
-    <li class="logo">
-      <h3>
-        <a id="logo-container" routerLink="" class="brand-logo">
-          <div class="logo-img">
-            <img src="./angular.png" alt="Angular" />
-            <span class="plus">+</span>
-            <img src="./datatables.png" alt="DataTables" />
-          </div>
-        </a>
-      </h3>
-    </li>
-    <li>
-      <a class="dt-version-button btn-flat" data-activates="dropdown1">
-        DT version: '{{ dtVersion }}'
-        <svg class="caret" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 10l5 5 5-5z"></path>
-          <path d="M0 0h24v24H0z" fill="none"></path>
-        </svg>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <h3 class="logo">
+      <a id="logo-container" routerLink="" class="brand-logo">
+        <div class="logo-img">
+          <img src="./angular.png" alt="Angular" />
+          <span class="plus">+</span>
+          <img src="./datatables.png" alt="DataTables" />
+        </div>
       </a>
-
-      <ul id="dropdown1" [(ngModel)]="dtVersion" ngDefaultControl class="dropdown-content">
-        <li
-          [class.active]="dtVersion === 'v2'"
-          (click)="onDTVersionChanged('v2')"
-          value="v2"
-          style="padding: 0 32px"
-          aria-hidden="true"
-        >
-          v2.x
-        </li>
-        <li
-          [class.active]="dtVersion === 'v1'"
-          (click)="onDTVersionChanged('v1')"
-          value="v1"
-          style="padding: 0 32px"
-          aria-hidden="true"
-        >
-          v1.x
-        </li>
-      </ul>
-    </li>
-    <li>
-      <div class="divider"></div>
-    </li>
-    <li><a class="subheader">Getting Started</a></li>
-    <li class="bold">
-      <a routerLink="/getting-started" class="waves-effect waves-blue">Installation</a>
-    </li>
-    <li>
-      <div class="divider"></div>
-    </li>
-    <li><a class="subheader">Usage</a></li>
-
-    <li class="no-padding">
-      <ul class="collapsible collapsible-accordion">
-        <li class="bold">
-          <a class="collapsible-header waves-effect waves-blue">Basic Examples</a>
-          <div class="collapsible-body">
-            <ul>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/basic/zero-config">Zero configuration</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/basic/with-options">With options</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/basic/with-ajax">AJAX</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/basic/with-ajax-callback">AJAX using DT callback</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/basic/new-server-side">Server side</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/row-click">Row click event</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/multiple-tables">Multiple tables</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/dt-instance">Fetching DataTable instances</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/load-dt-options-with-promise"
-                  >Load DT options with promise</a
-                >
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="bold">
-          <a class="collapsible-header waves-effect waves-blue">Angular</a>
-          <div class="collapsible-body">
-            <ul>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/using-ng-pipe">Using Pipes</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/using-ng-template-ref">Using TemplateRef</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/rerender">Re-render table</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/router-link">Router link</a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="bold">
-          <a class="collapsible-header waves-effect waves-blue">Filtering</a>
-          <div class="collapsible-body">
-            <ul>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/custom-range-search"
-                  >Custom filtering - Range search</a
-                >
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/advanced/individual-column-filtering"
-                  >Individual column filtering</a
-                >
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="bold">
-          <a class="collapsible-header waves-effect waves-blue">DT extensions</a>
-          <div class="collapsible-body">
-            <ul>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/extensions/buttons">Buttons extension</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/extensions/colreorder">ColReorder extension</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/extensions/responsive">Responsive extension</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/extensions/select">Select extension</a>
-              </li>
-              <li>
-                <a class="waves-effect waves-blue" routerLink="/extensions/fixedcolumns">Fixed Columns extension</a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="divider"></div>
-        </li>
-        <li><a class="subheader">Support</a></li>
-
-        <li class="bold">
-          <a routerLink="/faq" class="waves-effect waves-blue">FAQ</a>
-        </li>
-        <li class="bold">
-          <a routerLink="/more-help" class="waves-effect waves-blue">Resources</a>
-        </li>
-        <li>
-          <div class="divider"></div>
-        </li>
-        <!-- Hide deprecated section completely in DT v2 -->
-        @if (dtVersion === 'v1') {
-          <li>
-            <a class="subheader">Deprecated <span class="new badge red" data-badge-caption="">NOT SUPPORTED</span></a>
-          </li>
-          <li class="bold">
-            <a class="waves-effect waves-blue" routerLink="/basic/angular-way">Angular way</a>
-          </li>
-          <li class="bold">
-            <a class="waves-effect waves-blue" routerLink="/basic/server-side-angular-way"
-              >Server side the Angular way</a
-            >
-          </li>
-        }
-      </ul>
-    </li>
-  </ul>
-</header>
-
-<main>
-  <router-outlet></router-outlet>
-</main>
-
-<footer class="page-footer">
-  <div class="footer-copyright">
-    <div class="container">
-      <p>
-        <span class="white-text text-darken-2">
-          Designed and built with ❤️ by
-          <a class="grey-text text-darken-4" href="https://github.com/Vinccool96" target="_blank"
-            ><u>Vincent Girard</u></a
-          >, <a class="grey-text text-darken-4" href="https://github.com/l-lin" target="_blank"> <u>Louis LIN</u> </a>,
-          <a class="grey-text text-darken-4" href="https://github.com/shanmukhateja" target="_blank">
-            <u>Surya Teja K</u>
-          </a>
-          and contributors.
-        </span>
-      </p>
+    </h3>
+    <div class="dt-version-select">
+      <mat-form-field>
+        <mat-select [(value)]="dtVersion">
+          <mat-select-trigger>DT version: '{{ dtVersion() }}'</mat-select-trigger>
+          <mat-option value="v2">v2.x</mat-option>
+          <mat-option value="v1">v1.x</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-  </div>
-</footer>
+
+    <div class="divider"></div>
+
+    <mat-nav-list>
+      <mat-expansion-panel hideToggle expanded disabled>
+        <mat-expansion-panel-header>Getting Started</mat-expansion-panel-header>
+        <a mat-list-item routerLink="/getting-started">Installation</a>
+      </mat-expansion-panel>
+
+      <div class="divider"></div>
+
+      <mat-expansion-panel hideToggle expanded disabled>
+        <mat-expansion-panel-header>Usage</mat-expansion-panel-header>
+
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>Basic Examples</mat-expansion-panel-header>
+          <a mat-list-item routerLink="/basic/zero-config">Zero configuration</a>
+          <a mat-list-item routerLink="/basic/with-options">With options</a>
+          <a mat-list-item routerLink="/basic/with-ajax">AJAX</a>
+          <a mat-list-item routerLink="/basic/with-ajax-callback">AJAX using DT callback</a>
+          <a mat-list-item routerLink="/basic/new-server-side">Server side</a>
+          <a mat-list-item routerLink="/advanced/row-click">Row click event</a>
+          <a mat-list-item routerLink="/advanced/multiple-tables">Multiple tables</a>
+          <a mat-list-item routerLink="/advanced/dt-instance">Fetching DataTable instances</a>
+          <a mat-list-item routerLink="/advanced/load-dt-options-with-promise">Load DT options with promise</a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>Angular</mat-expansion-panel-header>
+          <a mat-list-item routerLink="/advanced/using-ng-pipe">Using Pipes</a>
+          <a mat-list-item routerLink="/advanced/using-ng-template-ref">Using TemplateRef</a>
+          <a mat-list-item routerLink="/advanced/rerender">Re-render table</a>
+          <a mat-list-item routerLink="/advanced/router-link">Router link</a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>Filtering</mat-expansion-panel-header>
+          <a mat-list-item routerLink="/advanced/custom-range-search">Custom filtering - Range search</a>
+          <a mat-list-item routerLink="/advanced/individual-column-filtering">Individual column filtering</a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>DT extensions</mat-expansion-panel-header>
+          <a mat-list-item routerLink="/extensions/buttons">Buttons extension</a>
+          <a mat-list-item routerLink="/extensions/colreorder">ColReorder extension</a>
+          <a mat-list-item routerLink="/extensions/responsive">Responsive extension</a>
+          <a mat-list-item routerLink="/extensions/select">Select extension</a>
+          <a mat-list-item routerLink="/extensions/fixedcolumns">Fixed Columns extension</a>
+        </mat-expansion-panel>
+      </mat-expansion-panel>
+
+      <div class="divider"></div>
+
+      <mat-expansion-panel hideToggle expanded disabled>
+        <mat-expansion-panel-header>Support</mat-expansion-panel-header>
+        <a mat-list-item routerLink="/faq" class="waves-effect waves-blue">FAQ</a>
+        <a mat-list-item routerLink="/more-help" class="waves-effect waves-blue">Resources</a>
+      </mat-expansion-panel>
+
+      @if (dtVersion() === 'v1') {
+        <div class="divider"></div>
+
+        <mat-expansion-panel hideToggle expanded disabled>
+          <mat-expansion-panel-header>
+            Deprecated
+            <span class="new badge red" data-badge-caption="">NOT SUPPORTED</span>
+          </mat-expansion-panel-header>
+          <a mat-list-item routerLink="/basic/angular-way">Angular way</a>
+          <a mat-list-item routerLink="/basic/server-side-angular-way">Server side the Angular way</a>
+        </mat-expansion-panel>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+    <footer class="page-footer">
+      <div class="footer-copyright">
+        <div class="container">
+          <p>
+            <span class="white-text text-darken-2">
+              Designed and built with ❤️ by
+              <a class="grey-text text-darken-4" href="https://github.com/Vinccool96" target="_blank"
+                ><u>Vincent Girard</u></a
+              >,
+              <a class="grey-text text-darken-4" href="https://github.com/l-lin" target="_blank"> <u>Louis LIN</u> </a>,
+              <a class="grey-text text-darken-4" href="https://github.com/shanmukhateja" target="_blank">
+                <u>Surya Teja K</u>
+              </a>
+              and contributors.
+            </span>
+          </p>
+        </div>
+      </div>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "rootDir": ".",
     "outDir": "./dist/out-tsc",
     "target": "ESNext",
     "module": "ESNext",
@@ -20,15 +20,12 @@
     "emitDecoratorMetadata": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
-    "paths": {
-      "@angular/*": ["node_modules/@angular/*"]
-    },
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "useDefineForClassFields": false,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "types": ["node", "jquery", "vitest/globals", "materialize-css"]
+    "types": ["node", "jquery", "vitest/globals"]
   },
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true,

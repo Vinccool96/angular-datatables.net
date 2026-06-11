@@ -4,8 +4,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/demo/spec",
-    "types": ["node", "jquery", "vitest/globals", "materialize-css"],
-    "baseUrl": ".",
+    "types": ["node", "jquery", "vitest/globals"],
     "paths": {
       "angular-datatables.net": ["../lib/index"]
     }

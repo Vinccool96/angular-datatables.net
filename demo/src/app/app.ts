@@ -1,13 +1,34 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
+import { MatFormField } from '@angular/material/input';
+import { MatListItem, MatNavList } from '@angular/material/list';
+import { MatOption, MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import DataTable from 'datatables.net';
-import { filter, Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { DtVersionOrchestrator } from './shared/services/dt-version-orchestrator';
 
 @Component({
-  imports: [RouterOutlet, FormsModule, RouterLink],
+  imports: [
+    RouterOutlet,
+    FormsModule,
+    RouterLink,
+    MatFormField,
+    MatSelect,
+    MatSelectTrigger,
+    MatOption,
+    MatSidenav,
+    MatSidenavContainer,
+    MatSidenavContent,
+    MatNavList,
+    MatListItem,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+  ],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
@@ -15,13 +36,14 @@ import { DtVersionOrchestrator } from './shared/services/dt-version-orchestrator
 export class App implements OnDestroy, OnInit {
   protected readonly destroy$ = new Subject<void>();
 
-  protected dtVersion: 'v1' | 'v2' = 'v2';
+  protected dtVersion = signal<'v1' | 'v2'>('v2');
   private readonly dtVersionOrchestrator = inject(DtVersionOrchestrator);
 
-  private readonly router = inject(Router);
-
   public constructor() {
-    this.dtVersion = this.dtVersionOrchestrator.dtVersion;
+    this.dtVersion.set(this.dtVersionOrchestrator.dtVersion);
+    toObservable(this.dtVersion).subscribe((version) => {
+      this.dtVersionOrchestrator.versionChanged$.next(version);
+    });
   }
 
   public ngOnDestroy(): void {
@@ -31,36 +53,5 @@ export class App implements OnDestroy, OnInit {
 
   public ngOnInit(): void {
     DataTable.ext.errMode = 'none';
-    $('.button-collapse').sideNav({
-      closeOnClick: true,
-    });
-
-    this.router.events
-      .pipe(
-        takeUntil(this.destroy$),
-        filter((event) => event instanceof NavigationEnd),
-      )
-      .subscribe((_) => {
-        // Note: setTimeout is needed to let DOM render tabs
-        setTimeout(() => {
-          $('ul.tabs').tabs();
-        }, 600);
-      });
-
-    $('.dt-version-button').dropdown({
-      alignment: 'left', // Displays dropdown with edge aligned to the left of button
-      belowOrigin: true,
-      constrainWidth: true, // Does not change width of dropdown to that of the activator
-      gutter: 14,
-      hover: false, // Activate on hover
-      inDuration: 300,
-      outDuration: 225,
-      stopPropagation: true, // Stops event propagation
-    } as Partial<M.DropdownOptions>);
-  }
-
-  protected onDTVersionChanged(v: 'v1' | 'v2'): void {
-    this.dtVersion = v;
-    this.dtVersionOrchestrator.versionChanged$.next(v);
   }
 }

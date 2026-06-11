@@ -60,12 +60,12 @@
               }
             ],
             "styles": [
+              "demo/src/material-theme.scss",
               "node_modules/datatables.net-dt/css/dataTables.dataTables.min.css",
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.min.css",
               "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.min.css",
               "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.min.css",
               "node_modules/datatables.net-select-dt/css/select.dataTables.min.css",
-              "node_modules/materialize-css/dist/css/materialize.css",
               "node_modules/prism-themes/themes/prism-material-dark.css",
               "demo/src/styles.css",
               "node_modules/prismjs/plugins/toolbar/prism-toolbar.css"
@@ -73,7 +73,6 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/tether/dist/js/tether.js",
-              "node_modules/materialize-css/dist/js/materialize.js",
               "node_modules/jszip/dist/jszip.js",
               "node_modules/datatables.net/js/dataTables.min.js",
               "node_modules/datatables.net-buttons/js/dataTables.buttons.min.js",
@@ -135,13 +134,10 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
-        },
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "browsers": ["chromeHeadless"],
+            "browsers": ["firefoxHeadless"],
             "tsConfig": "demo/tsconfig.spec.json",
             "runnerConfig": "demo/vitest.config.ts"
           }
