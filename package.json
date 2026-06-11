@@ -121,10 +121,5 @@
     "typescript-eslint": "^8.58.1",
     "vitest": "^4.1.8",
     "webdriverio": "^9.28.0"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/",
-    "provenance": true
   }
 }
