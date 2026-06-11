@@ -96,7 +96,7 @@
     "@ngneat/spectator": "^22.1.0",
     "@types/jquery": "^3.5.34",
     "@types/node": "^25.5.2",
-    "@vitest/browser-webdriverio": "^4.1.4",
+    "@vitest/browser-webdriverio": "^4.1.8",
     "@vitest/eslint-plugin": "^1.6.16",
     "angular-eslint": "^22.0.0",
     "copyfiles": "^2.4.1",
@@ -119,11 +119,15 @@
     "type-fest": "^5.5.0",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.58.1",
-    "vitest": "^4.1.4"
+    "vitest": "^4.1.8",
+    "webdriverio": "^9.28.0"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/",
     "provenance": true
+  },
+  "allowScripts": {
+    "edgedriver@6.3.0": true
   }
 }
