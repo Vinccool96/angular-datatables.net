@@ -126,8 +126,5 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/",
     "provenance": true
-  },
-  "allowScripts": {
-    "edgedriver@6.3.0": true
   }
 }
