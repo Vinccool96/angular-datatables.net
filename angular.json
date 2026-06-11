@@ -137,6 +137,7 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
+            "browsers": ["firefoxHeadless"],
             "tsConfig": "demo/tsconfig.spec.json",
             "runnerConfig": "demo/vitest.config.ts"
           }
