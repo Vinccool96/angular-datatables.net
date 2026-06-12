@@ -63,6 +63,10 @@ export class UsingNgTemplateRefExample implements AfterViewInit, OnDestroy {
             },
             title: 'Actions',
             titleNgTemplateRef: {
+              context: {
+                // needed for capturing events inside <ng-template>
+                captureEvents: this.onCaptureEvent.bind(this),
+              },
               ref: demoTitle,
             },
           },

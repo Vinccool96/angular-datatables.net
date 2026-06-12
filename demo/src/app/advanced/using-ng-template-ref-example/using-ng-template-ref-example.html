@@ -11,6 +11,6 @@
   <app-demo-ng-template-ref [data]="data" (emitter)="emitter($event)" />
 </ng-template>
 
-<ng-template #demoTitle>
-  <i>Title</i>
+<ng-template #demoTitle let-emitter="captureEvents">
+  <app-demo-ng-template-ref [data]="{ id: 'title' }" (emitter)="emitter($event)" />
 </ng-template>

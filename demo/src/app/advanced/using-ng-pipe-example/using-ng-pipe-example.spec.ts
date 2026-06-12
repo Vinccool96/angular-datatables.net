@@ -1,5 +1,6 @@
+import { PipeTransform } from '@angular/core';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
-import { AngularDatatable } from 'angular-datatables.net';
+import { ADTColumns, AngularDatatable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
@@ -57,6 +58,30 @@ describe('UsingNgPipeExample', () => {
         );
       }),
     ).toEqual(expectedArray);
+  });
+
+  it('should have column titles as text in uppercase', async () => {
+    await spectator.fixture.whenStable();
+
+    const dir = spectator.query(AngularDatatable) as AngularDatatable;
+    expect(dir).toBeTruthy();
+
+    await dir.dtInstance;
+
+    const columns = component.dtOptions.columns as ADTColumns[];
+    const headers = spectator.queryAll('.dt-column-title');
+
+    const expectedTitles = columns.map((column): string => {
+      const title = column.title as string;
+      const pipe = column.titleNgPipeInstance as PipeTransform;
+      return pipe.transform(title) as string;
+    });
+
+    const actualTitles = headers.map((header): string => {
+      return $(header).text();
+    });
+
+    expect(actualTitles).toEqual(expectedTitles);
   });
 
   it('should have money on id column', async () => {
