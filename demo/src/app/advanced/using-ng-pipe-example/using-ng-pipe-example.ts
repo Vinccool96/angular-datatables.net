@@ -12,9 +12,9 @@ import { BaseDemo } from '../../shared/components/base-demo/base-demo';
   templateUrl: './using-ng-pipe-example.html',
 })
 export class UsingNgPipeExample implements OnInit {
+  public dtOptions: ADTSettings = {};
   public readonly pageTitle = 'Using Angular Pipe';
   public readonly pipeCurrencyInstance = inject(CurrencyPipe);
-  protected dtOptions: ADTSettings = {};
   protected readonly mdHTML = 'docs/advanced/using-ng-pipe/source-html.md';
   protected readonly mdIntro = 'docs/advanced/using-ng-pipe/intro.md';
   protected readonly mdTS = 'docs/advanced/using-ng-pipe/source-ts.md';
@@ -31,16 +31,19 @@ export class UsingNgPipeExample implements OnInit {
           ngPipeArgs: ['USD', 'symbol'],
           ngPipeInstance: this.pipeCurrencyInstance,
           title: 'Id (Money)',
+          titleNgPipeInstance: this.pipeInstance,
         },
         {
           data: 'firstName',
           ngPipeInstance: this.pipeInstance,
           title: 'First name',
+          titleNgPipeInstance: this.pipeInstance,
         },
         {
           data: 'lastName',
           ngPipeInstance: this.pipeInstance,
           title: 'Last name',
+          titleNgPipeInstance: this.pipeInstance,
         },
       ],
     };

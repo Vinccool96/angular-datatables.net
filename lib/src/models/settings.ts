@@ -19,6 +19,19 @@ export interface ADTColumns extends ConfigColumns {
    * Set `TemplateRef` to transform the data of this column
    */
   ngTemplateRef?: ADTTemplateRef;
+  /**
+   * Define the arguments for the transform method of the title pipe, to change its behavior
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  titleNgPipeArgs?: any[];
+  /**
+   * Set instance of Angular pipe to transform the title of particular column
+   */
+  titleNgPipeInstance?: PipeTransform;
+  /**
+   * Set `TemplateRef` to transform the title of this column
+   */
+  titleNgTemplateRef?: ADTTemplateRef;
 }
 
 export interface ADTSettings extends Config {

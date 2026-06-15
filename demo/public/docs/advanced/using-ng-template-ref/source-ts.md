@@ -90,7 +90,7 @@ export class UsingNgTemplateRefExample implements AfterViewInit, OnDestroy {
             title: 'Last name',
           },
           {
-            data: null,
+            data: '',
             defaultContent: '',
             ngTemplateRef: {
               context: {
@@ -100,6 +100,13 @@ export class UsingNgTemplateRefExample implements AfterViewInit, OnDestroy {
               ref: demo,
             },
             title: 'Actions',
+            titleNgTemplateRef: {
+              context: {
+                // needed for capturing events inside <ng-template>
+                captureEvents: this.onCaptureEvent.bind(this),
+              },
+              ref: demoTitle,
+            },
           },
         ],
       };

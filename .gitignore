@@ -13,6 +13,8 @@ _test-output
 _temp
 .vscode
 !demo/karma.conf.cjs
+.vitest-attachments/
+**/__screenshots__/
 
 !demo/src/**/*.js
 

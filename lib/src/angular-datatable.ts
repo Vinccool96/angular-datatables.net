@@ -110,6 +110,52 @@ export class AngularDatatable implements OnDestroy, OnInit {
     }
   }
 
+  private applyTitleNgPipeTransform(header: Node, columns: ADTColumns[]): void {
+    // Filter columns with pipe declared
+    const colsWithPipe = columns.filter(
+      (x) => x.titleNgPipeInstance !== undefined && x.titleNgTemplateRef === undefined,
+    );
+
+    for (const element of colsWithPipe) {
+      const pipe = element.titleNgPipeInstance as PipeTransform;
+      const pipeArguments = element.titleNgPipeArgs ?? [];
+      // find index of column using `data` attr
+      const index = columns.filter((c) => c.visible !== false).findIndex((event) => event.id === element.id);
+      // get <td> element which holds data using index
+      const rowFromCol = header.childNodes.item(index);
+      const title = $(rowFromCol).find('.dt-column-title');
+      // Transform data with Pipe and PipeArgs
+      const titleValue = element.title ?? $(title).text();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const titleVValueAfter = pipe.transform(titleValue, ...pipeArguments) as string;
+      // Apply transformed string to <td>
+      $(title).text(titleVValueAfter);
+    }
+  }
+
+  private applyTitleNgRefTemplate(header: Node, columns: ADTColumns[]): void {
+    // Filter columns using `ngTemplateRef`
+    const colsWithTemplate = columns.filter(
+      (x) => x.titleNgTemplateRef !== undefined && x.titleNgPipeInstance === undefined,
+    );
+
+    for (const element of colsWithTemplate) {
+      const { context, ref } = element.titleNgTemplateRef as ADTTemplateRef;
+      // get <td> element which holds data using index
+      const index = columns.filter((c) => c.visible !== false).findIndex((column) => column.id === element.id);
+      const cellFromIndex = header.childNodes.item(index);
+      const title = $(cellFromIndex).find('.dt-column-title');
+      // reset cell before applying transform
+      $(title).html('');
+      // render onto DOM
+      // finalize context to be sent to user
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const _context = Object.assign({}, context, context?.userData);
+      const instance = this.vcr.createEmbeddedView(ref, _context);
+      this.renderer.appendChild(title.get(0), instance.rootNodes[0]);
+    }
+  }
+
   private displayTable(dtOptions: ADTSettings | null): void {
     // assign new options if provided
     if (dtOptions !== null) {
@@ -140,6 +186,18 @@ export class AngularDatatable implements OnDestroy, OnInit {
         setTimeout(() => {
           // Assign DT properties here
           let options: ADTSettings = {
+            headerCallback: (header, data, start, end, display) => {
+              if (resolvedDTOptions.columns !== undefined) {
+                const columns = resolvedDTOptions.columns;
+                this.applyTitleNgPipeTransform(header, columns);
+                this.applyTitleNgRefTemplate(header, columns);
+              }
+
+              if (resolvedDTOptions.headerCallback !== undefined) {
+                // @ts-expect-error It's normal
+                resolvedDTOptions.headerCallback(header, data, start, end, display);
+              }
+            },
             rowCallback: (row, data, index) => {
               if (resolvedDTOptions.columns !== undefined) {
                 const columns = resolvedDTOptions.columns;

@@ -29,17 +29,40 @@ describe('UsingNgTemplateRefExample', () => {
     expect(component.pageTitle).toBe('Using Angular TemplateRef');
   });
 
-  it('should have firstName, lastName columns have text in uppercase', async () => {
+  it('should have action button', async () => {
     await spectator.fixture.whenStable();
 
     const dir = spectator.query(AngularDatatable) as AngularDatatable;
     expect(dir).toBeTruthy();
+
+    await dir.dtInstance;
 
     expect(component.message()).toBe('');
 
     const row = spectator.query('tbody tr:first-child') as HTMLElement;
     const button = row.querySelector('button.btn-sm') as HTMLButtonElement;
     button.click();
+
+    expect(component.message()).toBe(`Event 'action1' with data '{}`);
+  });
+
+  it('should have action button in title', async () => {
+    await spectator.fixture.whenStable();
+
+    const dir = spectator.query(AngularDatatable) as AngularDatatable;
+    expect(dir).toBeTruthy();
+
+    const instance = await dir.dtInstance;
+    instance.page(1).draw();
+    await spectator.fixture.whenStable();
+
+    expect(component.message()).toBe('');
+
+    const row = spectator.query('thead') as HTMLElement;
+    const button = row.querySelector('button.btn-sm') as HTMLButtonElement;
+    button.click();
+    await spectator.fixture.whenStable();
+    spectator.detectChanges();
 
     expect(component.message()).toBe(`Event 'action1' with data '{}`);
   });
