@@ -34,6 +34,7 @@ export class UsingNgPipeExample implements OnInit {
           data: 'lastName',
           ngPipeInstance: this.pipeInstance,
           title: 'Last name',
+          titleNgPipeInstance: this.pipeInstance,
         },
       ],
     };

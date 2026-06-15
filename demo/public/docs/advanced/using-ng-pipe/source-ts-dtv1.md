@@ -26,7 +26,6 @@ export class UsingNgPipeExample implements OnInit {
   dtOptions: ADTSettings = {};
 
   ngOnInit(): void {
-
     this.dtOptions = {
       ajax: 'data/data.json',
       columns: [
@@ -42,13 +41,13 @@ export class UsingNgPipeExample implements OnInit {
           ngPipeInstance: this.pipeInstance
         },
         {
-          title: 'Last name',
           data: 'lastName',
-          ngPipeInstance: this.pipeInstance
-        }
+          ngPipeInstance: this.pipeInstance,
+          title: 'Last name',
+          titleNgPipeInstance: this.pipeInstance,
+        },
       ]
     };
-
   }
 }
 

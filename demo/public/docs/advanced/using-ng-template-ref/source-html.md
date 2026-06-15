@@ -7,4 +7,8 @@
 <ng-template #demoNg let-data="adtData" let-emitter="captureEvents">
   <app-demo-ng-template-ref [data]="data" (emitter)="emitter($event)" />
 </ng-template>
+
+<ng-template #demoTitle let-emitter="captureEvents">
+  <app-demo-ng-template-ref [data]="{ id: 'title' }" (emitter)="emitter($event)" />
+</ng-template>
 ```
