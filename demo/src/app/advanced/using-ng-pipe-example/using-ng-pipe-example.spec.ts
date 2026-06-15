@@ -128,4 +128,22 @@ describe('UsingNgPipeExample', () => {
     instance = await dir.dtInstance;
     expect(instance.column(0).visible()).toBe(false);
   });
+
+  it('should use base data when navigating between pages', async () => {
+    await spectator.fixture.whenStable();
+    spectator.detectChanges();
+
+    const dir = spectator.query(AngularDatatable) as AngularDatatable;
+    expect(dir).toBeTruthy();
+
+    // trigger pagination events
+    let instance = await dir.dtInstance;
+    instance.page(2).draw(false);
+    await spectator.fixture.whenRenderingDone();
+
+    instance = await dir.dtInstance;
+    instance.page(0).draw(false);
+    await spectator.fixture.whenRenderingDone();
+    spectator.detectChanges();
+  });
 });
