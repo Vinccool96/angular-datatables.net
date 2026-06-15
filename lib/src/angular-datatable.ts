@@ -71,6 +71,8 @@ export class AngularDatatable implements OnDestroy, OnInit {
   private applyNgPipeTransform(row: Node, columns: ADTColumns[]): void {
     // Filter columns with pipe declared
     const colsWithPipe = columns.filter((x) => x.ngPipeInstance !== undefined && x.ngTemplateRef === undefined);
+    const table = this.dt as Api;
+    const currentRow = table.row(row);
 
     for (const element of colsWithPipe) {
       const pipe = element.ngPipeInstance as PipeTransform;
@@ -79,8 +81,10 @@ export class AngularDatatable implements OnDestroy, OnInit {
       const index = columns.filter((c) => c.visible !== false).findIndex((event) => event.id === element.id);
       // get <td> element which holds data using index
       const rowFromCol = row.childNodes.item(index);
+      const cell = table.cell(currentRow.index(), index);
       // Transform data with Pipe and PipeArgs
-      const rowValue = $(rowFromCol).text();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const rowValue = cell.data();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const rowValueAfter = pipe.transform(rowValue, ...pipeArguments) as string;
       // Apply transformed string to <td>
