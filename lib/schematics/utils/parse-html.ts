@@ -6,9 +6,11 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 
-import { HtmlParser, ParseTreeResult } from '@angular/compiler';
+import type { ParseTreeResult } from '@angular/compiler';
 
-import { MigrationError } from './types';
+import { HtmlParser } from '@angular/compiler';
+
+import type { MigrationError } from './types';
 
 export interface ParseResult {
   errors: MigrationError[];

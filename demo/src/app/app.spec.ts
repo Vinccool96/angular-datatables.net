@@ -1,4 +1,6 @@
-import { createRoutingFactory, Spectator } from '@ngneat/spectator/vitest';
+import type { Spectator } from '@ngneat/spectator/vitest';
+
+import { createRoutingFactory } from '@ngneat/spectator/vitest';
 
 import { App } from './app';
 

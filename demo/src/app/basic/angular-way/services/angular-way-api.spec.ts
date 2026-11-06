@@ -1,5 +1,7 @@
-import { HttpTestingController } from '@angular/common/http/testing';
-import { createHttpFactory, SpectatorHttp } from '@ngneat/spectator/vitest';
+import type { HttpTestingController } from '@angular/common/http/testing';
+import type { SpectatorHttp } from '@ngneat/spectator/vitest';
+
+import { createHttpFactory } from '@ngneat/spectator/vitest';
 
 import { AngularWayApi } from './angular-way-api';
 

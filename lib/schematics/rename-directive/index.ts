@@ -1,13 +1,16 @@
-import { Rule, SchematicsException, Tree } from '@angular-devkit/schematics';
+import type { Rule, Tree } from '@angular-devkit/schematics';
+import type ts from 'typescript';
+
+import { SchematicsException } from '@angular-devkit/schematics';
 import { join } from '@angular/compiler-cli';
 import path from 'node:path';
-import ts from 'typescript';
+
+import type { MigrationError } from '../utils/types';
+import type { AnalyzedFile } from './types';
 
 import { canMigrateFile, createMigrationProgram } from '../utils/compiler-host';
 import { getProjectTsConfigPaths } from '../utils/project-tsconfig-paths';
-import { MigrationError } from '../utils/types';
 import { migrateTemplate } from './migration';
-import { AnalyzedFile } from './types';
 import { analyze } from './util';
 
 interface Options {

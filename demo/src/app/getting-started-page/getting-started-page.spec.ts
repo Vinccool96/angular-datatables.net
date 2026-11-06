@@ -1,4 +1,6 @@
-import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
+import type { Spectator } from '@ngneat/spectator/vitest';
+
+import { createComponentFactory } from '@ngneat/spectator/vitest';
 
 import { provideMarkdownServiceTesting } from '../../../test/provide-markdown-service-testing';
 import { GettingStartedPage } from './getting-started-page';

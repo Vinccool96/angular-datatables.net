@@ -1,4 +1,6 @@
-import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator/vitest';
+import type { SpectatorRouting } from '@ngneat/spectator/vitest';
+
+import { createRoutingFactory } from '@ngneat/spectator/vitest';
 
 import { PersonIdPage } from './person-id-page';
 

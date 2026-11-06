@@ -1,4 +1,6 @@
-import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator/vitest';
+import type { Spectator } from '@ngneat/spectator/vitest';
+
+import { createComponentFactory, mockProvider } from '@ngneat/spectator/vitest';
 import { AngularDatatable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';

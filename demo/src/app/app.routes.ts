@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 
 import { advancedRoutes } from './advanced/advanced.routes';
 import { basicRoutes } from './basic/basic.routes';

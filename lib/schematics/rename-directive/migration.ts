@@ -1,18 +1,12 @@
+import type ts from 'typescript';
+
 import { visitAll } from '@angular/compiler';
-import ts from 'typescript';
+
+import type { MigrationError } from '../utils/types';
+import type { AnalyzedFile, ElementToMigrate, Result } from './types';
 
 import { parseTemplate } from '../utils/parse-html';
-import { MigrationError } from '../utils/types';
-import {
-  AnalyzedFile,
-  ElementCollector,
-  ElementToMigrate,
-  endMarker,
-  newDatatableDirective,
-  oldDatatableDirective,
-  Result,
-  startMarker,
-} from './types';
+import { ElementCollector, endMarker, newDatatableDirective, oldDatatableDirective, startMarker } from './types';
 import {
   calculateNesting,
   editCallExpression,

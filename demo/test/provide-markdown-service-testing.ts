@@ -1,4 +1,5 @@
-import { FactoryProvider } from '@angular/core';
+import type { FactoryProvider } from '@angular/core';
+
 import { mockProvider } from '@ngneat/spectator/vitest';
 import { MarkdownService } from 'ngx-markdown';
 import { of, Subject } from 'rxjs';

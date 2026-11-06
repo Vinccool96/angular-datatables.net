@@ -1,5 +1,7 @@
-import { Attribute, Element, RecursiveVisitor } from '@angular/compiler';
-import ts from 'typescript';
+import type { Attribute, Element } from '@angular/compiler';
+import type ts from 'typescript';
+
+import { RecursiveVisitor } from '@angular/compiler';
 
 export const newDatatableDirective = 'adtDatatable';
 export const oldDatatableDirective = 'datatable';

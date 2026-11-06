@@ -1,8 +1,11 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { PackageJson } from 'type-fest';
+import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import type { PackageJson } from 'type-fest';
 
-import { IADTSchematicsOptions } from './models/schematics-options';
+import { chain } from '@angular-devkit/schematics';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+
+import type { IADTSchematicsOptions } from './models/schematics-options';
+
 import { ADT_SUPPORTED_STYLES, ADTStyleOptions } from './models/style-options';
 import { addAssetToAngularJson, addPackageToPackageJson } from './util';
 

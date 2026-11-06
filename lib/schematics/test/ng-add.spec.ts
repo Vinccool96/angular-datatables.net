@@ -1,13 +1,15 @@
+import type { PackageJson } from 'type-fest';
+
 import { getSystemPath, normalize, virtualFs } from '@angular-devkit/core';
 import { TempScopedNodeJsSyncHost } from '@angular-devkit/core/node/testing';
 import { HostTree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { rmSync } from 'node:fs';
 import path from 'node:path';
-import { PackageJson } from 'type-fest';
+
+import type { AngularJson } from './utils/angular-json';
 
 import { ADTStyleOptions } from '../ng-add/models/style-options';
-import { AngularJson } from './utils/angular-json';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports,unicorn/prefer-module
 const packageJSON = require('../../package.json') as PackageJson;

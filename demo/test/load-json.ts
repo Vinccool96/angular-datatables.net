@@ -1,10 +1,11 @@
 // noinspection ES6UnusedImports
 
-import { ADTSettings } from 'angular-datatables.net';
+import type { ADTSettings } from 'angular-datatables.net';
+
+import type { Person } from '../src/app/person/models/person';
 
 import data from '../public/data/data.json';
 import dtOptionsJson from '../public/data/dtOptions.json';
-import { Person } from '../src/app/person/models/person';
 
 /**
  * Returns the content of `data.json`

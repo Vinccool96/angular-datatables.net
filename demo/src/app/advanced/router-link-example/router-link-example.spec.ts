@@ -1,5 +1,7 @@
+import type { Spectator, SpyObject } from '@ngneat/spectator/vitest';
+
 import { Router } from '@angular/router';
-import { createComponentFactory, mockProvider, Spectator, SpyObject } from '@ngneat/spectator/vitest';
+import { createComponentFactory, mockProvider } from '@ngneat/spectator/vitest';
 import { AngularDatatable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';

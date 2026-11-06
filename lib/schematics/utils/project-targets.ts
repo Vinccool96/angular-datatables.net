@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { BrowserBuilderOptions, WorkspaceProject } from '@schematics/angular/utility/workspace-models';
+import type { BrowserBuilderOptions, WorkspaceProject } from '@schematics/angular/utility/workspace-models';
 
 /**
  * Resolves the architect options for the build target of the given project.

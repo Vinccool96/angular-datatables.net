@@ -1,5 +1,5 @@
-import { PipeTransform, TemplateRef } from '@angular/core';
-import { Config, ConfigColumns } from 'datatables.net';
+import type { PipeTransform, TemplateRef } from '@angular/core';
+import type { Config, ConfigColumns } from 'datatables.net';
 
 export interface ADTColumns extends ConfigColumns {
   /**

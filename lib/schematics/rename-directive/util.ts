@@ -1,10 +1,13 @@
-import { Node } from '@angular/compiler';
+import type { Node } from '@angular/compiler';
+
 import path from 'node:path';
 import ts from 'typescript';
 
+import type { MigrationError } from '../utils/types';
+import type { ElementCollector, ElementToMigrate } from './types';
+
 import { parseTemplate } from '../utils/parse-html';
-import { MigrationError } from '../utils/types';
-import { AnalyzedFile, ElementCollector, ElementToMigrate, newImportIdentifier, oldImportIdentifier } from './types';
+import { AnalyzedFile, newImportIdentifier, oldImportIdentifier } from './types';
 
 /**
  * Analyzes a source file to find file that need to be migrated and the text ranges within them.

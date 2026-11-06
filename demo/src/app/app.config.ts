@@ -1,5 +1,7 @@
+import type { ApplicationConfig } from '@angular/core';
+
 import { provideHttpClient, withXhr } from '@angular/common/http';
-import { ApplicationConfig, provideZoneChangeDetection, SecurityContext } from '@angular/core';
+import { provideZoneChangeDetection, SecurityContext } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideMarkdown, SANITIZE } from 'ngx-markdown';
 

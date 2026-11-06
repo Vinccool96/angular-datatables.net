@@ -1,4 +1,4 @@
-import { ADTStyleOptions } from './style-options';
+import type { ADTStyleOptions } from './style-options';
 
 export interface IADTSchematicsOptions {
   project: string;

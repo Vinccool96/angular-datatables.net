@@ -1,5 +1,7 @@
+import type { Spectator } from '@ngneat/spectator/vitest';
+
 import { provideRouter } from '@angular/router';
-import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
+import { createComponentFactory } from '@ngneat/spectator/vitest';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 

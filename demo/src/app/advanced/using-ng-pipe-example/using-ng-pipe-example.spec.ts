@@ -1,11 +1,15 @@
-import { PipeTransform } from '@angular/core';
-import { createComponentFactory, Spectator } from '@ngneat/spectator/vitest';
-import { ADTColumns, AngularDatatable } from 'angular-datatables.net';
+import type { PipeTransform } from '@angular/core';
+import type { Spectator } from '@ngneat/spectator/vitest';
+import type { ADTColumns } from 'angular-datatables.net';
+
+import { createComponentFactory } from '@ngneat/spectator/vitest';
+import { AngularDatatable } from 'angular-datatables.net';
 import { MockComponent } from 'ng-mocks';
 import { MarkdownComponent } from 'ngx-markdown';
 
+import type { Person } from '../../person/models/person';
+
 import { provideMarkdownServiceTesting } from '../../../../test/provide-markdown-service-testing';
-import { Person } from '../../person/models/person';
 import { UsingNgPipeExample } from './using-ng-pipe-example';
 
 describe('UsingNgPipeExample', () => {

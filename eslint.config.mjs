@@ -3,12 +3,13 @@ import eslint from '@eslint/js';
 import { includeIgnoreFile } from '@eslint/compat';
 import vitest from '@vitest/eslint-plugin';
 import angular from 'angular-eslint';
+import { importX } from 'eslint-plugin-import-x';
 import jsdocPlugin from 'eslint-plugin-jsdoc';
 import perfectionist from 'eslint-plugin-perfectionist';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
-import { fileURLToPath } from 'node:url';
 import globals from 'globals';
+import { fileURLToPath } from 'node:url';
 import tseslint from 'typescript-eslint';
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
@@ -26,9 +27,14 @@ export default tseslint.config(
       eslintPluginUnicorn.configs.recommended,
       perfectionist.configs['recommended-natural'],
       jsdocPlugin.configs['flat/recommended-typescript-error'],
+      importX.flatConfigs.recommended,
     ],
     settings: {
-      perfectionist: {
+      'import-x/resolver': {
+        typescript: true, // Tells import-x to read tsconfig.json rules
+        node: true,
+      },
+      'perfectionist': {
         order: 'asc',
         partitionByComment: true,
         type: 'natural',
@@ -42,9 +48,18 @@ export default tseslint.config(
        *****************************************************************************************************************
        */
 
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          disallowTypeAnnotations: true,
+          fixStyle: 'separate-type-imports',
+          prefer: 'type-imports',
+        },
+      ],
       '@typescript-eslint/explicit-function-return-type': ['error', { allowHigherOrderFunctions: false }],
       '@typescript-eslint/explicit-member-accessibility': 'error',
       '@typescript-eslint/no-extraneous-class': 'off',
+      '@typescript-eslint/no-import-type-side-effects': 'error',
       '@typescript-eslint/no-misused-promises': [
         'error',
         {
@@ -91,6 +106,15 @@ export default tseslint.config(
       'eqeqeq': 'error',
       'no-multi-assign': 'error',
       'object-shorthand': ['error', 'never'],
+
+      /*
+       *****************************************************************************************************************
+       * import-x
+       *****************************************************************************************************************
+       */
+
+      'import-x/consistent-type-specifier-style': 'error',
+      'import-x/no-duplicates': ['error', { 'prefer-inline': false }],
 
       /*
        *****************************************************************************************************************

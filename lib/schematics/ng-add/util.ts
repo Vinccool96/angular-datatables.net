@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { Tree } from '@angular-devkit/schematics';
-import { JsonObject, PackageJson } from 'type-fest';
+import type { Tree } from '@angular-devkit/schematics';
+import type { JsonObject, PackageJson } from 'type-fest';
 
 /**
  * Determines if the asset should be added to angular.json
